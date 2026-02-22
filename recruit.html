@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>採用情報 | ORIGAMI GRP</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .page-header {
+            background: var(--primary-light);
+            padding: 80px 24px 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-title {
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
+        }
+
+        .job-grid {
+            display: grid;
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .job-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .job-title {
+            font-size: 22px;
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .job-status {
+            font-size: 13px;
+            font-weight: 700;
+            background: var(--bg-sub);
+            color: var(--text-muted);
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .job-desc {
+            color: var(--text-muted);
+            font-size: 15px;
+            margin-bottom: 24px;
+            line-height: 1.8;
+            flex-grow: 1;
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .flow-step {
+            background: #fff;
+            padding: 16px 24px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-weight: 600;
+        }
+
+        .flow-num {
+            background: var(--primary);
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 768px) {
+            .job-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="inner">
+            <a class="brand" href="index.html">ORIGAMI GRP</a>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">サービス</a>
+                <a href="pricing.html">料金</a>
+                <a href="recruit.html" style="color: var(--primary);">採用</a>
+                <a href="about.html">会社情報</a>
+                <a href="legal.html">特商法</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">採用情報</h1>
+                <p style="font-size: 20px; font-weight: 700; color: var(--text-main); margin-top: 16px;">
+                    対等な仲間として、共に挑戦する。</p>
+                <p style="font-size: 16px; color: var(--text-muted); margin-top: 16px;">AIで人の可能性を広げる、新しいチームメンバーを募集しています。
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+
+                <h2 class="section-title text-center" style="margin-bottom: 48px; font-size: 32px;">募集職種</h2>
+
+                <div class="job-grid">
+                    <!-- Job 1 -->
+                    <div class="job-card">
+                        <h3 class="job-title">正社員 <span class="job-status">募集中</span></h3>
+                        <p class="job-desc">
+                            スクールの運営責任者候補、新規事業開発、およびマーケティング戦略の立案・実行など、事業の中核を担っていただきます。AI技術のキャッチアップと教育事業に熱意のある方を歓迎します。
+                        </p>
+                        <a href="contact.html" class="btn btn-ghost" style="align-self: flex-start;">詳細を問い合わせる</a>
+                    </div>
+
+                    <!-- Job 2 -->
+                    <div class="job-card">
+                        <h3 class="job-title">契約社員 <span class="job-status">募集中</span></h3>
+                        <p class="job-desc">
+                            受講生の伴走メンター、コンテンツ制作アシスタントなど、運営実務において特定領域のプロフェッショナルとして活躍いただきます。専門スキルを活かしつつ、自由度の高い働き方が可能です。
+                        </p>
+                        <a href="contact.html" class="btn btn-ghost" style="align-self: flex-start;">詳細を問い合わせる</a>
+                    </div>
+
+                    <!-- Job 3 -->
+                    <div class="job-card">
+                        <h3 class="job-title">事務員 <span class="job-status">募集中</span></h3>
+                        <p class="job-desc">
+                            申し込み対応、受講生の進捗データベース管理、オンライン講義のスケジュール調整などのバックオフィス業務全般。AIツールを使った業務効率化に興味のある方に最適です。
+                        </p>
+                        <a href="contact.html" class="btn btn-ghost" style="align-self: flex-start;">詳細を問い合わせる</a>
+                    </div>
+
+                    <!-- Job 4 -->
+                    <div class="job-card">
+                        <h3 class="job-title">経理担当 <span class="job-status">募集中</span></h3>
+                        <p class="job-desc">
+                            日々の入出金管理、月次決算書類の作成サポート、請求処理業務。リモートでの対応も相談可能です。正確かつ迅速な処理能力を備えた方を募集します。
+                        </p>
+                        <a href="contact.html" class="btn btn-ghost" style="align-self: flex-start;">詳細を問い合わせる</a>
+                    </div>
+
+                    <!-- Job 5 -->
+                    <div class="job-card">
+                        <h3 class="job-title">営業代行 <span class="job-status">募集中</span></h3>
+                        <p class="job-desc">
+                            法人向けAIコンサルティング・研修プランの提案営業。ご自身のネットワークや営業スキルをフルに活用できる、完全成果報酬型または固定＋歩合の柔軟な形態を用意しています。
+                        </p>
+                        <a href="contact.html" class="btn btn-ghost" style="align-self: flex-start;">詳細を問い合わせる</a>
+                    </div>
+                </div>
+
+                <!-- 採用フロー -->
+                <h2 class="section-title text-center" style="margin-bottom: 40px; font-size: 32px; margin-top: 80px;">
+                    選考フロー</h2>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="flow-num">1</div>
+                        <div>応募（以下のお問い合わせボタンより）</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">2</div>
+                        <div>面談（オンライン・1〜2回）</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">3</div>
+                        <div>トライアル期間（ポジションによる）</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="flow-num">4</div>
+                        <div>採用決定・ジョイン</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 56px;">
+                    <a href="contact.html" class="btn btn-primary"
+                        style="padding: 16px 40px; font-size: 16px;">採用に応募する（お問い合わせ）</a>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Shared) -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
+                <p class="footer-desc">AIを一時的なブームで終わらせず、あなたの「稼ぐ力」に変えるための実践的スクール＆支援パートナー。</p>
+                <div style="margin-top: 24px;">
+                    <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8507-1818</p>
+                    <p style="margin-bottom: 0; font-size: 14px;"><strong>メール：</strong> <a
+                            href="mailto:nan457913@gmail.com"
+                            style="color:#fff; text-decoration:underline;">nan457913@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>サービス</h4>
+                    <ul>
+                        <li><a href="index.html#services">サービス</a></li>
+                        <li><a href="pricing.html">料金</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>企業情報</h4>
+                    <ul>
+                        <li><a href="about.html">会社情報</a></li>
+                        <li><a href="recruit.html">採用</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>サポート・規約</h4>
+                    <ul>
+                        <li><a href="contact.html">無料相談・お問い合わせ</a></li>
+                        <li><a href="legal.html">特商法</a></li>
+                        <li><a href="privacy.html">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2026 ORIGAMI GRP. All Rights Reserved.</div>
+            <div class="footer-legal">
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="legal.html">特商法</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

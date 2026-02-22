@@ -1,130 +1,283 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ORIGAMI GRPとは｜ORIGAMI GRP</title>
+  <title>ORIGAMI GRPとは | ORIGAMI GRP</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-header {
+      background: var(--primary-light);
+      padding: 80px 24px 60px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-title {
+      font-size: 42px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .mission-box {
+      background: #fff;
+      padding: 64px 40px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .mission-en {
+      font-size: 14px;
+      color: var(--primary);
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .mission-ja {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin-bottom: 32px;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-bottom: 80px;
+    }
+
+    .value-card {
+      background: #F9FAFB;
+      padding: 40px 32px;
+      border-radius: 12px;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    .value-title {
+      font-size: 24px;
+      color: var(--primary);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .value-desc {
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .company-table {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    .company-table th,
+    .company-table td {
+      padding: 20px 16px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .company-table th {
+      width: 30%;
+      font-weight: 700;
+      color: var(--text-main);
+      background: #fafafa;
+    }
+
+    .company-table td {
+      width: 70%;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .mission-ja {
+        font-size: 24px;
+      }
+
+      .company-table th,
+      .company-table td {
+        display: block;
+        width: 100%;
+        padding: 12px 16px;
+      }
+
+      .company-table th {
+        background: transparent;
+        padding-bottom: 4px;
+        border-bottom: none;
+        color: var(--primary);
+      }
+    }
+  </style>
 </head>
-<body class="page-center">
+
+<body>
+
+  <!-- Header -->
   <header class="header">
     <div class="inner">
-      <a class="brand" href="index.html" aria-label="ORIGAMI GRP ホームへ">ORIGAMI GRP</a>
-      <nav class="nav" aria-label="主要メニュー">
-        <a href="index.html">ホーム</a>
-        <a href="ai-school.html">AIスクール</a>
-        <a href="about.html" aria-current="page">ORIGAMI GRPとは</a>
-        <a href="faq.html">FAQ</a>
-        <a href="company.html">会社概要</a>
-        <a class="btn btn-nav" href="contact.html">無料相談</a>
+      <a class="brand" href="index.html">ORIGAMI GRP</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#services">サービス</a>
+        <a href="pricing.html">料金</a>
+        <a href="recruit.html">採用</a>
+        <a href="about.html" style="color: var(--primary);">会社情報</a>
+        <a href="legal.html">特商法</a>
       </nav>
     </div>
   </header>
 
-  
-
-
-  <section class="subpage-banner" role="banner">
-    <div class="container">
-      <h1 class="subpage-banner-title">ORIGAMI GRPとは</h1>
-    </div>
-  </section>
-<section class="section">
-  <div class="container">
-    <p class="section-lead">AIと「自分らしさ」を掛け合わせ、誰もが自分に合った働き方・収入のつくり方を実現できる社会を目指しています。</p>
-
-    <h2 style="color:var(--purple);margin-top:34px;">未来を切り拓く、ORIGAMI GRPの描く社会像</h2>
-    <p>
-      ORIGAMI GRPは、「AI」と「自分らしさ」を組み合わせることで、誰もが自分の働き方を実現できる社会を目指しています。
-      学びから実践、そして収益化までを一貫して支援することで、個人の可能性を社会に解き放ちます。
-    </p>
-
-    <section style="margin-top:26px;">
-      <h2 style="color:var(--purple);margin-bottom:10px;">私たちの価値観</h2>
-      <p style="margin-top:0;color:#444;">AIスクールからリアルビジネスまで、すべてに共通する姿勢です。</p>
-
-      <div class="boxed" style="background:var(--blue-bg);">
-        <h3 style="margin:0 0 10px 0;color:var(--purple);">挑戦と成長</h3>
-        <p style="margin:0;">失敗を恐れず挑戦し、その経験から成長する文化を育てます。</p>
-      </div>
-      <div class="boxed" style="background:var(--blue-bg);">
-        <h3 style="margin:0 0 10px 0;color:var(--purple);">誠実と信頼</h3>
-        <p style="margin:0;">透明性のある情報提供と誠実な対応を徹底します。</p>
-      </div>
-      <div class="boxed" style="background:var(--blue-bg);">
-        <h3 style="margin:0 0 10px 0;color:var(--purple);">多様性と自分らしさ</h3>
-        <p style="margin:0;">テンプレートに縛られない、自分らしい選択を尊重します。</p>
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">ORIGAMI GRPとは</h1>
+        <p style="font-size: 18px; color: var(--text-muted);">AIを単なるツールで終わらせない。あなたの強みを最大化するパートナー。</p>
       </div>
     </section>
 
-    <h2 style="color:var(--purple);margin-top:34px;">提供するAIスクールについて</h2>
-    <p>
-      私たちのAIスクールは、知識を一方的に教える場所ではありません。
-      あなたの特性や目標に合わせてAIを活用し、実際の生活や仕事、収益につなげていくための実践の場です。
-      だからこそ、一般的なマニュアル学習ではなく、一人ひとりに寄り添う「個別伴走型」を採用しています。
-    </p>
+    <section class="section">
+      <div class="container">
 
-    <h3 style="color:var(--purple);margin-bottom:6px;">できるようになること（一例）</h3>
-    <ul class="list">
-      <li>AIを使った文章作成・アイデア整理</li>
-      <li>日常業務や作業の効率化</li>
-      <li>副業・収益化への具体的な活用</li>
-      <li>自分の特性に合ったAIの使い方設計</li>
-    </ul>
+        <!-- Mission -->
+        <div class="mission-box">
+          <div class="mission-en">Our Mission</div>
+          <h2 class="mission-ja">AI × 自分の特性で、<br>誰もが“自分だけの働き方”を実現できる社会へ</h2>
+          <p style="color: var(--text-muted); font-size: 16px; max-width: 600px; margin: 0 auto; line-height: 2;">
+            テクノロジーが進化しても、最後に価値を生むのは「人」の個性と強みです。私たちは、型にはまった成功法則を押し付けるのではなく、一人ひとりの特性にAIという最強の武器を掛け合わせ、自分らしい稼ぎ方を構築する支援を行います。
+          </p>
+        </div>
 
-    <h2 style="color:var(--purple);margin-top:34px;">その他の事業</h2>
-    <p>
-      ORIGAMI GRPでは、AIスクールに加えて、<strong>中古車販売</strong>・<strong>不動産</strong>・<strong>貴金属買取</strong>といったリアルビジネスも展開しています。<br/>
-      机上の理論ではなく、現場の意思決定や情報整理の中でAIをどう活かすか——その検証と実装を日々行っていることが、伴走の質につながっています。
-    </p>
+        <!-- Values -->
+        <h3 class="section-title text-center" style="margin-bottom: 40px; font-size: 28px;">3つの価値観 (Values)</h3>
+        <div class="values-grid">
+          <div class="value-card">
+            <h4 class="value-title">自尊</h4>
+            <p class="value-desc">自分の強みや特性を深く理解し、誇りを持つこと。他人と比較するのではなく、「自分だからできること」を追求します。</p>
+          </div>
+          <div class="value-card">
+            <h4 class="value-title">成長</h4>
+            <p class="value-desc">AIという変化の激しい領域においても、立ち止まらずに学び続ける姿勢。伴走を通じて、共にアップデートし続けます。</p>
+          </div>
+          <div class="value-card">
+            <h4 class="value-title">敬意</h4>
+            <p class="value-desc">受講生、パートナー、顧客など、関わる全ての人に対してフラットで誠実な対応を約束します。</p>
+          </div>
+        </div>
 
-    
-<section class="rep-hero" aria-label="代表メッセージ">
-  <div class="rep-hero-inner">
-    <div class="rep-hero-text">
-      <div class="rep-hero-kicker">MESSAGE</div>
-      <h2 class="rep-hero-title">代表メッセージ</h2>
+        <!-- Company Info -->
+        <h3 class="section-title text-center" style="margin-bottom: 40px; font-size: 28px; margin-top: 80px;">会社概要</h3>
+        <table class="company-table">
+          <tbody>
+            <tr>
+              <th>屋号 / 組織名</th>
+              <td>ORIGAMI GRP</td>
+            </tr>
+            <tr>
+              <th>代表</th>
+              <td>山崎 大輔</td>
+            </tr>
+            <tr>
+              <th>所在地</th>
+              <td>
+                <!-- TODO: 所在地を追記 -->
+                <span
+                  style="color:#e02424; font-weight:bold; background: rgba(224,36,36,0.1); padding: 4px 8px; border-radius: 4px; font-size: 12px;">【要記入】所在地情報</span>
+              </td>
+            </tr>
+            <tr>
+              <th>事業内容</th>
+              <td>
+                ・AI活用実践スクールの運営<br>
+                ・法人向けAI導入コンサルティング・研修<br>
+                ・マーケティング支援
+              </td>
+            </tr>
+            <tr>
+              <th>電話番号</th>
+              <td>070-8507-1818</td>
+            </tr>
+            <tr>
+              <th>メールアドレス</th>
+              <td>nan457913@gmail.com</td>
+            </tr>
+            <tr>
+              <th>営業時間</th>
+              <td>
+                <!-- TODO: 営業時間 -->
+                <span
+                  style="color:#e02424; font-weight:bold; background: rgba(224,36,36,0.1); padding: 4px 8px; border-radius: 4px; font-size: 12px;">【要記入】営業時間帯</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-      <h3 class="rep-hero-quote">「誰もが自由に、自分らしい未来を描ける社会へ」</h3>
+      </div>
+    </section>
+  </main>
 
-      <div class="rep-hero-body">
-        <p>
-          ORIGAMI GRPは、AIという新しい可能性を一人ひとりの強みと掛け合わせ、誰もが自分らしい生き方を実現できる社会を目指して誕生しました。<br/>
-          どんな環境にあっても「自分らしく働き、稼ぎ、成長できる力」を持つことが、人生を切り拓く最大の武器になると考えています。
-        </p>
-        <p>
-          私たちのAIスクールは、知識を学ぶ場ではなく、実際のビジネスや生活に結びつく実践的な学びの場です。<br/>
-          さらに中古車・不動産・貴金属といった事業を通じ、リアルな市場と直結した価値提供を続けています。
-        </p>
-        <p>
-          挑戦を恐れず、自分の可能性を信じ、未来を切り拓く。その一歩を共に歩める存在でありたいと思っています。<br/>
-          ぜひORIGAMI GRPで、あなたの「自分らしい未来」を形にしていきましょう。
-        </p>
-
-        <div class="rep-hero-sign">
-          <span class="rep-hero-role">代表</span>
-          <span class="rep-hero-name">山﨑 大輔</span>
+  <!-- Footer (Shared) -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
+        <p class="footer-desc">AIを一時的なブームで終わらせず、あなたの「稼ぐ力」に変えるための実践的スクール＆支援パートナー。</p>
+        <div style="margin-top: 24px;">
+          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8507-1818</p>
+          <p style="margin-bottom: 0; font-size: 14px;"><strong>メール：</strong> <a href="mailto:nan457913@gmail.com"
+              style="color:#fff; text-decoration:underline;">nan457913@gmail.com</a></p>
         </div>
       </div>
-</div>
-
-    <div class="rep-hero-image" aria-hidden="true">
-      <img src="assets/ceo_yamazaki.png" alt="代表 山﨑" loading="lazy" />
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>サービス</h4>
+          <ul>
+            <li><a href="index.html#services">サービス</a></li>
+            <li><a href="pricing.html">料金</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>企業情報</h4>
+          <ul>
+            <li><a href="about.html">会社情報</a></li>
+            <li><a href="recruit.html">採用</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>サポート・規約</h4>
+          <ul>
+            <li><a href="contact.html">無料相談・お問い合わせ</a></li>
+            <li><a href="legal.html">特商法</a></li>
+            <li><a href="privacy.html">プライバシーポリシー</a></li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
-
-
-
-
-  <footer class="footer">
-    <div class="inner">
-      <div>© ORIGAMI GRP</div>
-      <div>
-        <a href="company.html">会社概要</a> ・
-        <a href="contact.html">無料相談</a>
+    <div class="footer-bottom">
+      <div>&copy; 2026 ORIGAMI GRP. All Rights Reserved.</div>
+      <div class="footer-legal">
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="legal.html">特商法</a>
       </div>
     </div>
   </footer>
 </body>
+
 </html>

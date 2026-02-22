@@ -1,65 +1,294 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>無料相談｜ORIGAMI GRP</title>
+  <title>無料相談・お問い合せ | ORIGAMI GRP</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-header {
+      background: var(--primary-light);
+      padding: 80px 24px 60px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-title {
+      font-size: 36px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      letter-spacing: 0.02em;
+    }
+
+    .contact-container {
+      max-width: 900px;
+      margin: 0 auto 64px;
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 48px;
+    }
+
+    .contact-info {
+      background: #fff;
+      padding: 40px 32px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      height: fit-content;
+    }
+
+    .contact-info h3 {
+      font-size: 20px;
+      color: var(--primary);
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .contact-method {
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .contact-method-title {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 15px;
+    }
+
+    .contact-method-value {
+      font-size: 20px;
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .contact-method-note {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .contact-form {
+      background: #fff;
+      padding: 40px 32px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .form-label span.req {
+      color: #e02424;
+      font-size: 12px;
+      margin-left: 8px;
+      font-weight: normal;
+      background: rgba(224, 36, 36, 0.1);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fafafa;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: #fff;
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .form-textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    @media (max-width: 768px) {
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .contact-info,
+      .contact-form {
+        padding: 32px 24px;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
+  <!-- Header -->
   <header class="header">
     <div class="inner">
-      <a class="brand" href="index.html" aria-label="ORIGAMI GRP ホームへ">ORIGAMI GRP</a>
-      <nav class="nav" aria-label="主要メニュー">
-        <a href="index.html">ホーム</a>
-        <a href="ai-school.html">AIスクール</a>
-        <a href="about.html">ORIGAMI GRPとは</a>
-        <a href="faq.html">FAQ</a>
-        <a href="company.html">会社概要</a>
-        <a class="btn btn-nav" href="contact.html">無料相談</a>
+      <a class="brand" href="index.html">ORIGAMI GRP</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="index.html#services">サービス</a>
+        <a href="pricing.html">料金</a>
+        <a href="recruit.html">採用</a>
+        <a href="about.html">会社情報</a>
+        <a href="legal.html">特商法</a>
       </nav>
     </div>
   </header>
 
-  <section class="section">
-  <div class="container">
-    <h1 class="section-title">無料相談</h1>
-    <p class="section-lead">今の状況を伺い、「あなたの場合、AIをどう活かすのが最適か」を一緒に整理します。相談だけでも問題ありません。</p>
-
-    <div class="split" style="margin-top:18px;">
-      <div class="card">
-        <h3 style="margin-top:0;color:var(--purple);">無料相談で分かること</h3>
-        <ul class="list">
-          <li>あなたの強み・得意を活かせる方向性</li>
-          <li>今すぐ始められるAI活用の第一歩</li>
-          <li>伴走の進め方（学び→実践→改善）</li>
-        </ul>
-        <p style="margin-top:14px;color:#444;">
-          
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">無料相談・お問い合わせ</h1>
+        <p style="font-size: 18px; color: var(--text-muted);">
+          「自分に合ったAIの活用法を知りたい」「どのコースか迷っている」など、<br>まずはお気軽にご相談ください。無理な勧誘は一切行いません。
         </p>
       </div>
+    </section>
 
-      <div class="kv">
-        <h3 style="margin:0 0 10px 0;color:var(--purple);">お問い合わせフォーム</h3>
-        <form>
-          <label>お名前<br/><input style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,.12);" type="text" placeholder="例：山田 花子"/></label><br/><br/>
-          <label>メールアドレス<br/><input style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,.12);" type="email" placeholder="例：example@email.com"/></label><br/><br/>
-          <label>ご相談内容<br/><textarea style="width:100%;padding:12px;border-radius:12px;border:1px solid rgba(0,0,0,.12);" rows="5" placeholder="例：AIを使って副業を始めたいが、何から始めるべきか相談したい"></textarea></label><br/><br/>
-          <button class="btn btn-primary" type="button">送信</button>
-        </form>
+    <section class="section">
+      <div class="container">
+        <div class="contact-container">
+
+          <!-- 直接連絡先 -->
+          <div class="contact-info">
+            <h3>直接のご連絡</h3>
+
+            <div class="contact-method">
+              <div class="contact-method-title">お電話でのご相談</div>
+              <div class="contact-method-value">070-8507-1818</div>
+              <div class="contact-method-note">
+                営業時間: <!-- TODO: 営業時間 --> <span
+                  style="background: rgba(224,36,36,0.1); color: #e02424; padding: 2px 4px; border-radius: 4px;">要記入</span>
+                平日 XX:00〜XX:00<br>
+                ※講義中などでお電話に出られない場合がございます。その場合は留守番電話にメッセージをお願いいたします。
+              </div>
+            </div>
+
+            <div class="contact-method" style="margin-top: 32px;">
+              <div class="contact-method-title">メールでのお問い合わせ</div>
+              <div class="contact-method-value" style="font-size: 18px;"><a href="mailto:nan457913@gmail.com"
+                  style="color: var(--primary); text-decoration: underline;">nan457913@gmail.com</a></div>
+              <div class="contact-method-note">
+                基本的には2営業日以内にご返信いたします。
+              </div>
+            </div>
+          </div>
+
+          <!-- お問い合わせフォーム -->
+          <div class="contact-form">
+            <h3 style="font-size: 20px; margin-bottom: 24px; font-weight: 800; color: var(--text-main);">お問い合わせフォーム</h3>
+
+            <!-- ※静的HTMLのため、実際の送信用にフォームアクションは仮置き -->
+            <form action="#" method="POST">
+              <div class="form-group">
+                <label class="form-label" for="contact-name">お名前 <span class="req">必須</span></label>
+                <input type="text" id="contact-name" name="name" class="form-input" placeholder="山田 太郎" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-email">メールアドレス <span class="req">必須</span></label>
+                <input type="email" id="contact-email" name="email" class="form-input" placeholder="example@origami.com"
+                  required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-category">お問い合わせ種別</label>
+                <select id="contact-category" name="category" class="form-input" style="appearance: auto;">
+                  <option value="無料相談の予約">無料相談の予約</option>
+                  <option value="コースに関する質問">コースに関するご質問</option>
+                  <option value="法人向け研修について">法人向け研修について</option>
+                  <option value="採用への応募（履歴書等は後ほど）">採用への応募</option>
+                  <option value="その他">その他のお問い合わせ</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="contact-message">お問い合わせ内容 <span class="req">必須</span></label>
+                <textarea id="contact-message" name="message" class="form-textarea"
+                  placeholder="現状のお悩みや、特に知りたいこと、希望の相談日程などがございましたらご記入ください。" required></textarea>
+              </div>
+
+              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px;">
+                当サイトの<a href="privacy.html"
+                  style="color: var(--primary); text-decoration: underline;">プライバシーポリシー</a>をご確認いただき、同意の上で送信してください。
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px;">同意して送信する</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (Shared) -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
+        <p class="footer-desc">AIを一時的なブームで終わらせず、あなたの「稼ぐ力」に変えるための実践的スクール＆支援パートナー。</p>
+        <div style="margin-top: 24px;">
+          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8507-1818</p>
+          <p style="margin-bottom: 0; font-size: 14px;"><strong>メール：</strong> <a href="mailto:nan457913@gmail.com"
+              style="color:#fff; text-decoration:underline;">nan457913@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>サービス</h4>
+          <ul>
+            <li><a href="index.html#services">サービス</a></li>
+            <li><a href="pricing.html">料金</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>企業情報</h4>
+          <ul>
+            <li><a href="about.html">会社情報</a></li>
+            <li><a href="recruit.html">採用</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>サポート・規約</h4>
+          <ul>
+            <li><a href="contact.html">無料相談・お問い合わせ</a></li>
+            <li><a href="legal.html">特商法</a></li>
+            <li><a href="privacy.html">プライバシーポリシー</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-  <footer class="footer">
-    <div class="inner">
-      <div>© ORIGAMI GRP</div>
-      <div>
-        <a href="company.html">会社概要</a> ・
-        <a href="contact.html">無料相談</a>
+    <div class="footer-bottom">
+      <div>&copy; 2026 ORIGAMI GRP. All Rights Reserved.</div>
+      <div class="footer-legal">
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="legal.html">特商法</a>
       </div>
     </div>
   </footer>
 </body>
+
 </html>

@@ -1,128 +1,441 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ホーム｜ORIGAMI GRP</title>
+  <title>ORIGAMI GRP | AI x あなたの強みで稼ぐ力を</title>
+  <meta name="description" content="マニュアル通りじゃない。初心者から始める、個別伴走型AIスクール。" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* 追加の固有スタイル: 各セクションのデザイン微調整 */
+    .trust-badges {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .badge-item {
+      font-size: 13px;
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: 500;
+    }
+
+    .problem-promise {
+      background: #F9FAFB;
+      padding: 80px 24px;
+      text-align: center;
+      border-radius: 16px;
+      margin: 0 auto;
+      max-width: 900px;
+    }
+
+    .problem-list {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      max-width: 600px;
+      margin: 0 auto 32px;
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 2;
+      border-left: 3px solid var(--primary);
+      padding-left: 20px;
+    }
+
+    .price-tag {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      margin: 16px 0;
+    }
+
+    .price-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+
+    .course-details {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+
+    .course-details li {
+      font-size: 14px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .flow-step {
+      background: #fff;
+      padding: 16px 24px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-weight: 600;
+    }
+
+    .flow-num {
+      background: var(--primary);
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .faq-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .faq-q {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .faq-a {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-left: 24px;
+    }
+  </style>
 </head>
-<body class="page-center">
+
+<body>
+
+  <!-- Header -->
   <header class="header">
     <div class="inner">
       <a class="brand" href="index.html" aria-label="ORIGAMI GRP ホームへ">ORIGAMI GRP</a>
       <nav class="nav" aria-label="主要メニュー">
-        <a href="index.html" aria-current="page">ホーム</a>
-        <a href="ai-school.html">AIスクール</a>
-        <a href="about.html">ORIGAMI GRPとは</a>
-        <a href="faq.html">FAQ</a>
-        <a href="company.html">会社概要</a>
-        <a class="btn btn-nav" href="contact.html">無料相談</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#services">サービス</a>
+        <a href="pricing.html">料金</a>
+        <a href="recruit.html">採用</a>
+        <a href="about.html">会社情報</a>
+        <a href="legal.html">特商法</a>
       </nav>
     </div>
   </header>
 
-  
-<section class="hero">
-  <div class="content">
-    <h1>マニュアル通りじゃない。<br/>あなたの強みに、AIを掛け合わせて稼ぐ力を。</h1>
-    <p class="sub">初心者から始める、<span style="font-weight:700">個別伴走型AIスクール</span></p>
-    <p class="note">決められた手順を覚えるのではなく、あなたの特性や目標に合わせて<br/>AIを「使えるスキル」に磨き上げます。</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="contact.html">無料相談はこちら</a>
-      <a class="btn btn-ghost" href="about.html">ORIGAMI GRPとは</a>
-    </div>
-  </div>
-</section>
+  <main>
+    <!-- 1. Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <p class="sub">テンプレではなく「あなた仕様の稼ぐ型」を、伴走で構築するAIスクール。</p>
+        <h1>自分の特性×AIで、<br />自力で生き抜く力を。</h1>
 
-<section class="bridge">
-  <div class="inner">
-    <h3>なぜ、マニュアル通りではないのか。</h3>
-    <p>
-      人それぞれ、生活環境も、得意なことも、目指す未来も違います。<br/>
-      だからこそ、同じやり方を当てはめても「使えるスキル」にはなりにくい。<br/><br/>
-      ORIGAMI GRPは、AIと自分らしさを掛け合わせて、<br/>
-      一人ひとりの強みが活きる形で「稼ぐ力」を育てることを大切にしています。
-    </p>
-  </div>
-</section>
+        <div class="hero-cta" style="margin-top: 40px;">
+          <a class="btn btn-primary" href="#services">コースを見る</a>
+          <a class="btn btn-ghost" href="pricing.html">料金・詳細を見る</a>
+        </div>
 
-<section class="section tight" style="background:var(--pink-bg);">
-  <div class="container">
-    <h2 class="section-title" style="margin-bottom:10px;">こんなお悩みありませんか？</h2>
-    <p class="section-lead" style="margin-bottom:26px;">「やってみたいのに、何から始めるべきか分からない」——その状態から一緒に整理します。</p>
-    <div class="cards" style="margin-top:0;">
-      <div class="card">
-        <h4>AIに興味はあるけど、使い方が分からない</h4>
-        <p>触ってみたけど続かない。何に使えばいいのかが曖昧。</p>
-      </div>
-      <div class="card">
-        <h4>自分の強みが分からず、方向性が決められない</h4>
-        <p>「何が向いているのか」を言語化できず、動けない。</p>
-      </div>
-      <div class="card">
-        <h4>副業を始めたいけど、時間と不安がネック</h4>
-        <p>忙しい中でも回る「やり方」と「順番」が知りたい。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container">
-    <h2 class="section-title">このスクールでできるようになること</h2>
-    <p class="section-lead">知識を増やすことよりも、「日常・仕事・副業で使える」状態へ。あなたに合う形に整えながら、実践を積み上げます。</p>
-    <div class="cards">
-      <div class="card">
-        <h4>AIを使った文章作成・整理</h4>
-        <p>アイデア出し、構成づくり、文章の改善など、あなたの強みを活かして“伝わる形”に整えます。</p>
-      </div>
-      <div class="card">
-        <h4>業務・作業の効率化</h4>
-        <p>毎日の作業をAIで軽くし、時間を生み出す。ムリなく続く仕組みづくりを一緒に進めます。</p>
-      </div>
-      <div class="card">
-        <h4>収益化につながる活用</h4>
-        <p>「やってみたい」を具体化。あなたの状況に合わせて、成果につながる使い方を伴走します。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section tight" style="background:var(--pink-bg);">
-  <div class="container">
-    <div class="split">
-      <div>
-        <span class="badge">はじめての方へ</span>
-        <h2 style="margin:12px 0 10px 0;color:var(--purple);font-size:26px;">まずは無料相談で、方向性を整理しませんか。</h2>
-        <p style="margin:0;color:#444;">
-          無料相談では、今の状況や目標をお伺いし、「あなたの場合、AIをどう活かすのが最適か」を一緒に整理します。<br/>
-          相談だけでも問題ありません。無理な勧誘は行いません。
-        </p>
-        <div style="margin-top:18px;">
-          <a class="btn btn-primary" href="contact.html">無料相談はこちら</a>
+        <div class="trust-badges">
+          <span class="badge-item">オンライン完結</span>
+          <span class="badge-item">LINEサポート完備</span>
+          <span class="badge-item">1回45〜60分の講義</span>
+          <span class="badge-item">※成果には個人差があります</span>
         </div>
       </div>
-      <div class="kv">
-        <h3 style="margin:0 0 10px 0;color:var(--purple);">無料相談で分かること</h3>
-        <ul class="list">
-          <li>あなたの強み・得意を活かせる方向性</li>
-          <li>今すぐ始められるAI活用の第一歩</li>
-          <li>学び→実践→改善（個別伴走の進行イメージ）</li>
-        </ul>
+    </section>
+
+    <!-- 2. Problem -> Promise -->
+    <section class="section">
+      <div class="container">
+        <div class="problem-promise">
+          <h2 class="section-title text-center" style="font-size: 28px;">こんなお悩み、ありませんか？</h2>
+          <ul class="problem-list">
+            <li>AIに興味はあるが、何から始めればいいか分からない</li>
+            <li>教材で学んだけれど、自分の仕事や副業で形にならない</li>
+            <li>情報が多すぎて、どれが「正解」か迷ってしまう</li>
+            <li>高額なスクールに通ったが、結局テンプレを教わるだけで終わった</li>
+          </ul>
+
+          <h3 style="color: var(--primary); font-size: 24px; margin-top: 48px; margin-bottom: 16px;">私たちがお約束すること</h3>
+          <p style="font-size: 18px; line-height: 1.8; font-weight: 500;">
+            AIをただの「知識」で終わらせず、「使える」状態に落とし込みます。<br>
+            あなたの強みや現状のスキルと結びつけて、“実装”から“運用”までを徹底的に伴走します。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Services / Courses -->
+    <section id="services" class="section section-sub">
+      <div class="container text-center">
+        <h2 class="section-title">コース一覧</h2>
+        <p class="section-lead">目的と予算に合わせて選べる3つの実践コース</p>
+
+        <div class="grid-3">
+
+          <!-- Course A: グループコース -->
+          <div class="card" style="align-items: center;">
+            <h3 style="font-size: 20px; color: var(--text-main);">グループコース</h3>
+            <div class="price-tag">
+              250,000円<span class="price-sub">（税込）</span>
+            </div>
+
+            <ul class="course-details" style="width: 100%;">
+              <li><strong>形式：</strong> 小グループ（オンライン）</li>
+              <li><strong>回数：</strong> 全15回（基礎10 / 応用5）</li>
+              <li><strong>期間：</strong> 3ヶ月</li>
+              <li><strong>サポート：</strong> LINE公式で質疑応答＋個別フォロー</li>
+            </ul>
+
+            <a href="https://pay.peraichi.com/paylink/pl9a4so1s3r" target="_blank" rel="noopener noreferrer"
+              class="btn btn-primary" style="width:100%; margin-top: auto;">
+              お申し込みはこちら
+            </a>
+          </div>
+
+          <!-- Course B: プレミアムコース (Highlight) -->
+          <div class="card"
+            style="align-items: center; border: 2px solid var(--primary); transform: translateY(-8px); box-shadow: var(--shadow-md);">
+            <div
+              style="background: var(--primary); color: #fff; font-size: 12px; font-weight: 700; padding: 4px 16px; border-radius: 20px; margin-top: -56px; margin-bottom: 16px; border: 2px solid #fff;">
+              一番人気</div>
+            <h3 style="font-size: 24px; color: var(--primary);">プレミアムコース</h3>
+            <div class="price-tag" style="font-size: 34px;">
+              550,000円<span class="price-sub">（税込）</span>
+            </div>
+
+            <ul class="course-details" style="width: 100%;">
+              <li><strong>形式：</strong> マンツーマン（オンライン）</li>
+              <li><strong>回数：</strong> 全25回（基礎10 / 応用10 / 実践5）</li>
+              <li><strong>期間：</strong> 6ヶ月</li>
+              <li><strong>サポート：</strong> LINE公式で質疑応答＋個別フォロー</li>
+            </ul>
+
+            <a href="https://pay.peraichi.com/paylink/1wd8up09r7v" target="_blank" rel="noopener noreferrer"
+              class="btn btn-primary" style="width:100%; margin-top: auto; padding: 16px;">
+              お申し込みはこちら
+            </a>
+          </div>
+
+          <!-- Course C: フルコミットコース -->
+          <div class="card" style="align-items: center;">
+            <h3 style="font-size: 20px; color: var(--text-main);">フルコミットコース</h3>
+            <div class="price-tag">
+              750,000円<span class="price-sub">（税込）</span>
+            </div>
+
+            <ul class="course-details" style="width: 100%;">
+              <li><strong>形式：</strong> トップ講師マンツーマン（オンライン）</li>
+              <li><strong>回数：</strong> 全35回（基礎10/応用10/実践10/サポート5）</li>
+              <li><strong>期間：</strong> 9ヶ月</li>
+              <li><strong>サポート：</strong> LINE公式で質疑応答＋個別フォロー</li>
+            </ul>
+
+            <a href="https://pay.peraichi.com/paylink/9rfr775v97i" target="_blank" rel="noopener noreferrer"
+              class="btn btn-primary" style="width:100%; margin-top: auto;">
+              お申し込みはこちら
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Why ORIGAMI GRP -->
+    <section class="section">
+      <div class="container text-center">
+        <h2 class="section-title">Why ORIGAMI GRP</h2>
+        <p class="section-lead">私たちが選ばれる理由。テンプレからの卒業。</p>
+
+        <div class="grid-3" style="text-align: left; margin-top: 48px;">
+          <div class="card" style="box-shadow: none; border-color: rgba(0,0,0,0.05);">
+            <h3 style="font-size: 18px;">1. 自分の特性 × AI</h3>
+            <p>他人の成功法則を押し付けるのではなく、あなたの今のスキル、興味、環境という「勝ち筋」を見つけ出し、それにAIを掛け合わせます。</p>
+          </div>
+          <div class="card" style="box-shadow: none; border-color: rgba(0,0,0,0.05);">
+            <h3 style="font-size: 18px;">2. “使える”まで落とす</h3>
+            <p>知識を頭に入れるだけで終わらせません。日々の業務や副業で実際にどのように活用するか、実装と運用までをセットでサポートします。</p>
+          </div>
+          <div class="card" style="box-shadow: none; border-color: rgba(0,0,0,0.05);">
+            <h3 style="font-size: 18px;">3. 対等な伴走</h3>
+            <p>「先生と生徒」という一方的な指導ではなく、共に正解を作り上げていく「パートナー」としての伴走スタイルを徹底しています。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-1. 受講の流れ -->
+    <section class="section section-sub">
+      <div class="container text-center">
+        <h2 class="section-title">受講の流れ</h2>
+        <div class="flow-steps" style="margin-top: 40px;">
+          <div class="flow-step">
+            <div class="flow-num">1</div>
+            <div>お申し込み（Peraichiリンクより）</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">2</div>
+            <div>開始案内・初回ヒアリング（目標設定）</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">3</div>
+            <div>受講開始（オンライン講義）</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">4</div>
+            <div>LINE公式サポート（随時質問・課題添削）</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">5</div>
+            <div>進捗レビュー・実践運用フェーズ</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-2. FAQ -->
+    <section class="section">
+      <div class="container text-center">
+        <h2 class="section-title">よくあるご質問 (FAQ)</h2>
+        <div class="faq-list" style="margin-top: 40px;">
+
+          <div class="faq-item">
+            <div class="faq-q"><span>Q.</span> PCスキルやAIの知識が全くなくても大丈夫ですか？</div>
+            <div class="faq-a">
+              はい、問題ありません。専門用語を使わず、初歩的なツールの登録からマンツーマン（または少人数）で丁寧に指導いたします。あなたのペースに合わせて進めるため、置いていかれる心配はありません。</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q"><span>Q.</span> 途中でのキャンセルや返金は可能ですか？</div>
+            <div class="faq-a">
+              サービスの性質上、原則として受講開始後のお客様都合による返金は承っておりません。ただし、当方の不備によるサービス提供の遅延や欠陥があった場合は、誠実に対応させていただきます。詳しくは<a
+                href="legal.html" style="color:var(--primary); text-decoration:underline;">特定商取引法に基づく表記</a>をご確認ください。
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q"><span>Q.</span> 必ず稼げるようになりますか？</div>
+            <div class="faq-a">
+              本講座は、個人のスキルとしてAI活用力を高めることを目的としており、特定の収益額や結果を保証するものではありません。成果には個人の学習時間や取り組み方によって差が出ます。私たちはあなたが自走できるよう最大限の伴走支援をお約束します。
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q"><span>Q.</span> パソコンの指定はありますか？スマホだけでも可能ですか？</div>
+            <div class="faq-a">
+              一部の作業はスマートフォンでも可能ですが、画面共有をしながらの実践作業や、各種AIツールの操作性を考慮し、カメラ付きのパソコン（Windows、Macどちらでも可）での受講を強く推奨しております。</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q"><span>Q.</span> LINEサポートの返信はどれくらいでもらえますか？</div>
+            <div class="faq-a">基本的には24時間以内（土日祝を除く営業日）にご返信いたします。課題の添削や込み入った内容については、次回の講義内で直接解説させていただく場合もございます。</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-3. Final CTA -->
+    <section class="section" style="background: var(--primary); color: #fff; text-align: center; padding: 100px 24px;">
+      <div class="container">
+        <h2 style="font-size: 38px; color: #fff; margin-bottom: 24px;">最短で「AIを使える自分」へ。</h2>
+        <p
+          style="font-size: 18px; opacity: 0.9; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+          まずは一歩を踏み出し、あなたの新しい可能性を形にしませんか？ご自身の目標に合わせたコースをお選びください。
+        </p>
+        <div class="hero-cta">
+          <a class="btn" href="#services"
+            style="background: #fff; color: var(--primary); box-shadow: var(--shadow-md);">コースを申し込む</a>
+          <a class="btn btn-ghost" href="contact.html"
+            style="color: #fff; border-color: rgba(255,255,255,0.4);">まずは無料相談する</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
+        <p class="footer-desc">AIを一時的なブームで終わらせず、あなたの「稼ぐ力」に変えるための実践的スクール＆支援パートナー。</p>
+        <div style="margin-top: 24px;">
+          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8507-1818</p>
+          <p style="margin-bottom: 0; font-size: 14px;"><strong>メール：</strong> <a href="mailto:nan457913@gmail.com"
+              style="color:#fff; text-decoration:underline;">nan457913@gmail.com</a></p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>サービス</h4>
+          <ul>
+            <li><a href="index.html#services">サービス</a></li>
+            <li><a href="pricing.html">料金</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>企業情報</h4>
+          <ul>
+            <li><a href="about.html">会社情報</a></li>
+            <li><a href="recruit.html">採用</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>サポート・規約</h4>
+          <ul>
+            <li><a href="contact.html">無料相談・お問い合わせ</a></li>
+            <li><a href="legal.html">特商法</a></li>
+            <li><a href="privacy.html">プライバシーポリシー</a></li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-
-
-  <footer class="footer">
-    <div class="inner">
-      <div>© ORIGAMI GRP</div>
-      <div>
-        <a href="company.html">会社概要</a> ・
-        <a href="contact.html">無料相談</a>
+    <div class="footer-bottom">
+      <div>&copy; 2026 ORIGAMI GRP. All Rights Reserved.</div>
+      <div class="footer-legal">
+        <!-- ナビゲーションの動線に合わせる -->
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="legal.html">特商法</a>
       </div>
     </div>
   </footer>
+
 </body>
+
 </html>
