@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>料金プラン | ORIGAMI GRP</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .page-header {
+            background: var(--primary-light);
+            padding: 80px 24px 60px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-title {
+            font-size: 42px;
+            color: var(--primary);
+            margin-bottom: 16px;
+            letter-spacing: 0.02em;
+        }
+
+        .pricing-table-wrapper {
+            overflow-x: auto;
+            margin-top: 48px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+            background: #fff;
+        }
+
+        .pricing-table th,
+        .pricing-table td {
+            padding: 24px 16px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .pricing-table th:first-child,
+        .pricing-table td:first-child {
+            text-align: left;
+            font-weight: 700;
+            background: var(--bg-sub);
+            color: var(--text-main);
+            width: 220px;
+        }
+
+        .pricing-table th {
+            font-size: 20px;
+            color: #fff;
+            background: var(--text-muted);
+            padding: 32px 16px;
+        }
+
+        .pricing-table .highlight-col {
+            background: var(--primary);
+            color: #fff;
+            position: relative;
+        }
+
+        .pricing-table .highlight-col::before {
+            content: "一番人気";
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            color: var(--primary);
+            font-size: 12px;
+            font-weight: 800;
+            padding: 4px 16px;
+            border-radius: 20px;
+            border: 2px solid var(--primary);
+            white-space: nowrap;
+        }
+
+        .pricing-table .price-row {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .pricing-table .highlight-col .price-row {
+            color: #fff;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            font-size: 14px;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="inner">
+            <a class="brand" href="index.html">ORIGAMI GRP</a>
+            <nav class="nav">
+                <a href="index.html">Home</a>
+                <a href="index.html#services">サービス</a>
+                <a href="pricing.html" style="color: var(--primary);">料金</a>
+                <a href="recruit.html">採用</a>
+                <a href="about.html">会社情報</a>
+                <a href="legal.html">特商法</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">料金プラン</h1>
+                <p style="font-size: 18px; color: var(--text-muted);">あなたの本気度と目標に合わせた、3つの実践コース</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="pricing-table-wrapper">
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>比較項目</th>
+                                <th>グループコース</th>
+                                <th class="highlight-col">プレミアムコース</th>
+                                <th style="background: var(--primary-dark);">フルコミットコース</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>料金（税込）</td>
+                                <td class="price-row">250,000円</td>
+                                <td class="price-row" style="color:var(--primary);">550,000円</td>
+                                <td class="price-row">750,000円</td>
+                            </tr>
+                            <tr>
+                                <td>受講形式</td>
+                                <td>小グループ（オンライン）</td>
+                                <td><strong>マンツーマン（オンライン）</strong></td>
+                                <td><strong>トップ講師マンツーマン（オンライン）</strong></td>
+                            </tr>
+                            <tr>
+                                <td>期間</td>
+                                <td>3ヶ月</td>
+                                <td>6ヶ月</td>
+                                <td>9ヶ月</td>
+                            </tr>
+                            <tr>
+                                <td>講義回数</td>
+                                <td>全15回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用5回</span>
+                                </td>
+                                <td>全25回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用10回 /
+                                        実践5回</span></td>
+                                <td>全35回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用10回 / 実践10回
+                                        / サポート5回</span></td>
+                            </tr>
+                            <tr>
+                                <td>サポート体制</td>
+                                <td>LINE公式で質疑応答<br>＋個別フォロー</td>
+                                <td>LINE公式で質疑応答<br>＋個別フォロー</td>
+                                <td>LINE公式で質疑応答<br>＋優先個別フォロー</td>
+                            </tr>
+                            <tr>
+                                <td>こんな方におすすめ</td>
+                                <td>
+                                    <ul class="feature-list">
+                                        <li>・まずはAIの基礎を学びたい</li>
+                                        <li>・仲間と一緒に学習を進めたい</li>
+                                        <li>・日常の業務効率化に活かしたい</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="feature-list">
+                                        <li>・自分の強み×AIを見つけたい</li>
+                                        <li>・副業での本格的な収益化を目指す</li>
+                                        <li>・完全個別の伴走で結果を出したい</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="feature-list">
+                                        <li>・圧倒的な成果を短期間で出したい</li>
+                                        <li>・独立・起業を見据えた事業構築</li>
+                                        <li>・トップ講師の知見をフル活用したい</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>お申し込み</td>
+                                <td><a href="https://pay.peraichi.com/paylink/pl9a4so1s3r" target="_blank"
+                                        rel="noopener noreferrer" class="btn btn-primary"
+                                        style="width:100%; padding: 12px;">申し込む</a></td>
+                                <td><a href="https://pay.peraichi.com/paylink/1wd8up09r7v" target="_blank"
+                                        rel="noopener noreferrer" class="btn btn-primary"
+                                        style="width:100%; padding: 12px; background:var(--primary-dark);">申し込む</a></td>
+                                <td><a href="https://pay.peraichi.com/paylink/9rfr775v97i" target="_blank"
+                                        rel="noopener noreferrer" class="btn btn-primary"
+                                        style="width:100%; padding: 12px;">申し込む</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="margin-top: 64px; text-align: center;">
+                    <h3 style="font-size: 24px; margin-bottom: 16px;">どのコースを選べばいいか迷ったら？</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 24px;">
+                        まずは無料相談で、あなたの現状と目標をお聞かせください。<br>最適な学習プランをご提案いたします。（無理な勧誘は一切行いません）</p>
+                    <a href="contact.html" class="btn btn-ghost"
+                        style="font-size: 16px; padding: 16px 40px;">無料相談を予約する</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Shared) -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
+                <p class="footer-desc">AIを一時的なブームで終わらせず、あなたの「稼ぐ力」に変えるための実践的スクール＆支援パートナー。</p>
+                <div style="margin-top: 24px;">
+                    <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8507-1818</p>
+                    <p style="margin-bottom: 0; font-size: 14px;"><strong>メール：</strong> <a
+                            href="mailto:nan457913@gmail.com"
+                            style="color:#fff; text-decoration:underline;">nan457913@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>サービス</h4>
+                    <ul>
+                        <li><a href="index.html#services">サービス</a></li>
+                        <li><a href="pricing.html">料金</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>企業情報</h4>
+                    <ul>
+                        <li><a href="about.html">会社情報</a></li>
+                        <li><a href="recruit.html">採用</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>サポート・規約</h4>
+                    <ul>
+                        <li><a href="contact.html">無料相談・お問い合わせ</a></li>
+                        <li><a href="legal.html">特商法</a></li>
+                        <li><a href="privacy.html">プライバシーポリシー</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div>&copy; 2026 ORIGAMI GRP. All Rights Reserved.</div>
+            <div class="footer-legal">
+                <a href="privacy.html">プライバシーポリシー</a>
+                <a href="legal.html">特商法</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
