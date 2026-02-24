@@ -73,15 +73,18 @@
             background: var(--primary);
             color: #fff;
             position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 8px;
+            height: 100%;
+            box-sizing: border-box;
         }
 
         .pricing-table .highlight-col::before {
             content: "一番人気";
-            position: absolute;
-            top: -14px;
-            left: 50%;
-            transform: translateX(-50%);
-            margin: 0;
             background: #fff;
             color: var(--primary);
             font-size: 13px;
@@ -95,7 +98,6 @@
             align-items: center;
             justify-content: center;
             line-height: 1;
-            z-index: 10;
         }
 
         .pricing-table .price-row {
