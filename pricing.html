@@ -63,29 +63,24 @@
         }
 
         .pricing-table th {
-            font-size: 20px;
+            font-size: 18px;
             color: #fff;
             background: var(--text-muted);
-            padding: 32px 16px;
+            padding: 24px 8px;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 1.4;
         }
 
         .pricing-table .highlight-col {
             background: var(--primary);
             color: #fff;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 24px 8px 16px;
-            height: 100%;
-            box-sizing: border-box;
         }
 
         .pricing-table .highlight-col::before {
             content: "一番人気";
-            margin-top: 4px;
+            display: table;
+            margin: 4px auto 12px auto;
             background: #fff;
             color: var(--primary);
             font-size: 13px;
@@ -95,9 +90,6 @@
             border: 2px solid var(--primary);
             white-space: nowrap;
             word-break: keep-all;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             line-height: 1;
         }
 
@@ -162,9 +154,9 @@
                         <thead>
                             <tr>
                                 <th>比較項目</th>
-                                <th>グループコース</th>
-                                <th class="highlight-col">プレミアムコース</th>
-                                <th style="background: var(--primary-dark);">フルコミットコース</th>
+                                <th>グループ<br>コース</th>
+                                <th class="highlight-col">プレミアム<br>コース</th>
+                                <th style="background: var(--primary-dark);">フルコミット<br>コース</th>
                             </tr>
                         </thead>
                         <tbody>
