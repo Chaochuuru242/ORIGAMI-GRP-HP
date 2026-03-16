@@ -186,70 +186,69 @@
 
             <div class="contact-method">
               <div class="contact-method-title">お電話でのご相談</div>
-              <div class="contact-method-value">070-8507-1818</div>
-              <div class="contact-method-note">
-                営業時間: <!-- TODO: 営業時間 --> <span
-                  style="background: rgba(224,36,36,0.1); color: #e02424; padding: 2px 4px; border-radius: 4px;">要記入</span>
-                平日 XX:00〜XX:00<br>
-                ※講義中などでお電話に出られない場合がございます。その場合は留守番電話にメッセージをお願いいたします。
+              <div class="contact-method-value">070-8458-8553/div>
+                <div class="contact-method-note">
+                  営業時間: 10:00～23:00<br>
+                  ※講義中などでお電話に出られない場合がございます。その場合は留守番電話にメッセージをお願いいたします。
+                </div>
+              </div>
+
+              <div class="contact-method" style="margin-top: 32px;">
+                <div class="contact-method-title">メールでのお問い合わせ</div>
+                <div class="contact-method-value" style="font-size: 18px;"><a href="mailto:nan457913@gmail.com"
+                    style="color: var(--primary); text-decoration: underline;">nan457913@gmail.com</a></div>
+                <div class="contact-method-note">
+                  基本的には2営業日以内にご返信いたします。
+                </div>
               </div>
             </div>
 
-            <div class="contact-method" style="margin-top: 32px;">
-              <div class="contact-method-title">メールでのお問い合わせ</div>
-              <div class="contact-method-value" style="font-size: 18px;"><a href="mailto:nan457913@gmail.com"
-                  style="color: var(--primary); text-decoration: underline;">nan457913@gmail.com</a></div>
-              <div class="contact-method-note">
-                基本的には2営業日以内にご返信いたします。
-              </div>
+            <!-- お問い合わせフォーム -->
+            <div class="contact-form">
+              <h3 style="font-size: 20px; margin-bottom: 24px; font-weight: 800; color: var(--text-main);">お問い合わせフォーム
+              </h3>
+
+              <!-- ※静的HTMLのため、実際の送信用にフォームアクションは仮置き -->
+              <form action="#" method="POST">
+                <div class="form-group">
+                  <label class="form-label" for="contact-name">お名前 <span class="req">必須</span></label>
+                  <input type="text" id="contact-name" name="name" class="form-input" placeholder="山田 太郎" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-email">メールアドレス <span class="req">必須</span></label>
+                  <input type="email" id="contact-email" name="email" class="form-input"
+                    placeholder="example@origami.com" required>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-category">お問い合わせ種別</label>
+                  <select id="contact-category" name="category" class="form-input" style="appearance: auto;">
+                    <option value="無料相談の予約">無料相談の予約</option>
+                    <option value="コースに関する質問">コースに関するご質問</option>
+                    <option value="法人向け研修について">法人向け研修について</option>
+                    <option value="採用への応募（履歴書等は後ほど）">採用への応募</option>
+                    <option value="その他">その他のお問い合わせ</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="contact-message">お問い合わせ内容 <span class="req">必須</span></label>
+                  <textarea id="contact-message" name="message" class="form-textarea"
+                    placeholder="現状のお悩みや、特に知りたいこと、希望の相談日程などがございましたらご記入ください。" required></textarea>
+                </div>
+
+                <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px;">
+                  当サイトの<a href="privacy.html"
+                    style="color: var(--primary); text-decoration: underline;">プライバシーポリシー</a>をご確認いただき、同意の上で送信してください。
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px;">同意して送信する</button>
+              </form>
             </div>
+
           </div>
-
-          <!-- お問い合わせフォーム -->
-          <div class="contact-form">
-            <h3 style="font-size: 20px; margin-bottom: 24px; font-weight: 800; color: var(--text-main);">お問い合わせフォーム</h3>
-
-            <!-- ※静的HTMLのため、実際の送信用にフォームアクションは仮置き -->
-            <form action="#" method="POST">
-              <div class="form-group">
-                <label class="form-label" for="contact-name">お名前 <span class="req">必須</span></label>
-                <input type="text" id="contact-name" name="name" class="form-input" placeholder="山田 太郎" required>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="contact-email">メールアドレス <span class="req">必須</span></label>
-                <input type="email" id="contact-email" name="email" class="form-input" placeholder="example@origami.com"
-                  required>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="contact-category">お問い合わせ種別</label>
-                <select id="contact-category" name="category" class="form-input" style="appearance: auto;">
-                  <option value="無料相談の予約">無料相談の予約</option>
-                  <option value="コースに関する質問">コースに関するご質問</option>
-                  <option value="法人向け研修について">法人向け研修について</option>
-                  <option value="採用への応募（履歴書等は後ほど）">採用への応募</option>
-                  <option value="その他">その他のお問い合わせ</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label class="form-label" for="contact-message">お問い合わせ内容 <span class="req">必須</span></label>
-                <textarea id="contact-message" name="message" class="form-textarea"
-                  placeholder="現状のお悩みや、特に知りたいこと、希望の相談日程などがございましたらご記入ください。" required></textarea>
-              </div>
-
-              <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px;">
-                当サイトの<a href="privacy.html"
-                  style="color: var(--primary); text-decoration: underline;">プライバシーポリシー</a>をご確認いただき、同意の上で送信してください。
-              </div>
-
-              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px;">同意して送信する</button>
-            </form>
-          </div>
-
         </div>
-      </div>
     </section>
   </main>
 
@@ -260,12 +259,12 @@
         <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
         <p class="footer-desc">AIを一時的なブームで終わらせず、あなたの「稼ぐ力」に変えるための実践的スクール＆支援パートナー。</p>
         <div style="margin-top: 24px;">
-          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8507-1818</p>
+          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8458-8553</p>
           <p style="margin-bottom: 0; font-size: 14px;"><strong>メール：</strong> <a href="mailto:nan457913@gmail.com"
               style="color:#fff; text-decoration:underline;">nan457913@gmail.com</a></p>
-          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>住所：</strong> 東京都足立区東和4-30-12
+          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>住所：</strong> 東京都足立区青井4-30-12
             スカイレジデンス蒼102</p>
-          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>営業時間：</strong> 10:00-19:00</p>
+          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>営業時間：</strong> 10:00-23:00</p>
         </div>
       </div>
       <div class="footer-links">
