@@ -111,19 +111,22 @@
       color: var(--text-muted);
     }
 
-    .ceo-message {
+    .about-message {
       display: flex;
       flex-direction: row-reverse;
-      gap: 48px;
+      gap: 40px;
       align-items: center;
+      max-width: 800px;
+      margin: 0 auto;
     }
 
-    .ceo-message-img {
-      width: calc((100% - 48px) / 3);
+    .about-message-img {
+      width: 100%;
+      max-width: 280px;
       flex-shrink: 0;
     }
 
-    .ceo-message-img img {
+    .about-message-img img {
       width: 100%;
       aspect-ratio: 2 / 3;
       object-fit: cover;
@@ -131,8 +134,9 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .ceo-message-content {
+    .about-message-content {
       flex: 1;
+      max-width: 480px;
     }
 
     @media (max-width: 768px) {
@@ -140,12 +144,12 @@
         grid-template-columns: 1fr;
       }
 
-      .ceo-message {
+      .about-message {
         flex-direction: column;
         gap: 32px;
       }
 
-      .ceo-message-img {
+      .about-message-img {
         width: 100%;
       }
 
@@ -232,28 +236,27 @@
         </div>
 
         <!-- CEO Message -->
-        <div style="max-width: 900px; margin: 0 auto;">
-          <h3 class="section-title text-center" style="margin-bottom: 64px; font-size: 28px; margin-top: 80px;">代表メッセージ</h3>
-          <div class="ceo-message">
-            <div class="ceo-message-img">
-              <img src="images/about4.png" alt="代表 山﨑 大輔" />
-            </div>
-            <div class="ceo-message-content" style="text-align: left;">
-              <div style="color: var(--text-muted); line-height: 1.9; font-size: 16px;">
-                <p style="margin-bottom: 24px;">
-                  多くの方が、新しいツールや知識を学んでも、<br>
-                  それを成果に繋げられずに止まってしまう現実を、これまで数多く見てきました。
-                </p>
-                <p style="margin-bottom: 24px;">
-                  私たちは、知識で終わらせず、<br>
-                  実際に収益や成果に繋げることにこだわっています。
-                </p>
-                <p style="margin-bottom: 32px;">
-                  実行し、継続できる状態まで伴走します。<br>
-                  その一歩を、ここから一緒に踏み出していきましょう。
-                </p>
-                <p style="font-weight: 700; color: var(--text-main); font-size: 18px;">代表　山﨑 大輔</p>
-              </div>
+        <h3 class="section-title text-center" style="margin-bottom: 64px; font-size: 28px; margin-top: 80px;">代表メッセージ</h3>
+        <div class="about-message">
+          <div class="about-message-img">
+            <img src="images/about4.png" alt="代表 山﨑 大輔" />
+          </div>
+          <div class="about-message-content" style="text-align: left;">
+            <div style="color: var(--text-muted); line-height: 1.9; font-size: 16px;">
+              <p style="margin-bottom: 24px;">
+                多くの方が、新しいツールや知識を学んでも、<br>
+                それを成果に繋げられずに止まってしまう現実を、<br>
+                これまで数多く見てきました。
+              </p>
+              <p style="margin-bottom: 24px;">
+                私たちは、知識で終わらせず、<br>
+                実際に収益や成果に繋げることにこだわっています。
+              </p>
+              <p style="margin-bottom: 32px;">
+                実行し、継続できる状態まで伴走します。<br>
+                その一歩を、ここから一緒に踏み出していきましょう。
+              </p>
+              <p style="font-weight: 700; color: var(--text-main); font-size: 18px;">代表　山﨑 大輔</p>
             </div>
           </div>
         </div>
