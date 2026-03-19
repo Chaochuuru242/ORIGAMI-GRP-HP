@@ -111,9 +111,42 @@
       color: var(--text-muted);
     }
 
+    .ceo-message {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .ceo-message-img {
+      width: calc((100% - 48px) / 3);
+      flex-shrink: 0;
+    }
+
+    .ceo-message-img img {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .ceo-message-content {
+      flex: 1;
+    }
+
     @media (max-width: 768px) {
       .values-grid {
         grid-template-columns: 1fr;
+      }
+
+      .ceo-message {
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .ceo-message-img {
+        width: 100%;
       }
 
       .mission-ja {
@@ -196,6 +229,33 @@
           <img src="images/about-1.jpg" alt="ORIGAMI GRPの社内風景1" />
           <img src="images/about-2.jpg" alt="ORIGAMI GRPの社内風景2" />
           <img src="images/about-3.jpg" alt="ORIGAMI GRPの社内風景3" />
+        </div>
+
+        <!-- CEO Message -->
+        <div style="max-width: 900px; margin: 0 auto;">
+          <h3 class="section-title text-center" style="margin-bottom: 64px; font-size: 28px; margin-top: 80px;">代表メッセージ</h3>
+          <div class="ceo-message">
+            <div class="ceo-message-img">
+              <img src="images/about4.png" alt="代表 山﨑 大輔" />
+            </div>
+            <div class="ceo-message-content" style="text-align: left;">
+              <div style="color: var(--text-muted); line-height: 1.9; font-size: 16px;">
+                <p style="margin-bottom: 24px;">
+                  多くの方が、新しいツールや知識を学んでも、<br>
+                  それを成果に繋げられずに止まってしまう現実を、これまで数多く見てきました。
+                </p>
+                <p style="margin-bottom: 24px;">
+                  私たちは、知識で終わらせず、<br>
+                  実際に収益や成果に繋げることにこだわっています。
+                </p>
+                <p style="margin-bottom: 32px;">
+                  実行し、継続できる状態まで伴走します。<br>
+                  その一歩を、ここから一緒に踏み出していきましょう。
+                </p>
+                <p style="font-weight: 700; color: var(--text-main); font-size: 18px;">代表　山﨑 大輔</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Company Info -->
