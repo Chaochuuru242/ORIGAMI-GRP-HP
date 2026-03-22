@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin 管理画面 | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+  <!-- アクセス制御（ログインガード） -->
+  <style>body { display: none; }</style> <!-- 判定中のチラつき防止 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/auth-guard.js"></script>
+</head>
+
+<body class="member-page">
+
+  <div class="member-layout">
+    <!-- Sidebar -->
+    <aside class="member-sidebar">
+      <div style="padding: 0 24px 32px;">
+        <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP Admin</a>
+      </div>
+      <nav class="side-nav">
+        <ul>
+          <li class="active"><a href="admin.html"><span>👥</span> 会員一覧・承認</a></li>
+          <li><a href="dashboard.html"><span>🏠</span> 会員用デモを表示</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="member-main-content">
+      <header style="margin-bottom: 40px;">
+        <h1 style="font-size: 24px; font-weight: 800;">会員管理・手動承認</h1>
+        <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">決済済みユーザーの権限付与、ステータス変更を行います。</p>
+      </header>
+
+      <!-- Stats Summary -->
+      <div style="display: flex; gap: 24px; margin-bottom: 32px;">
+        <div class="dash-card" style="flex: 1; padding: 16px 24px;">
+          <p style="font-size: 12px; color: var(--text-muted);">総会員数</p>
+          <p style="font-size: 24px; font-weight: 800;">128 名</p>
+        </div>
+        <div class="dash-card" style="flex: 1; padding: 16px 24px; border-left: 4px solid #1976d2;">
+          <p style="font-size: 12px; color: var(--text-muted);">承認待ち (manual_review)</p>
+          <p style="font-size: 24px; font-weight: 800; color: #1976d2;">3 名</p>
+        </div>
+        <div class="dash-card" style="flex: 1; padding: 16px 24px;">
+          <p style="font-size: 12px; color: var(--text-muted);">プレミアム会員 (paid)</p>
+          <p style="font-size: 24px; font-weight: 800; color: #ff8f00;">45 名</p>
+        </div>
+      </div>
+
+      <!-- Member Table -->
+      <div class="dash-card" style="padding: 0; overflow: hidden;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID / 名称</th>
+              <th>プラン</th>
+              <th>ステータス</th>
+              <th>登録日</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody style="font-size: 13px;">
+            <!-- Pending Item -->
+            <tr style="background: #f0f7ff;">
+              <td>#00128<br><strong>佐藤 健一</strong><br><small>satoh@example.com</small></td>
+              <td>スタンダード</td>
+              <td><span class="status-badge pending">承認待ち</span></td>
+              <td>2026.03.14 10:20</td>
+              <td>
+                <button class="btn btn-primary" style="font-size: 11px; padding: 4px 12px;">✅ 承認して Paid へ</button>
+              </td>
+            </tr>
+            <!-- Paid Item -->
+            <tr>
+              <td>#00127<br><strong>鈴木 舞</strong><br><small>mai.s@example.com</small></td>
+              <td>プレミアム</td>
+              <td><span class="status-badge premium">Paid</span></td>
+              <td>2026.03.13 15:45</td>
+              <td>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 12px;">プラン変更</button>
+              </td>
+            </tr>
+            <!-- Free Item -->
+            <tr>
+              <td>#00126<br><strong>田中 太郎</strong><br><small>tanaka@example.com</small></td>
+              <td>ライト (Free)</td>
+              <td><span class="status-badge free">未決済</span></td>
+              <td>2026.03.12 09:12</td>
+              <td>
+                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 12px;">詳細</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 24px; text-align: center;">
+        <p style="font-size: 12px; color: var(--text-muted);">※Supabase Dashboard で直接 `profiles` テーブルを編集するのと同等の操作を想定しています。</p>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+</html>

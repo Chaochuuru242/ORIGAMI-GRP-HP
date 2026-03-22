@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>決済確認中 | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+  <!-- アクセス制御（ログインガード） -->
+  <style>body { display: none; }</style> <!-- 判定中のチラつき防止 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/auth-guard.js"></script>
+</head>
+
+<body class="member-page">
+
+  <!-- Header -->
+  <header class="header member-header">
+    <div class="inner">
+      <a class="brand" href="index.html">ORIGAMI GRP <span style="font-size: 12px; opacity: 0.7; font-weight: normal;">Member</span></a>
+      <nav class="nav">
+        <a href="../index.html">ブランドTOPへ</a>
+        <a href="index.html">Member Home</a>
+        <a href="pricing.html">プラン一覧</a>
+        <a href="faq.html">FAQ</a>
+        <a href="login.html" class="btn btn-ghost" style="padding: 8px 16px; font-size: 13px;">ログイン</a>
+        <a href="register.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">会員登録</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="pending-container">
+        <div class="pending-icon">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        </div>
+        
+        <h1 style="font-size: 28px; margin-bottom: 16px; font-weight: 800;">お申し込みを受け付けました</h1>
+        <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 32px;">
+          ORIGAMI GRP サブスクリプションへのお申し込み、誠にありがとうございます。<br>
+          ただいま運営側で決済の確認および会員権限の付与手続きを行っております。
+        </p>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+          <div class="step completed">
+            <div class="step-number">1</div>
+            <div class="step-label">申し込み</div>
+          </div>
+          <div class="step active">
+            <div class="step-number">2</div>
+            <div class="step-label">確認・反映中</div>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-label">利用開始</div>
+          </div>
+        </div>
+
+        <div class="notice-box" style="margin-bottom: 40px; background: var(--bg-sub); border: 1px solid var(--border);">
+          <p style="font-size: 14px; margin-bottom: 12px;"><strong>今後の流れについて</strong></p>
+          <ul style="text-align: left; font-size: 14px; padding-left: 20px; color: var(--text-main);">
+            <li>通常は24時間以内を目途に反映いたします。</li>
+            <li>手続きが完了次第、メールまたは会員ページ上でご案内いたします。</li>
+            <li>反映完了後、全ての限定コンテンツが閲覧可能になります。</li>
+          </ul>
+        </div>
+
+        <div style="display: flex; gap: 16px; justify-content: center;">
+          <a href="index.html" class="btn btn-ghost" style="padding: 12px 24px;">会員ホームへ戻る</a>
+          <a href="faq.html" class="btn btn-ghost" style="padding: 12px 24px;">FAQを確認する</a>
+        </div>
+
+        <p style="margin-top: 48px; font-size: 13px; color: var(--text-muted);">
+          24時間を経過してもサービスが利用できない場合は、お手数ですが<br>
+          <a href="../contact.html" style="color: var(--primary); font-weight: 700;">お問い合わせ</a>よりご連絡ください。
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer member-footer">
+    <div class="footer-inner">
+      <div>
+        <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
+        <p class="footer-desc">AIを「稼ぐ力」に変える。会員制伴走支援ポータル。</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Member</h4>
+          <ul>
+            <li><a href="index.html">会員Home</a></li>
+            <li><a href="pricing.html">プラン一覧</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="../contact.html">お問い合わせ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 ORIGAMI GRP. Member System.</div>
+      <div class="footer-legal">
+        <a href="../index.html">ブランドサイトへ戻る</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

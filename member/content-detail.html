@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>コンテンツ詳細 | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+  <!-- アクセス制御（ログインガード） -->
+  <style>body { display: none; }</style> <!-- 判定中のチラつき防止 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/auth-guard.js"></script>
+</head>
+
+<body class="member-page">
+
+  <div class="member-layout">
+    <!-- Sidebar -->
+    <aside class="member-sidebar">
+      <div style="padding: 0 24px 32px;">
+        <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP</a>
+      </div>
+      <nav class="side-nav">
+        <ul>
+          <li><a href="dashboard.html"><span>🏠</span> ダッシュボード</a></li>
+          <li class="active"><a href="contents.html"><span>📚</span> コンテンツ一覧</a></li>
+          <li><a href="account-billing.html"><span>💳</span> お支払い・プラン</a></li>
+          <li><a href="support.html"><span>💬</span> サポート・FAQ</a></li>
+          <li><a href="profile.html"><span>👤</span> プロフィール設定</a></li>
+          <li style="margin-top: 40px; opacity: 0.5;"><a href="admin.html"><span>⚙️</span> 管理画面 (Admin)</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="member-main-content">
+      <div style="margin-bottom: 24px;">
+        <a href="contents.html" style="text-decoration: none; font-size: 13px; color: var(--text-muted);">← コンテンツ一覧へ戻る</a>
+      </div>
+
+      <header style="margin-bottom: 32px;">
+        <h1 style="font-size: 28px; font-weight: 800; line-height: 1.3;">【入門】初心者向けChatGPT活用ロードマップ</h1>
+        <div style="display: flex; gap: 16px; margin-top: 12px; font-size: 13px; color: var(--text-muted);">
+          <span>2026.03.01 公開</span>
+          <span>視聴時間: 18分</span>
+          <span>カテゴリ: 初級 / 導入</span>
+        </div>
+      </header>
+
+      <!-- Video Player Placeholder -->
+      <div style="aspect-ratio: 16/9; background: #000; border-radius: var(--radius); margin-bottom: 40px; display: flex; align-items: center; justify-content: center; color: #fff; overflow: hidden; position: relative;">
+        <!-- Dummy Play Button -->
+        <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+          <div style="width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 25px solid #fff; margin-left: 5px;"></div>
+        </div>
+        <div style="position: absolute; bottom: 24px; left: 24px; font-size: 14px; opacity: 0.7;">[動画プレイヤーのプレースホルダー]</div>
+      </div>
+
+      <!-- Description & Resources -->
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px;">
+        <div>
+          <h3 style="font-size: 18px; margin-bottom: 16px;">講義内容</h3>
+          <p style="line-height: 1.8; color: var(--text-main); margin-bottom: 24px;">
+            本動画では、AI（ChatGPT）を仕事に導入するための最も確実なステップを解説します。
+            プロンプトの基本構造から、日常業務での活用事例、そして陥りがちな罠まで、
+            最短で成果を出すための「型」を身につけましょう。
+          </p>
+          <ul style="line-height: 2; padding-left: 20px;">
+            <li>AIの本質：単なるチャットツールではない理由</li>
+            <li>「稼ぐプロンプト」の4大構成要素</li>
+            <li>明日から使える3つの典型的な成功パターン</li>
+            <li>情報の正確性を担保する検証プロセス</li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="dash-card">
+            <h3 style="font-size: 15px;"><span>📁</span> 学習リソース</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">動画で使用した資料をダウンロードいただけます。</p>
+            <button class="btn btn-ghost" style="width: 100%; font-size: 13px; margin-bottom: 12px; justify-content: flex-start;">
+               📥 講義スライド (PDF)
+            </button>
+            <button class="btn btn-ghost" style="width: 100%; font-size: 13px; justify-content: flex-start;">
+               📥 実践チェックシート
+            </button>
+          </div>
+          
+          <div class="notice-box" style="margin-top: 24px; background: #fff8e1; border: 1px solid #ffe082;">
+            <p style="font-size: 12px; color: #795548;">
+              <strong>講師への質問</strong><br>
+              この講義に関するご不明点は、<a href="support.html" style="color: var(--primary);">専用チャット窓口</a>からいつでもご相談ください。
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+</html>

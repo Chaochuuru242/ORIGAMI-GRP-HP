@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>コンテンツ一覧 | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+  <!-- アクセス制御（ログインガード） -->
+  <style>body { display: none; }</style> <!-- 判定中のチラつき防止 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/auth-guard.js"></script>
+</head>
+
+<body class="member-page">
+
+  <div class="member-layout">
+    <!-- Sidebar -->
+    <aside class="member-sidebar">
+      <div style="padding: 0 24px 32px;">
+        <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP</a>
+      </div>
+      <nav class="side-nav">
+        <ul>
+          <li><a href="dashboard.html"><span>🏠</span> ダッシュボード</a></li>
+          <li class="active"><a href="contents.html"><span>📚</span> コンテンツ一覧</a></li>
+          <li><a href="account-billing.html"><span>💳</span> お支払い・プラン</a></li>
+          <li><a href="support.html"><span>💬</span> サポート・FAQ</a></li>
+          <li><a href="profile.html"><span>👤</span> プロフィール設定</a></li>
+          <li style="margin-top: 40px; opacity: 0.5;"><a href="admin.html"><span>⚙️</span> 管理画面 (Admin)</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="member-main-content">
+      <header style="margin-bottom: 40px;">
+        <h1 style="font-size: 24px; font-weight: 800;">コンテンツライブラリ</h1>
+        <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">実践で使えるAIノウハウを体系的に。最新動画は毎週更新。</p>
+      </header>
+
+      <!-- Filter Bar -->
+      <div style="display: flex; gap: 12px; margin-bottom: 32px; overflow-x: auto; padding-bottom: 8px;">
+        <button class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">すべて</button>
+        <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 13px; background: #fff;">ChatGPT</button>
+        <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 13px; background: #fff;">画像生成</button>
+        <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 13px; background: #fff;">自動化ワークフロー</button>
+        <button class="btn btn-ghost" style="padding: 8px 16px; font-size: 13px; background: #fff;">テンプレート</button>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="content-grid">
+        <!-- Item 1 (Unlocked) -->
+        <div class="content-item">
+          <div class="content-thumb">
+            <span style="font-size: 12px; color: var(--text-muted);">動画プレビュー</span>
+          </div>
+          <div class="content-info">
+            <span class="status-badge" style="background: #e8f5e9; color: #2e7d32; margin-bottom: 8px;">視聴可能</span>
+            <h4>【入門】初心者向けChatGPT活用ロードマップ</h4>
+            <p class="content-meta">2026.03.01 | 18分</p>
+            <a href="content-detail.html" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary);">詳細を見る</a>
+          </div>
+        </div>
+
+        <!-- Item 2 (Locked - Premium Only) -->
+        <div class="content-item">
+          <div class="content-thumb">
+            <div class="content-lock">
+              <div style="text-align: center;">
+                <span style="font-size: 20px;">🔒</span>
+                <p style="font-size: 11px; margin-top: 4px; font-weight: 700;">プレミアム専用</p>
+              </div>
+            </div>
+          </div>
+          <div class="content-info">
+            <span class="status-badge free" style="margin-bottom: 8px;">要アップグレード</span>
+            <h4>実案件で使った「最強のプロンプト」全公開</h4>
+            <p class="content-meta">2026.03.10 | 定期配信</p>
+            <a href="account-billing.html" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary);">プランを確認</a>
+          </div>
+        </div>
+
+        <!-- Item 3 (Unlocked) -->
+        <div class="content-item">
+          <div class="content-thumb">
+            <span style="font-size: 12px; color: var(--text-muted);">PDFプレビュー</span>
+          </div>
+          <div class="content-info">
+            <span class="status-badge" style="background: #e8f5e9; color: #2e7d32; margin-bottom: 8px;">視聴可能</span>
+            <h4>[配布資料] 業務効率化ツール比較シート</h4>
+            <p class="content-meta">2026.02.25 | 資料</p>
+            <a href="content-detail.html" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary);">詳細を見る</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+</html>

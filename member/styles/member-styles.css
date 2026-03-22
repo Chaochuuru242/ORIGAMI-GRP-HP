@@ -1,0 +1,592 @@
+/* 
+  member-styles.css
+  ORIGAMI GRP サブスク用拡張スタイル
+  既存 styles.css の後に読み込むことを前提としています。
+*/
+
+/* 
+  1. 既存クラスの微調整 (member- 接頭辞による明示)
+*/
+
+.member-page {
+  background-color: var(--bg-main);
+}
+
+/* 
+  2. 新規定義セクション
+*/
+
+.member-page-header {
+  background: var(--primary-light);
+  padding: 80px 24px 60px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.member-page-header h1 {
+  font-size: 42px;
+  color: var(--primary);
+  margin-bottom: 16px;
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   Member Pages - Shared Styles
+   ========================================================================== */
+
+:root {
+  --primary: #584a7e; /* 既存 ORIGAMI GRP のパープル色を継承 */
+  --primary-light: rgba(88, 74, 126, 0.05);
+  --bg-main: #ffffff;
+  --bg-sub: #fbfbfd;
+  --text-main: #1d1d1f;
+  --text-muted: #86868b;
+  --border: #d2d2d7;
+  --radius: 12px;
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* Base resets & types */
+.member-page {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Myriad Set Pro", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  line-height: 1.6;
+}
+
+/* Layout Utilities */
+.member-section { padding: 80px 0; }
+.member-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+/* Header adjustments */
+.member-header {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Badge (Placeholder) */
+.badge-placeholder {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  background: var(--primary-light);
+  color: var(--primary);
+  margin-left: 8px;
+}
+
+/* Pricing Section Modifications */
+.member-pricing-table { margin-top: 40px; }
+
+/* PC Table Styles */
+.member-p-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+}
+
+.member-p-table th, .member-p-table td {
+  padding: 24px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.member-p-table th {
+  background: var(--bg-sub);
+  font-weight: 800;
+  color: var(--text-main);
+  font-size: 18px;
+}
+
+/* Highlight Cell (Popular Plan etc.) */
+.member-p-table td.highlight, .member-p-table th.highlight {
+  background: var(--primary-light);
+  position: relative;
+}
+
+/* Label/Badge for Recommended */
+.plan-label {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 100px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+/* Card Stack for Mobile (Hide by default on desktop) */
+.member-card-stack { display: none; }
+
+/* Notice Box (Used in pricing and payment notes) */
+.notice-box {
+  background: var(--bg-sub);
+  padding: 32px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  text-align: left;
+  line-height: 1.8;
+  color: var(--text-main);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  /* Hide table on mobile */
+  .member-pricing-table table { display: none; }
+
+  /* Show card stack */
+  .member-card-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-top: 24px;
+  }
+
+  .pricing-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+  }
+
+  .pricing-card.premium {
+    border: 2px solid var(--primary);
+    background: var(--primary-light);
+  }
+
+  .pricing-card .plan-name {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: var(--primary);
+  }
+
+  .pricing-card .price {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 24px;
+  }
+
+  .pricing-card .features-list {
+    text-align: left;
+    margin-bottom: 32px;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .pricing-card .features-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-size: 14px;
+  }
+
+  .pricing-card .features-list li:last-child { border-bottom: none; }
+
+  /* Adjust section spacing for mobile */
+  .member-section { padding: 48px 0; }
+  .member-hero h1 { font-size: 28px; }
+}
+
+/* Auth Pages Styling */
+.member-auth-container {
+  max-width: 480px;
+  margin: 80px auto;
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 48px;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+.form-group-member { margin-bottom: 24px; }
+
+/* News components */
+.member-news-card {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.member-news-date { color: var(--text-muted); font-size: 13px; font-weight: 700; width: 100px; }
+.member-news-title { font-weight: 500; font-size: 15px; }
+
+/* Hero */
+.member-hero {
+  padding: 100px 0;
+  background: linear-gradient(135deg, var(--bg-sub) 0%, #fff 100%);
+  text-align: center;
+}
+.member-hero h1 { font-size: 44px; letter-spacing: -0.02em; margin-bottom: 24px; font-weight: 800; }
+.member-hero .sub { font-size: 18px; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; }
+
+/* CTA Block */
+.member-cta {
+  background: var(--primary);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 64px 40px;
+  text-align: center;
+}
+.member-cta h2 { color: #fff; margin-bottom: 16px; font-size: 32px; font-weight: 800; }
+.member-form-note a {
+  color: var(--primary);
+  text-decoration: underline;
+}
+
+/* FAQリスト (details/summary 拡張) */
+.member-faq-list details {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 8px;
+  transition: all 0.3s ease;
+}
+
+.member-faq-list summary {
+  padding: 12px 16px;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.member-faq-list summary::after {
+  content: '+';
+  font-size: 20px;
+  color: var(--primary);
+}
+
+.member-faq-list details[open] summary::after {
+  content: '-';
+}
+
+.member-faq-list p {
+  padding: 16px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  border-top: 1px solid var(--border);
+}
+
+/* CTAブロック */
+.member-cta {
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 80px 24px;
+  border-radius: var(--radius);
+  margin: 64px 0;
+}
+
+.member-cta h2 {
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+/* Pending Page Styles */
+.pending-container {
+  max-width: 600px;
+  margin: 60px auto;
+  text-align: center;
+  padding: 40px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+}
+
+.pending-icon {
+  width: 80px;
+  height: 80px;
+  background: var(--primary-light);
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 32px;
+  font-size: 32px;
+}
+
+.progress-steps {
+  display: flex;
+  justify-content: space-between;
+  margin: 48px 0;
+  position: relative;
+}
+
+.progress-steps::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+.step {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  padding: 0 10px;
+  text-align: center;
+  width: 33.33%;
+}
+
+.step-number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-sub);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.step.active .step-number {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.step.completed .step-number {
+  background: #e1f5fe;
+  border-color: #03a9f4;
+  color: #03a9f4;
+}
+
+.step-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.step.active .step-label {
+  color: var(--primary);
+}
+
+/* スマホ調整 */
+@media (max-width: 768px) {
+  .member-hero h1 {
+    font-size: 32px;
+  }
+  .member-auth-container {
+    padding: 32px 20px;
+    margin: 40px 20px;
+  }
+  .pending-container {
+    margin: 40px 20px;
+    padding: 32px 20px;
+  }
+}
+
+/* --- Dashboard & Member Layout --- */
+.member-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-sub);
+}
+
+.member-sidebar {
+  width: 260px;
+  background: #fff;
+  border-right: 1px solid var(--border);
+  padding: 32px 0;
+  flex-shrink: 0;
+}
+
+.side-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.side-nav li a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  color: var(--text-main);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.side-nav li a:hover, .side-nav li.active a {
+  background: var(--primary-light);
+  color: var(--primary);
+  border-right: 3px solid var(--primary);
+}
+
+.member-main-content {
+  flex-grow: 1;
+  padding: 40px;
+  max-width: 1200px;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.status-badge.premium { background: #fff8e1; color: #ff8f00; border: 1px solid #ffe082; }
+.status-badge.free { background: #f5f5f5; color: #757575; border: 1px solid #e0e0e0; }
+.status-badge.pending { background: #e3f2fd; color: #1976d2; border: 1px solid #bbdefb; }
+
+/* Dashboard Cards */
+.dash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.dash-card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 24px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.dash-card h3 {
+  font-size: 16px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Content List */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.content-item {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: transform 0.2s;
+}
+
+.content-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.content-thumb {
+  aspect-ratio: 16/9;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.content-lock {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+.content-info {
+  padding: 16px;
+}
+
+.content-info h4 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.content-meta {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Admin Table */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.admin-table th, .admin-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-table th {
+  background: var(--bg-sub);
+  font-size: 13px;
+}
+
+/* Responsive Sidebar */
+@media (max-width: 992px) {
+  .member-layout {
+    flex-direction: column;
+  }
+  .member-sidebar {
+    width: 100%;
+    padding: 12px 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .side-nav ul {
+    display: flex;
+    overflow-x: auto;
+    padding: 0 16px;
+  }
+  .side-nav li a {
+    padding: 8px 16px;
+    white-space: nowrap;
+    border-right: none;
+    border-bottom: 3px solid transparent;
+  }
+  .side-nav li a:hover, .side-nav li.active a {
+    border-right: none;
+    border-bottom: 3px solid var(--primary);
+  }
+  .member-main-content {
+    padding: 24px 16px;
+  }
+}

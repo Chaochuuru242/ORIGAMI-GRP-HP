@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://origami-ai.site/sitemap.xml

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>料金プラン | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+</head>
+
+<body class="member-page">
+
+  <!-- Header -->
+  <header class="header member-header">
+    <div class="inner">
+      <a class="brand" href="index.html">ORIGAMI GRP <span style="font-size: 12px; opacity: 0.7; font-weight: normal;">Member</span></a>
+      <nav class="nav">
+        <a href="../index.html">ブランドTOPへ</a>
+        <a href="index.html">Member Home</a>
+        <a href="pricing.html" style="color: var(--primary);">プラン一覧</a>
+        <a href="faq.html">FAQ</a>
+        <a href="login.html" class="btn btn-ghost" style="padding: 8px 16px; font-size: 13px;">ログイン</a>
+        <a href="register.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">会員登録</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="member-page-header">
+      <div class="container">
+        <h1>料金プラン</h1>
+        <p style="font-size: 18px; color: var(--text-muted);">あなたの本気度と目標に合わせた、3つの実践プラン</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <!-- 案内ボックス -->
+        <div class="notice-box" style="margin-bottom: 40px; border-left: 4px solid var(--primary);">
+          <h3 style="margin-bottom: 8px; font-size: 16px;">お申し込みをご検討の方へ</h3>
+          <p style="font-size: 14px; color: var(--text-muted); margin: 0;">
+            決済完了後、通常24時間以内に運営側で権限付与を行います。反映完了後、会員限定コンテンツをご利用いただけるようになります。
+          </p>
+        </div>
+
+        <div class="member-pricing-table">
+          <!-- PC用比較表 (既存をベースに装飾追加) -->
+          <table class="member-p-table">
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>
+                  <div class="plan-name">ライトプラン</div>
+                </th>
+                <th class="highlight">
+                  <div class="plan-label">おすすめ</div>
+                  <div class="plan-name">スタンダードプラン</div>
+                </th>
+                <th>
+                  <div class="plan-name">プレミアムプラン</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>月額料金 (要確認)</td>
+                <td><span class="price-val">4,980円</span><br><small>(仮)</small></td>
+                <td class="highlight"><span class="price-val">10,000円</span><br><small>(仮)</small></td>
+                <td><span class="price-val">19,800円</span><br><small>(仮)</small></td>
+              </tr>
+              <tr>
+                <td>学習コンテンツ</td>
+                <td>動画教材のみ</td>
+                <td class="highlight">動画教材 ＋ チャット相談</td>
+                <td>動画 ＋ チャット ＋ 個別面談</td>
+              </tr>
+              <tr>
+                <td>サポート形式</td>
+                <td>なし</td>
+                <td class="highlight">講師へのチャット相談</td>
+                <td>専属講師による伴走・面談</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td><a href="register.html" class="btn btn-ghost" data-plan-id="light" style="width:100%; padding: 12px;">詳細を確認して申し込む</a></td>
+                <td class="highlight"><a href="register.html" class="btn btn-primary" data-plan-id="standard" style="width:100%; padding: 12px;">詳細を確認して申し込む</a></td>
+                <td><a href="register.html" class="btn btn-ghost" data-plan-id="premium" style="width:100%; padding: 12px;">詳細を確認して申し込む</a></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- スマホ用カード型スタック (メディアクエリで切り替え) -->
+          <div class="member-card-stack">
+            <!-- Light Plan -->
+            <div class="pricing-card">
+              <div class="plan-name">ライトプラン</div>
+              <div class="price">4,980円<small>(仮)</small></div>
+              <ul class="features-list">
+                <li>全ての動画教材の視聴</li>
+                <li>無制限アクセス</li>
+                <li>実践テンプレート配布</li>
+              </ul>
+              <a href="register.html" class="btn btn-ghost" data-plan-id="light" style="width:100%; padding: 16px;">詳細を確認して申し込む</a>
+            </div>
+
+            <!-- Standard Plan (Highlight) -->
+            <div class="pricing-card premium">
+              <div class="plan-label">おすすめ</div>
+              <div class="plan-name">スタンダードプラン</div>
+              <div class="price">10,000円<small>(仮)</small></div>
+              <ul class="features-list">
+                <li>全ての動画教材の視聴</li>
+                <li>講師へのチャット相談</li>
+                <li>最新活用レポの優先提供</li>
+              </ul>
+              <a href="register.html" class="btn btn-primary" data-plan-id="standard" style="width:100%; padding: 16px;">詳細を確認して申し込む</a>
+            </div>
+
+            <!-- Premium Plan -->
+            <div class="pricing-card">
+              <div class="plan-name">プレミアムプラン</div>
+              <div class="price">19,800円<small>(仮)</small></div>
+              <ul class="features-list">
+                <li>動画視聴・チャット相談</li>
+                <li>講師との個別面談サポート</li>
+                <li>非公開案件のご紹介</li>
+              </ul>
+              <a href="register.html" class="btn btn-ghost" data-plan-id="premium" style="width:100%; padding: 16px;">詳細を確認して申し込む</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- 
+          Phase 3 URL 設定用メモ:
+          確定したペライチの決済URLを href に設定してください。
+          (例: href="https://peraychi.com/..." )
+        -->
+
+        <div class="member-cta" style="margin-top: 64px; background: none; color: inherit; padding: 0;">
+          <p style="font-size: 14px; color: var(--text-muted);">※表示価格は全て税込です。決済にはクレジットカードがご利用いただけます。</p>
+          <p style="font-size: 14px; color: var(--text-muted);">ご不明点は <a href="faq.html">FAQ</a> または <a href="../contact.html">お問い合わせ</a> ください。</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer member-footer">
+    <div class="footer-inner">
+      <div>
+        <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
+        <p class="footer-desc">AIを「稼ぐ力」に変える。会員制伴走支援ポータル。</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Member</h4>
+          <ul>
+            <li><a href="index.html">会員Home</a></li>
+            <li><a href="pricing.html">プラン一覧</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="../contact.html">お問い合わせ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 ORIGAMI GRP. Member System.</div>
+      <div class="footer-legal">
+        <a href="../index.html">ブランドサイトへ戻る</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

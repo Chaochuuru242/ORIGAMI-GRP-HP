@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>お支払い・プラン | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+  <!-- アクセス制御（ログインガード） -->
+  <style>body { display: none; }</style> <!-- 判定中のチラつき防止 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/auth-guard.js"></script>
+</head>
+
+<body class="member-page">
+
+  <div class="member-layout">
+    <!-- Sidebar -->
+    <aside class="member-sidebar">
+      <div style="padding: 0 24px 32px;">
+        <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP</a>
+      </div>
+      <nav class="side-nav">
+        <ul>
+          <li><a href="dashboard.html"><span>🏠</span> ダッシュボード</a></li>
+          <li><a href="contents.html"><span>📚</span> コンテンツ一覧</a></li>
+          <li class="active"><a href="account-billing.html"><span>💳</span> お支払い・プラン</a></li>
+          <li><a href="support.html"><span>💬</span> サポート・FAQ</a></li>
+          <li><a href="profile.html"><span>👤</span> プロフィール設定</a></li>
+          <li style="margin-top: 40px; opacity: 0.5;"><a href="admin.html"><span>⚙️</span> 管理画面 (Admin)</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="member-main-content">
+      <header style="margin-bottom: 40px;">
+        <h1 style="font-size: 24px; font-weight: 800;">お支払い・プラン管理</h1>
+        <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">現在のプランの確認、変更、お支払い情報の管理ができます。</p>
+      </header>
+
+      <div class="dash-grid" style="grid-template-columns: 1fr;">
+        <!-- Current Plan -->
+        <div class="dash-card">
+          <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div>
+              <h3 style="margin-bottom: 8px;">契約中のプラン</h3>
+              <div style="margin-bottom: 24px;">
+                <span class="status-badge premium" style="font-size: 14px; padding: 6px 16px;">スタンダードプラン</span>
+                <p style="margin-top: 12px; font-size: 14px; color: var(--text-main);">月額 10,000円 (税込)</p>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span class="status-badge" style="background: #e8f5e9; color: #2e7d32;">決済完了</span>
+              <p style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">次回更新日: 2026.04.14</p>
+            </div>
+          </div>
+
+          <div style="padding-top: 24px; border-top: 1px solid var(--border); display: flex; gap: 16px;">
+            <a href="pricing.html" class="btn btn-primary" style="padding: 12px 24px; font-size: 13px;">プランを変更・アップグレードする</a>
+            <button class="btn btn-ghost" style="padding: 12px 24px; font-size: 13px;">解約手続きへ</button>
+          </div>
+        </div>
+
+        <!-- Payment Status Sample (Pending) -->
+        <div class="dash-card" style="border-left: 4px solid #1976d2; background: #f0f7ff;">
+          <h3 style="color: #1976d2;"><span>⏳</span> 決済確認中のステータス表示例</h3>
+          <p style="font-size: 14px; margin-bottom: 20px;">
+            現在、プレミアムプランへのお申し込みを運営側で確認中です。反映まで今しばらくお待ちください。
+          </p>
+          <a href="payment-pending.html" class="btn btn-ghost" style="background: #fff; border-color: #1976d2; color: #1976d2; font-size: 12px;">詳細を確認する</a>
+        </div>
+
+        <!-- Billing History -->
+        <div class="dash-card">
+          <h3>請求履歴</h3>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>日付</th>
+                <th>内容</th>
+                <th>金額</th>
+                <th>状態</th>
+              </tr>
+            </thead>
+            <tbody style="font-size: 14px;">
+              <tr>
+                <td>2026.03.14</td>
+                <td>スタンダードプラン (3月分)</td>
+                <td>10,000円</td>
+                <td><span style="color: #2e7d32;">完了</span></td>
+              </tr>
+              <tr>
+                <td>2026.02.14</td>
+                <td>ライトプラン (2月分)</td>
+                <td>4,980円</td>
+                <td><span style="color: #2e7d32;">完了</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+</html>
