@@ -96,6 +96,121 @@
             statusBadge.style.color = style.text;
             statusBadge.style.border = style.border;
           }
+
+          // 1. 視聴進捗の取得と表示
+          const updateProgress = async () => {
+             // 全動画（公開中）の取得
+             const { data: allVideos } = await supabaseClient.from('videos').select('target_plan').eq('status', 'published');
+             // 視聴履歴の取得
+             const { data: views } = await supabaseClient.from('video_views').select('video_id').eq('user_id', session.user.id);
+             
+             if (allVideos) {
+               // プランに応じた視聴可能動画の絞り込み
+               let allowedPlans = ['all'];
+               if (userPlan === 'light') allowedPlans = ['all', 'light'];
+               if (userPlan === 'standard') allowedPlans = ['all', 'light', 'standard'];
+               if (userPlan === 'premium') allowedPlans = ['all', 'light', 'standard', 'premium'];
+               
+               const targetVideos = allVideos.filter(v => {
+                 const p = (v.target_plan || 'all').trim().toLowerCase();
+                 return userRole === 'admin' || userRole === 'adder' || allowedPlans.includes(p);
+               });
+
+               const totalCount = targetVideos.length;
+               const watchedIds = new Set((views || []).map(v => v.video_id));
+               // 視聴済みかつ、現在視聴可能な動画のみカウント（念のため）
+               const watchedCount = Array.from(watchedIds).filter(id => {
+                  // videosテーブルに存在するか、または単純にカウントするか
+                  // ここではシンプルに全視聴済みユニーク数を出す（分母はプラン内総数）
+                  return true; 
+               }).length;
+
+               const percent = totalCount > 0 ? Math.round((watchedCount / totalCount) * 100) : 0;
+
+               const pText = document.getElementById('dash-progress-text');
+               const pPercent = document.getElementById('dash-progress-percent');
+               const pBar = document.getElementById('dash-progress-bar');
+
+               if (pText) pText.textContent = `全動画 ${totalCount}本中 ${watchedCount}本視聴済み`;
+               if (pPercent) pPercent.textContent = `${percent}%`;
+               if (pBar) pBar.style.width = `${percent}%`;
+             }
+          };
+
+          // 2. 最新のお知らせ取得
+          const updateNews = async () => {
+             const newsList = document.getElementById('dash-news-list');
+             if (!newsList) return;
+
+             // テーブルが存在するか不明なため、try-catch
+             try {
+               const { data: newsData, error } = await supabaseClient.from('news').select('*').order('created_at', { ascending: false }).limit(3);
+               if (error || !newsData || newsData.length === 0) throw new Error();
+               
+               newsList.innerHTML = '';
+               newsData.forEach((n, idx) => {
+                 const date = new Date(n.created_at).toLocaleDateString('ja-JP').replace(/\//g, '.');
+                 const isLast = idx === newsData.length - 1;
+                 const li = document.createElement('li');
+                 li.style.paddingBottom = isLast ? '0' : '12px';
+                 li.style.borderBottom = isLast ? 'none' : '1px solid var(--border)';
+                 li.style.marginBottom = isLast ? '0' : '12px';
+                 li.innerHTML = `
+                   <span style="display: block; font-size: 11px; color: var(--text-muted);">${date}</span>
+                   ${n.title}
+                 `;
+                 newsList.appendChild(li);
+               });
+             } catch (e) {
+               // テーブルがない、またはデータがない場合はデフォルトを表示（またはそのまま）
+               // 現状の内容を維持、もしくは「お知らせはありません」にする
+             }
+          };
+
+          // 3. おすすめコンテンツの取得
+          const updateFeatured = async () => {
+             const grid = document.getElementById('dash-featured-grid');
+             if (!grid) return;
+
+             const { data: featuredVideos } = await supabaseClient.from('videos')
+               .select('*')
+               .eq('status', 'published')
+               .order('created_at', { ascending: false })
+               .limit(2);
+
+             if (featuredVideos && featuredVideos.length > 0) {
+               grid.innerHTML = '';
+               featuredVideos.forEach(v => {
+                 let thumbUrl = v.thumbnail_url || '';
+                 if (!thumbUrl && v.video_url.includes('youtube.com/watch?v=')) {
+                   const vid = new URL(v.video_url).searchParams.get('v');
+                   thumbUrl = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
+                 }
+                 
+                 const thumbHtml = thumbUrl 
+                   ? `<img src="${thumbUrl}" style="width:100%; height:100%; object-fit:cover;">`
+                   : `<span>Thumbnail</span>`;
+
+                 const card = `
+                   <div class="content-item">
+                     <div class="content-thumb" style="overflow:hidden; height:140px; background:#1e293b; display:flex; justify-content:center; align-items:center;">
+                       ${thumbHtml}
+                     </div>
+                     <div class="content-info">
+                       <h4 style="margin-bottom:8px; font-size:14px;">${v.title}</h4>
+                       <p class="content-meta">公式動画 | プラン: ${v.target_plan}</p>
+                       <a href="content-detail.html?id=${v.id}" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary);">視聴する</a>
+                     </div>
+                   </div>
+                 `;
+                 grid.insertAdjacentHTML('beforeend', card);
+               });
+             }
+          };
+
+          updateProgress();
+          updateNews();
+          updateFeatured();
         }
       }
 

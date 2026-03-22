@@ -57,11 +57,11 @@
           <h3><span>📈</span> 学習の進捗</h3>
           <div style="margin-bottom: 16px;">
             <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 8px;">
-              <span>全動画 12本中 4本視聴済み</span>
-              <span>33%</span>
+              <span id="dash-progress-text">全動画 --本中 --本視聴済み</span>
+              <span id="dash-progress-percent">0%</span>
             </div>
             <div style="height: 8px; background: var(--bg-sub); border-radius: 4px; overflow: hidden;">
-              <div style="width: 33%; height: 100%; background: var(--primary);"></div>
+              <div id="dash-progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: width 0.5s;"></div>
             </div>
           </div>
           <a href="contents.html" style="font-size: 13px; color: var(--primary); font-weight: 700;">学習を再開する →</a>
@@ -70,7 +70,7 @@
         <!-- Notification Card -->
         <div class="dash-card">
           <h3><span>🔔</span> お知らせ</h3>
-          <ul style="list-style: none; padding: 0; font-size: 14px;">
+          <ul id="dash-news-list" style="list-style: none; padding: 0; font-size: 14px;">
             <li style="padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 12px;">
               <span style="display: block; font-size: 11px; color: var(--text-muted);">2026.03.14</span>
               会員限定プロンプト「SNS運用編」を追加しました
@@ -97,7 +97,7 @@
       <!-- Featured Content -->
       <section style="margin-top: 56px;">
         <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 24px;">おすすめのコンテンツ</h2>
-        <div class="content-grid">
+        <div class="content-grid" id="dash-featured-grid">
           <!-- Content Item -->
           <div class="content-item">
             <div class="content-thumb">
