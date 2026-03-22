@@ -1,5 +1,5 @@
 # ORIGAMI GRP 公式サイト
-
+　
 ORIGAMI GRP の公式Webサイト用リポジトリです。
  
 ---
