@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>動画の登録 | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+  <!-- アクセス制御（ログインガード＋Adderガード） -->
+  <style>body { display: none; }</style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/auth-guard.js"></script>
+</head>
+
+<body class="member-page">
+
+  <div class="member-layout">
+    <!-- Sidebar -->
+    <aside class="member-sidebar">
+      <div style="padding: 0 24px 32px;">
+        <a href="dashboard.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP Member</a>
+      </div>
+      <nav class="side-nav">
+        <ul>
+          <li><a href="dashboard.html"><span>🏠</span> ダッシュボード</a></li>
+          <li><a href="contents.html"><span>📚</span> コンテンツ一覧</a></li>
+          <!-- 登録用（追加者専用）-->
+          <li class="active"><a href="upload.html"><span>🎥</span> 動画の登録</a></li>
+        </ul>
+        <div style="margin-top: 40px; padding: 0 24px;">
+          <a href="#" onclick="window.handleLogout(event)" style="font-size: 13px; color: var(--text-muted); text-decoration: none;">ログアウト</a>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="member-main-content">
+      <header style="margin-bottom: 40px;">
+        <h1 style="font-size: 24px; font-weight: 800;">🎥 新規・共有動画の登録</h1>
+        <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">YouTubeやVimeoの共有リンク（URL）からコンテンツをデータベースに追加します。</p>
+      </header>
+
+      <div class="dash-card" style="max-width: 800px; padding: 40px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
+        <style>
+          .profile-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            background-color: #f8fafc;
+            font-size: 14px;
+            color: #334155;
+            transition: all 0.25s ease;
+            outline: none;
+          }
+          .profile-input:focus {
+            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+          }
+          .profile-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #475569;
+            letter-spacing: 0.02em;
+          }
+          .profile-btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          }
+          .profile-btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #434ce8 100%);
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 12px rgba(67, 76, 232, 0.2);
+          }
+          .profile-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(67, 76, 232, 0.3);
+          }
+        </style>
+
+        <form id="video-upload-form">
+          <div style="display: grid; grid-template-columns: 1fr; gap: 28px; margin-bottom: 40px;">
+            <div class="form-group">
+              <label class="profile-label">動画タイトル <span style="color:#dc3545">*</span></label>
+              <input type="text" id="v-title" class="profile-input" required placeholder="例：第1回 AI基礎概論と心構え">
+            </div>
+
+            <div class="form-group">
+              <label class="profile-label">動画URL (YouTube / Vimeo 等) <span style="color:#dc3545">*</span></label>
+              <input type="url" id="v-url" class="profile-input" required placeholder="https://youtube.com/watch?v=または https://vimeo.com/..." style="font-family: monospace;">
+            </div>
+
+            <div class="form-group">
+              <label class="profile-label">説明文（任意）</label>
+              <textarea id="v-desc" class="profile-input" rows="4" placeholder="動画の概要や補足事項、課題などを入力"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="profile-label">公開対象・視聴権限プラン <span style="color:#dc3545">*</span></label>
+              <select id="v-plan" class="profile-input" required style="cursor: pointer; background: #f9fafb;">
+                <option value="all">全プラン共通（全員見れる）</option>
+                <option value="light">ライトプラン以上</option>
+                <option value="standard">スタンダードプラン以上</option>
+                <option value="premium">プレミアムプラン専用</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="padding-top: 32px; border-top: 1px solid #f1f5f9; display: flex; justify-content: flex-end; gap: 16px;">
+            <button type="submit" class="profile-btn profile-btn-primary" style="width: auto;">申請する</button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // 共通のSupabaseクライアント（すでにauth-guard.jsで初期化されているものを利用する方が良いが、ここでも簡易で宣言）
+      const supabaseUrl = 'https://gfvnnxuupdmbuxejyfck.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmdm5ueHV1cGRtYnV4ZWp5ZmNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MzY3NjAsImV4cCI6MjA4OTExMjc2MH0.Eq0AVSyY9Jy3dxt-RxwQvJcrntX5y3L2dhhcIz9tWnk';
+      const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+      const form = document.getElementById('video-upload-form');
+      
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const title = document.getElementById('v-title').value;
+        const url = document.getElementById('v-url').value;
+        const desc = document.getElementById('v-desc').value;
+        const plan = document.getElementById('v-plan').value;
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = '登録中...';
+
+        // 現在ログインしている自分の情報（誰が追加したか）を取る
+        const { data: { session } } = await client.auth.getSession();
+
+        // videosテーブルへINSERT
+        const { data, error } = await client.from('videos').insert([
+          { 
+            title: title, 
+            video_url: url, 
+            description: desc, 
+            target_plan: plan,
+            created_by: session ? session.user.id : null
+          }
+        ]);
+
+        if (error) {
+          alert('動画の登録に失敗しました。権限が不足しているか、サーバーエラーです。\n自動ログアウトした可能性があります。' + error.message);
+        } else {
+          alert('【成功】動画の公開申請が完了しました。管理者の承認をお待ちください。');
+          form.reset(); // フォームをからっぽに戻す
+        }
+
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Admin 管理画面 | ORIGAMI GRP Member</title>
   <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="./styles/member-styles.css" />
-  <!-- アクセス制御（ログインガード） -->
+  <link rel="stylesheet" href="../member/styles/member-styles.css" />
+  <!-- アクセス制御（Admin専用ログインガード） -->
   <style>body { display: none; }</style> <!-- 判定中のチラつき防止 -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./js/auth-guard.js"></script>
+  <script src="./js/admin-guard.js"></script>
 </head>
 
 <body class="member-page">
@@ -19,13 +19,15 @@
     <!-- Sidebar -->
     <aside class="member-sidebar">
       <div style="padding: 0 24px 32px;">
-        <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP Admin</a>
+        <a href="../index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP Admin</a>
       </div>
       <nav class="side-nav">
         <ul>
-          <li class="active"><a href="admin.html"><span>👥</span> 会員一覧・承認</a></li>
-          <li><a href="dashboard.html"><span>🏠</span> 会員用デモを表示</a></li>
+          <li class="active"><a href="index.html"><span>👥</span> 会員一覧・承認</a></li>
         </ul>
+        <div style="margin-top: 40px; padding: 0 24px;">
+          <a href="#" onclick="window.handleLogout(event)" style="font-size: 13px; color: var(--text-muted); text-decoration: none;">ログアウト</a>
+        </div>
       </nav>
     </aside>
 
