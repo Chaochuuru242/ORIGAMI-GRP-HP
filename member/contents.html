@@ -54,8 +54,8 @@
         <button class="btn btn-ghost filter-btn" data-keyword="デザイン" style="padding: 8px 16px; font-size: 13px; background: #fff;">デザイン・画像</button>
       </div>
 
-      <!-- Content Grid -->
-      <div class="content-grid" id="video-container">
+      <!-- Content Grid Container -->
+      <div id="video-container">
         <p style="color: var(--text-muted); font-size: 14px; padding: 20px;">動画を読み込み中...</p>
       </div>
     </main>
@@ -119,73 +119,99 @@
             return;
           }
 
+          // プラン（コース）ごとのグループ化用
+          const sections = [
+            { id: 'basic', title: '【Basic】全プラン共通コンテンツ', plans: ['all', 'light'], videos: [] },
+            { id: 'standard', title: '【Standard】スタンダードコース専用', plans: ['standard'], videos: [] },
+            { id: 'premium', title: '【Premium】プレミアムコース専用', plans: ['premium'], videos: [] }
+          ];
+
           filtered.forEach(v => {
-            const dateStr = new Date(v.created_at).toLocaleDateString('ja-JP');
             const targetPlan = (v.target_plan || 'all').trim().toLowerCase();
-            const isViewable = isPowerUser || allowedPlans.includes(targetPlan);
-            
-            // プラン表記の日本語化（正規化後の値で判定）
-            let planLabel = '全プラン共通';
-            if (targetPlan === 'standard') planLabel = 'スタンダード';
-            if (targetPlan === 'premium') planLabel = 'プレミアム';
-            
-            // サムネイル画像の動的生成（独自アップロード優先、未設定ならYouTubeから取得）
-            let thumbUrl = v.thumbnail_url || '';
-            let embedUrl = v.video_url || '';
-            if (!thumbUrl && embedUrl.includes('youtube.com/watch?v=')) {
-              try {
-                const vid = new URL(embedUrl).searchParams.get('v');
-                thumbUrl = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
-              } catch(e) {}
-            } else if (!thumbUrl && embedUrl.includes('youtu.be/')) {
-              const vid = embedUrl.split('youtu.be/')[1].split('?')[0];
-              thumbUrl = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
-            }
-            
-            let thumbHtml = '';
-            if (thumbUrl) {
-              const imgStyle = isViewable ? 'transform 0.3s' : 'transform 0.3s, filter 0.3s';
-              const imgFilter = isViewable ? '' : 'filter: blur(2px) grayscale(0.5);';
-              thumbHtml = `<img src="${thumbUrl}" alt="thumbnail" style="width: 100%; height: 100%; object-fit: cover; transition: ${imgStyle}; ${imgFilter}" ${isViewable ? `onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"` : ''}>`;
-              if (!isViewable) {
-                // ロック中のみ「グレーのもや」オーバーレイと鍵アイコンを追加
-                thumbHtml += `
-                  <div style="position:absolute; inset:0; background:rgba(100,116,139,0.4); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); pointer-events:none;"></div>
-                  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:48px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); pointer-events:none;">🔒</div>
-                `;
-              }
-            } else {
-              thumbHtml = `<span style="font-size: 32px;">▶️</span>`;
-            }
+            const section = sections.find(s => s.plans.includes(targetPlan));
+            if (section) section.videos.push(v);
+          });
 
-            let actionHtml = '';
-            if (isViewable) {
-               actionHtml = `
-                 <span class="status-badge" style="background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; margin-bottom: 8px;">視聴可能</span>
-                 <h4 style="margin-bottom:8px; font-size:15px; font-weight:700; color:#0f172a; line-height:1.4;">${v.title}</h4>
-                 <p class="content-meta">${dateStr} | プラン: ${planLabel}</p>
-                 <a href="content-detail.html?id=${v.id}" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary);">詳細・視聴画面へ</a>
-               `;
-            } else {
-               actionHtml = `
-                 <span class="status-badge" style="background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; margin-bottom: 8px;">限定公開コンテンツ</span>
-                 <h4 style="margin-bottom:8px; font-size:15px; font-weight:700; color:#0f172a; line-height:1.4;">🔒 ${v.title}</h4>
-                 <p class="content-meta">${dateStr} | プラン: ${planLabel}</p>
-                 <a href="account-billing.html" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary); text-decoration: underline;">プランをアップグレードする</a>
-               `;
-            }
+          // セクションごとに描画
+          sections.forEach(sec => {
+            if (sec.videos.length === 0) return;
 
-            const cardHtml = `
-              <div class="content-item" style="overflow:hidden; border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.boxShadow='var(--shadow-md)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow=''; this.style.transform=''">
-                <div class="content-thumb" style="display:flex; justify-content:center; align-items:center; background:#1e293b; color:#fff; padding:0; overflow:hidden; position:relative; aspect-ratio: 16/9;">
-                  ${thumbHtml}
-                </div>
-                <div class="content-info">
-                  ${actionHtml}
-                </div>
+            // セクション見出しの追加（親のグリッドがないため、各セクションが独立した行になります）
+            const sectionHeader = `
+              <div style="margin: 32px 0 20px; padding-bottom: 12px; border-bottom: 2px solid var(--primary-light); display: flex; align-items: center; gap: 12px; width: 100%;">
+                <h2 style="font-size: 18px; font-weight: 800; color: var(--primary); margin:0;">${sec.title}</h2>
+                <span style="font-size: 12px; background: var(--bg-sub); padding: 2px 8px; border-radius: 12px; color: var(--text-muted); font-weight:700;">${sec.videos.length}</span>
               </div>
+              <div class="content-grid" id="grid-${sec.id}" style="margin-bottom: 48px;"></div>
             `;
-            container.insertAdjacentHTML('beforeend', cardHtml);
+            container.insertAdjacentHTML('beforeend', sectionHeader);
+            const gridContainer = document.getElementById(`grid-${sec.id}`);
+
+            sec.videos.forEach(v => {
+              const dateStr = new Date(v.created_at).toLocaleDateString('ja-JP');
+              const targetPlan = (v.target_plan || 'all').trim().toLowerCase();
+              const isViewable = isPowerUser || allowedPlans.includes(targetPlan);
+              
+              let planLabel = '全プラン共通';
+              if (targetPlan === 'standard') planLabel = 'スタンダード';
+              if (targetPlan === 'premium') planLabel = 'プレミアム';
+              
+              let thumbUrl = v.thumbnail_url || '';
+              let embedUrl = v.video_url || '';
+              if (!thumbUrl && embedUrl.includes('youtube.com/watch?v=')) {
+                try {
+                  const vid = new URL(embedUrl).searchParams.get('v');
+                  thumbUrl = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
+                } catch(e) {}
+              } else if (!thumbUrl && embedUrl.includes('youtu.be/')) {
+                const vid = embedUrl.split('youtu.be/')[1].split('?')[0];
+                thumbUrl = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
+              }
+              
+              let thumbHtml = '';
+              if (thumbUrl) {
+                const imgStyle = isViewable ? 'transform 0.3s' : 'transform 0.3s, filter 0.3s';
+                const imgFilter = isViewable ? '' : 'filter: blur(2px) grayscale(0.5);';
+                thumbHtml = `<img src="${thumbUrl}" alt="thumbnail" style="width: 100%; height: 100%; object-fit: cover; transition: ${imgStyle}; ${imgFilter}" ${isViewable ? `onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"` : ''}>`;
+                if (!isViewable) {
+                  thumbHtml += `
+                    <div style="position:absolute; inset:0; background:rgba(100,116,139,0.4); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); pointer-events:none;"></div>
+                    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:48px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); pointer-events:none;">🔒</div>
+                  `;
+                }
+              } else {
+                thumbHtml = `<span style="font-size: 32px;">▶️</span>`;
+              }
+
+              let actionHtml = '';
+              if (isViewable) {
+                 actionHtml = `
+                   <span class="status-badge" style="background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; margin-bottom: 8px;">視聴可能</span>
+                   <h4 style="margin-bottom:8px; font-size:15px; font-weight:700; color:#0f172a; line-height:1.4;">${v.title}</h4>
+                   <p class="content-meta">${dateStr} | プラン: ${planLabel}</p>
+                   <a href="content-detail.html?id=${v.id}" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary);">詳細・視聴画面へ</a>
+                 `;
+              } else {
+                 actionHtml = `
+                   <span class="status-badge" style="background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; margin-bottom: 8px;">限定公開コンテンツ</span>
+                   <h4 style="margin-bottom:8px; font-size:15px; font-weight:700; color:#0f172a; line-height:1.4;">🔒 ${v.title}</h4>
+                   <p class="content-meta">${dateStr} | プラン: ${planLabel}</p>
+                   <a href="account-billing.html" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary); text-decoration: underline;">プランをアップグレードする</a>
+                 `;
+              }
+
+              const cardHtml = `
+                <div class="content-item" style="overflow:hidden; border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.boxShadow='var(--shadow-md)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow=''; this.style.transform=''">
+                  <div class="content-thumb" style="display:flex; justify-content:center; align-items:center; background:#1e293b; color:#fff; padding:0; overflow:hidden; position:relative; aspect-ratio: 16/9;">
+                    ${thumbHtml}
+                  </div>
+                  <div class="content-info">
+                    ${actionHtml}
+                  </div>
+                </div>
+              `;
+              gridContainer.insertAdjacentHTML('beforeend', cardHtml);
+            });
           });
         };
 
