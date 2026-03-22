@@ -394,7 +394,8 @@
   }
   .member-auth-container {
     padding: 32px 20px;
-    margin: 40px 20px;
+    margin: 40px auto;
+    width: 100%;
   }
   .pending-container {
     margin: 40px 20px;
@@ -560,6 +561,34 @@
   font-size: 13px;
 }
 
+/* Hamburger Member */
+.hamburger-member {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 24px;
+}
+
+.hamburger-member span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-main);
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.hamburger-member.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.hamburger-member.active span:nth-child(2) { opacity: 0; }
+.hamburger-member.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+.member-sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* Responsive Sidebar */
 @media (max-width: 992px) {
   .member-layout {
@@ -567,24 +596,46 @@
   }
   .member-sidebar {
     width: 100%;
-    padding: 12px 0;
+    padding: 16px 0;
     border-right: none;
     border-bottom: 1px solid var(--border);
+    position: relative; /* For popup menu positioning */
+  }
+  .member-sidebar-header {
+    padding-bottom: 0 !important;
+  }
+  .hamburger-member {
+    display: flex;
+  }
+  .side-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: var(--shadow-md);
+    z-index: 101;
+    border-top: 1px solid var(--border);
+  }
+  .side-nav.active {
+    display: block;
   }
   .side-nav ul {
     display: flex;
-    overflow-x: auto;
-    padding: 0 16px;
+    flex-direction: column;
+    padding: 0;
   }
   .side-nav li a {
-    padding: 8px 16px;
-    white-space: nowrap;
+    padding: 16px 24px;
+    white-space: normal;
     border-right: none;
-    border-bottom: 3px solid transparent;
+    border-bottom: 1px solid var(--border);
   }
   .side-nav li a:hover, .side-nav li.active a {
     border-right: none;
-    border-bottom: 3px solid var(--primary);
+    border-bottom: 1px solid var(--border);
+    background: var(--primary-light);
   }
   .member-main-content {
     padding: 24px 16px;

@@ -18,8 +18,11 @@
   <div class="member-layout">
     <!-- Sidebar -->
     <aside class="member-sidebar">
-      <div style="padding: 0 24px 32px;">
+      <div class="member-sidebar-header" style="padding: 0 24px 32px;">
         <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP</a>
+        <div class="hamburger-member" onclick="this.classList.toggle('active'); document.querySelector('.side-nav').classList.toggle('active');">
+          <span></span><span></span><span></span>
+        </div>
       </div>
       <nav class="side-nav">
         <ul>
@@ -78,14 +81,14 @@
         if (session) {
           const { data: profile } = await client.from('profiles').select('plan, role').eq('id', session.user.id).single();
           if (profile) {
-            currentPlan = profile.plan || 'free';
+            currentPlan = (profile.plan || 'free').trim().toLowerCase();
             if (profile.role === 'admin' || profile.role === 'adder') {
               isPowerUser = true;
             }
           }
         }
 
-        // 閲覧可能プランの階層設定
+        // 閲覧可能プランの階層設定（正規化後の小文字で判定）
         let allowedPlans = ['all'];
         if (currentPlan === 'light') allowedPlans = ['all', 'light'];
         if (currentPlan === 'standard') allowedPlans = ['all', 'light', 'standard'];
@@ -94,11 +97,7 @@
         // DBから動画を取得（公開済み限定）
         let query = client.from('videos').select('*').eq('status', 'published').order('created_at', { ascending: false });
         
-        // admin / adder 以外は自分のプランの動画しか見れない
-        if (!isPowerUser) {
-          query = query.in('target_plan', allowedPlans);
-        }
-
+        // 全ユーザーに全動画を見せるため、target_planでの絞り込みを廃止
         const { data: fetchVideos, error } = await query;
         if (error) throw error;
         
@@ -122,7 +121,13 @@
 
           filtered.forEach(v => {
             const dateStr = new Date(v.created_at).toLocaleDateString('ja-JP');
-            const isViewable = isPowerUser || allowedPlans.includes(v.target_plan);
+            const targetPlan = (v.target_plan || 'all').trim().toLowerCase();
+            const isViewable = isPowerUser || allowedPlans.includes(targetPlan);
+            
+            // プラン表記の日本語化（正規化後の値で判定）
+            let planLabel = '全プラン共通';
+            if (targetPlan === 'standard') planLabel = 'スタンダード';
+            if (targetPlan === 'premium') planLabel = 'プレミアム';
             
             // サムネイル画像の動的生成（独自アップロード優先、未設定ならYouTubeから取得）
             let thumbUrl = v.thumbnail_url || '';
@@ -139,32 +144,40 @@
             
             let thumbHtml = '';
             if (thumbUrl) {
-              thumbHtml = `<img src="${thumbUrl}" alt="thumbnail" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">`;
+              const imgStyle = isViewable ? 'transform 0.3s' : 'transform 0.3s, filter 0.3s';
+              const imgFilter = isViewable ? '' : 'filter: blur(2px) grayscale(0.5);';
+              thumbHtml = `<img src="${thumbUrl}" alt="thumbnail" style="width: 100%; height: 100%; object-fit: cover; transition: ${imgStyle}; ${imgFilter}" ${isViewable ? `onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"` : ''}>`;
+              if (!isViewable) {
+                // ロック中のみ「グレーのもや」オーバーレイと鍵アイコンを追加
+                thumbHtml += `
+                  <div style="position:absolute; inset:0; background:rgba(100,116,139,0.4); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); pointer-events:none;"></div>
+                  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); font-size:48px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.5)); pointer-events:none;">🔒</div>
+                `;
+              }
             } else {
-              // YouTube以外やURLがない場合のフォールバック（デフォルトアイコン）
               thumbHtml = `<span style="font-size: 32px;">▶️</span>`;
             }
 
             let actionHtml = '';
             if (isViewable) {
                actionHtml = `
-                 <span class="status-badge" style="background: #e8f5e9; color: #2e7d32; margin-bottom: 8px;">視聴可能</span>
+                 <span class="status-badge" style="background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; margin-bottom: 8px;">視聴可能</span>
                  <h4 style="margin-bottom:8px; font-size:15px; font-weight:700; color:#0f172a; line-height:1.4;">${v.title}</h4>
-                 <p class="content-meta">${dateStr} | プラン: ${v.target_plan}</p>
+                 <p class="content-meta">${dateStr} | プラン: ${planLabel}</p>
                  <a href="content-detail.html?id=${v.id}" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary);">詳細・視聴画面へ</a>
                `;
             } else {
                actionHtml = `
-                 <span class="status-badge free" style="margin-bottom: 8px;">要アップグレード</span>
-                 <h4 style="margin-bottom:8px; font-size:15px; font-weight:700; color:#0f172a; line-height:1.4;">${v.title}</h4>
-                 <p class="content-meta">${dateStr} | プラン: ${v.target_plan}</p>
-                 <a href="account-billing.html" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: #94a3b8;">プランを確認する</a>
+                 <span class="status-badge" style="background: #f8fafc; color: #64748b; border: 1px solid #e2e8f0; margin-bottom: 8px;">限定公開コンテンツ</span>
+                 <h4 style="margin-bottom:8px; font-size:15px; font-weight:700; color:#0f172a; line-height:1.4;">🔒 ${v.title}</h4>
+                 <p class="content-meta">${dateStr} | プラン: ${planLabel}</p>
+                 <a href="account-billing.html" style="display: block; margin-top: 12px; font-size: 13px; font-weight: 700; color: var(--primary); text-decoration: underline;">プランをアップグレードする</a>
                `;
             }
 
             const cardHtml = `
-              <div class="content-item" style="overflow:hidden;">
-                <div class="content-thumb" style="display:flex; justify-content:center; align-items:center; background:#1e293b; color:#fff; padding:0; overflow:hidden;">
+              <div class="content-item" style="overflow:hidden; border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s;" onmouseover="this.style.boxShadow='var(--shadow-md)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow=''; this.style.transform=''">
+                <div class="content-thumb" style="display:flex; justify-content:center; align-items:center; background:#1e293b; color:#fff; padding:0; overflow:hidden; position:relative; aspect-ratio: 16/9;">
                   ${thumbHtml}
                 </div>
                 <div class="content-info">

@@ -18,8 +18,11 @@
   <div class="member-layout">
     <!-- Sidebar -->
     <aside class="member-sidebar">
-      <div style="padding: 0 24px 32px;">
+      <div class="member-sidebar-header" style="padding: 0 24px 32px;">
         <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP</a>
+        <div class="hamburger-member" onclick="this.classList.toggle('active'); document.querySelector('.side-nav').classList.toggle('active');">
+          <span></span><span></span><span></span>
+        </div>
       </div>
       <nav class="side-nav">
         <ul>
@@ -107,7 +110,7 @@
         if (session) {
           const { data: profile } = await client.from('profiles').select('plan, role').eq('id', session.user.id).single();
           if (profile) {
-            currentPlan = profile.plan || 'free';
+            currentPlan = (profile.plan || 'free').trim().toLowerCase();
             if (profile.role === 'admin' || profile.role === 'adder') isPowerUser = true;
           }
         }
@@ -126,8 +129,9 @@
 
         if (error || !video) throw new Error('動画が見つかりません');
 
-        // プラン判定によるブロック
-        if (!isPowerUser && !allowedPlans.includes(video.target_plan)) {
+        // プラン判定によるブロック（正規化して比較）
+        const videoPlan = (video.target_plan || 'all').trim().toLowerCase();
+        if (!isPowerUser && !allowedPlans.includes(videoPlan)) {
           document.querySelector('.member-main-content').innerHTML = '<p style="padding:40px; font-weight:bold;">この動画を視聴するにはプランのアップグレードが必要です。</p><a href="account-billing.html" class="btn btn-primary" style="margin-left:40px;">プランを確認する</a>';
           return;
         }

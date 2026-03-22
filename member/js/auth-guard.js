@@ -45,7 +45,7 @@
 
       // ★ 今後の動画出し分け・権限判定用ロジックの下準備（プラン情報の取得・保持） ★
       // 'light', 'standard', 'premium'（未課金は'free'）などの値が入る想定
-      const userPlan = profile?.plan || 'free';
+      const userPlan = (profile?.plan || 'free').trim().toLowerCase();
       window.currentUserPlan = userPlan; // 他のJavaScriptからも簡単に自分のプランを参照できるようにする
 
       // ★ プロフィール未設定者に対する強制遷移処理 ★

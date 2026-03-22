@@ -17,8 +17,11 @@
   <div class="member-layout">
     <!-- Sidebar -->
     <aside class="member-sidebar">
-      <div style="padding: 0 24px 32px;">
+      <div class="member-sidebar-header" style="padding: 0 24px 32px;">
         <a href="dashboard.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP Member</a>
+        <div class="hamburger-member" onclick="this.classList.toggle('active'); document.querySelector('.side-nav').classList.toggle('active');">
+          <span></span><span></span><span></span>
+        </div>
       </div>
       <nav class="side-nav">
         <ul>
