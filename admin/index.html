@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin 管理画面 | ORIGAMI GRP Member</title>
+  <title>Admin 管理システム | ORIGAMI GRP</title>
   <link rel="stylesheet" href="../styles.css" />
   <link rel="stylesheet" href="../member/styles/member-styles.css" />
-  <!-- アクセス制御（Admin専用ログインガード） -->
-  <style>body { display: none; }</style> <!-- 判定中のチラつき防止 -->
+  <!-- 画面のチラつき防止・Adminガード -->
+  <style>body { display: none; }</style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./js/admin-guard.js"></script>
+  
+  <style>
+    /* 追加のAdmin専用スタイル */
+    .admin-btn { padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer; border: none; font-weight: 700; display: inline-block; transition: opacity 0.2s; }
+    .admin-btn:hover { opacity: 0.8; }
+    .admin-btn-success { background: #10b981; color: white; }
+    .admin-btn-danger { background: #ef4444; color: white; }
+    .admin-btn-save { background: var(--primary); color: white; }
+    
+    .plan-select { padding: 6px 10px; font-size: 13px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; background: white; cursor: pointer;}
+    .plan-select:focus { border-color: var(--primary); }
+    
+    .admin-table th { background: #f8fafc; font-weight: 800; color: #475569; font-size: 13px; padding: 14px 24px; border-bottom: 2px solid #e2e8f0; }
+    .admin-table td { padding: 16px 24px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+  </style>
 </head>
 
 <body class="member-page">
@@ -19,11 +33,17 @@
     <!-- Sidebar -->
     <aside class="member-sidebar">
       <div style="padding: 0 24px 32px;">
-        <a href="../index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP Admin</a>
+        <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP Admin</a>
       </div>
       <nav class="side-nav">
         <ul>
-          <li class="active"><a href="index.html"><span>👥</span> 会員一覧・承認</a></li>
+          <li id="menu-members" class="active"><a href="#" onclick="switchTab('members'); return false;"><span>👥</span> ユーザー管理・お支払い</a></li>
+          <li id="menu-manage"><a href="#" onclick="switchTab('manage'); return false;"><span>📁</span> コンテンツ・コース管理</a></li>
+          <li id="menu-analytics"><a href="#" onclick="switchTab('analytics'); return false;"><span>📈</span> 視聴・DL履歴 (分析)</a></li>
+          <li id="menu-videos"><a href="#" onclick="switchTab('videos'); return false;">
+            <span>🎥</span> 動画コンテンツの承認
+            <span id="pending-badge" style="background:#ef4444; color:white; border-radius:50%; padding:2px 6px; font-size:11px; display:none; margin-left: 8px;">0</span>
+          </a></li>
         </ul>
         <div style="margin-top: 40px; padding: 0 24px;">
           <a href="#" onclick="window.handleLogout(event)" style="font-size: 13px; color: var(--text-muted); text-decoration: none;">ログアウト</a>
@@ -33,80 +53,621 @@
 
     <!-- Main Content -->
     <main class="member-main-content">
-      <header style="margin-bottom: 40px;">
-        <h1 style="font-size: 24px; font-weight: 800;">会員管理・手動承認</h1>
-        <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">決済済みユーザーの権限付与、ステータス変更を行います。</p>
-      </header>
+      
+      <!-- MEMBERS VIEW (会員と支払いの自動管理エリア) -->
+      <div id="view-members">
+        <header style="margin-bottom: 40px;">
+          <h1 style="font-size: 24px; font-weight: 800;">ユーザーの権限・お支払いプラン管理</h1>
+          <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">各ユーザーの支払い状況（現在のプラン）や、動画追加権限（Role）の確認・変更を行います。</p>
+        </header>
 
-      <!-- Stats Summary -->
-      <div style="display: flex; gap: 24px; margin-bottom: 32px;">
-        <div class="dash-card" style="flex: 1; padding: 16px 24px;">
-          <p style="font-size: 12px; color: var(--text-muted);">総会員数</p>
-          <p style="font-size: 24px; font-weight: 800;">128 名</p>
-        </div>
-        <div class="dash-card" style="flex: 1; padding: 16px 24px; border-left: 4px solid #1976d2;">
-          <p style="font-size: 12px; color: var(--text-muted);">承認待ち (manual_review)</p>
-          <p style="font-size: 24px; font-weight: 800; color: #1976d2;">3 名</p>
-        </div>
-        <div class="dash-card" style="flex: 1; padding: 16px 24px;">
-          <p style="font-size: 12px; color: var(--text-muted);">プレミアム会員 (paid)</p>
-          <p style="font-size: 24px; font-weight: 800; color: #ff8f00;">45 名</p>
+        <div class="dash-card" style="padding: 0; overflow: hidden; overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
+          <table class="admin-table" style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>氏名 / 登録日</th>
+                <th>メールアドレス</th>
+                <th>権限 (Role)</th>
+                <th>現在の支払いプラン</th>
+              </tr>
+            </thead>
+            <tbody id="members-tbody" style="font-size: 14px;">
+              <tr><td colspan="4" style="padding: 24px; text-align:center; color: #94a3b8;">ユーザー情報を読み込み中...</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- Member Table -->
-      <div class="dash-card" style="padding: 0; overflow: hidden;">
-        <table class="admin-table">
-          <thead>
-            <tr>
-              <th>ID / 名称</th>
-              <th>プラン</th>
-              <th>ステータス</th>
-              <th>登録日</th>
-              <th>操作</th>
-            </tr>
-          </thead>
-          <tbody style="font-size: 13px;">
-            <!-- Pending Item -->
-            <tr style="background: #f0f7ff;">
-              <td>#00128<br><strong>佐藤 健一</strong><br><small>satoh@example.com</small></td>
-              <td>スタンダード</td>
-              <td><span class="status-badge pending">承認待ち</span></td>
-              <td>2026.03.14 10:20</td>
-              <td>
-                <button class="btn btn-primary" style="font-size: 11px; padding: 4px 12px;">✅ 承認して Paid へ</button>
-              </td>
-            </tr>
-            <!-- Paid Item -->
-            <tr>
-              <td>#00127<br><strong>鈴木 舞</strong><br><small>mai.s@example.com</small></td>
-              <td>プレミアム</td>
-              <td><span class="status-badge premium">Paid</span></td>
-              <td>2026.03.13 15:45</td>
-              <td>
-                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 12px;">プラン変更</button>
-              </td>
-            </tr>
-            <!-- Free Item -->
-            <tr>
-              <td>#00126<br><strong>田中 太郎</strong><br><small>tanaka@example.com</small></td>
-              <td>ライト (Free)</td>
-              <td><span class="status-badge free">未決済</span></td>
-              <td>2026.03.12 09:12</td>
-              <td>
-                <button class="btn btn-ghost" style="font-size: 11px; padding: 4px 12px;">詳細</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- MANAGE VIEW (コンテンツ・コース管理) -->
+      <div id="view-manage" style="display: none;">
+        <header style="margin-bottom: 40px;">
+          <h1 style="font-size: 24px; font-weight: 800;">コンテンツ・コース構成管理</h1>
+          <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">各プラン（コース）ごとに、どの動画が公開されているかを視覚的にわかりやすく確認できます。</p>
+        </header>
+
+        <div id="manage-containers">
+           <div style="padding: 40px; text-align: center; color: #94a3b8;">読み込み中...</div>
+        </div>
       </div>
 
-      <div style="margin-top: 24px; text-align: center;">
-        <p style="font-size: 12px; color: var(--text-muted);">※Supabase Dashboard で直接 `profiles` テーブルを編集するのと同等の操作を想定しています。</p>
+      <!-- ANALYTICS VIEW (トラッキング履歴) -->
+      <div id="view-analytics" style="display: none;">
+        <header style="margin-bottom: 40px;">
+          <h1 style="font-size: 24px; font-weight: 800;">視聴・ダウンロード トラッキング（分析）</h1>
+          <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">最新の全体ログ、または特定のユーザーごとに絞り込んでアクティビティ履歴を確認できます。</p>
+        </header>
+
+        <!-- ユーザー絞り込み用フィルター -->
+        <div style="margin-bottom: 32px; background: #f8fafc; padding: 16px 24px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 16px;">
+          <strong style="font-size: 14px; color: #475569;">👤 ユーザーで絞り込む：</strong>
+          <select id="analytics-user-filter" onchange="loadAnalytics(this.value)" class="plan-select" style="min-width: 200px;">
+            <option value="">すべて（全体の一覧を表示）</option>
+            <!-- JSでユーザーリストを動的生成 -->
+          </select>
+        </div>
+
+        <h3 style="font-size: 16px; margin-bottom: 16px;">▶️ 動画視聴履歴</h3>
+        <div class="dash-card" style="padding: 0; overflow: hidden; overflow-x: auto; margin-bottom: 40px; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
+          <table class="admin-table" style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>視聴日時</th>
+                <th>視聴したユーザー名</th>
+                <th>動画タイトル</th>
+              </tr>
+            </thead>
+            <tbody id="views-tbody" style="font-size: 14px;">
+              <tr><td colspan="3" style="padding: 24px; text-align:center; color: #94a3b8;">読み込み中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 16px; margin-bottom: 16px;">📥 最近の資料ダウンロード履歴</h3>
+        <div class="dash-card" style="padding: 0; overflow: hidden; overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
+          <table class="admin-table" style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>ダウンロード日時</th>
+                <th>ユーザー名</th>
+                <th>動画タイトル</th>
+                <th>ダウンロード資料の種類</th>
+              </tr>
+            </thead>
+            <tbody id="downloads-tbody" style="font-size: 14px;">
+               <tr><td colspan="4" style="padding: 24px; text-align:center; color: #94a3b8;">読み込み中...</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      <!-- VIDEOS APPROVAL VIEW (動画承認エリア) -->
+      <div id="view-videos" style="display: none;">
+        <header style="margin-bottom: 40px;">
+          <h1 style="font-size: 24px; font-weight: 800;">動画コンテンツの承認・公開</h1>
+          <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">担当者（Adder）から申請・アップロードされた動画の内容を確認し、一般会員へ公開するための承認を行います。</p>
+        </header>
+
+        <div class="dash-card" style="padding: 0; overflow: hidden; overflow-x: auto; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
+          <table class="admin-table" style="width: 100%; text-align: left; border-collapse: collapse;">
+            <thead>
+              <tr>
+                <th>申請日</th>
+                <th>動画タイトル</th>
+                <th>公開対象プラン</th>
+                <th>プレビュー（リンク）</th>
+                <th style="text-align: right;">アクション</th>
+              </tr>
+            </thead>
+            <tbody id="videos-tbody" style="font-size: 14px;">
+              <tr><td colspan="5" style="padding: 24px; text-align:center; color: #94a3b8;">現在、承認待ちの動画はありません</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </main>
   </div>
 
-</body>
+  <!-- 動画編集モーダル -->
+  <div id="video-edit-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div style="background: #fff; width: 600px; max-width: 90%; max-height: 90vh; overflow-y: auto; border-radius: 12px; padding: 32px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);">
+      <h2 style="font-size: 20px; font-weight: 800; margin-bottom: 24px;">動画コンテンツの編集</h2>
+      <input type="hidden" id="edit-video-id">
+      
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px;">タイトル</label>
+        <input type="text" id="edit-title" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+      </div>
+      
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px;">動画URL</label>
+        <input type="text" id="edit-video-url" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+      </div>
 
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px;">オリジナルサムネイル (任意)</label>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="edit-thumbnail-url" placeholder="画像URL（未設定の場合はYouTubeから自動取得）" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+          <label class="admin-btn" style="padding:10px 16px; cursor:pointer; flex-shrink:0; background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;">
+            画像をUP <input type="file" id="edit-thumbnail-file" accept="image/jpeg, image/png" style="display:none;" onchange="uploadAdminThumbnail()">
+          </label>
+        </div>
+        <p id="edit-thumb-msg" style="font-size:12px; margin-top:4px; font-weight:bold; display:none;"></p>
+      </div>
+      
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px;">対象プラン</label>
+        <select id="edit-plan" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+          <option value="all">全プラン共通 (無料含む)</option>
+          <option value="light">ライト以上</option>
+          <option value="standard">スタンダード以上</option>
+          <option value="premium">プレミアム専用</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px;">公開状態</label>
+        <select id="edit-status" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+          <option value="published">公開中</option>
+          <option value="pending">非公開 (承認待ちへ戻す)</option>
+        </select>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px;">概要の説明</label>
+        <textarea id="edit-desc" rows="3" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;"></textarea>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 16px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px;">講義内容の詳細</label>
+        <textarea id="edit-content" rows="6" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;"></textarea>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 24px;">
+        <label style="display:block; font-size:13px; font-weight:700; margin-bottom:8px;">ダウンロード資料URL等</label>
+        <input type="text" id="edit-learning" placeholder="講義スライドのURL (任意)" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; margin-bottom:8px;">
+        <input type="text" id="edit-practice" placeholder="実践チェックシートのURL (任意)" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px;">
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: flex-end;">
+        <button onclick="closeEditModal()" class="btn btn-ghost" style="padding:10px 24px; border:1px solid #cbd5e1;">キャンセル</button>
+        <button onclick="saveEditModal(event)" class="btn btn-primary" style="padding:10px 24px;">保存する</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 共通の Supabase 接続
+    const supabaseUrl = 'https://gfvnnxuupdmbuxejyfck.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmdm5ueHV1cGRtYnV4ZWp5ZmNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MzY3NjAsImV4cCI6MjA4OTExMjc2MH0.Eq0AVSyY9Jy3dxt-RxwQvJcrntX5y3L2dhhcIz9tWnk';
+    const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    // 画面ロード時に自動で全てリストを裏で取得する
+    document.addEventListener('DOMContentLoaded', () => {
+      loadMembers();
+      loadPendingVideos();
+      loadManageContents();
+      loadAnalytics();
+    });
+
+    // タブ（メニュー）切り替えロジック
+    window.switchTab = function(tabName) {
+      document.getElementById('view-members').style.display = tabName === 'members' ? 'block' : 'none';
+      document.getElementById('view-manage').style.display = tabName === 'manage' ? 'block' : 'none';
+      document.getElementById('view-analytics').style.display = tabName === 'analytics' ? 'block' : 'none';
+      document.getElementById('view-videos').style.display = tabName === 'videos' ? 'block' : 'none';
+      
+      document.getElementById('menu-members').className = tabName === 'members' ? 'active' : '';
+      document.getElementById('menu-manage').className = tabName === 'manage' ? 'active' : '';
+      document.getElementById('menu-analytics').className = tabName === 'analytics' ? 'active' : '';
+      document.getElementById('menu-videos').className = tabName === 'videos' ? 'active' : '';
+    };
+
+    // ==========================================
+    // 1. ユーザー（会員）管理機能
+    // ==========================================
+    async function loadMembers() {
+      // 登録日の新しい順にプロフィールを全取得
+      const { data, error } = await client.from('profiles').select('*').order('created_at', { ascending: false });
+      const tbody = document.getElementById('members-tbody');
+      
+      if (error) { 
+        tbody.innerHTML = `<tr><td colspan="4" style="color:red; text-align:center;">エラー: ${error.message}</td></tr>`; 
+        return; 
+      }
+      
+      tbody.innerHTML = '';
+      data.forEach(user => {
+        const tr = document.createElement('tr');
+        
+        // プラン選択用のHTML生成
+        const isFree = user.plan === 'free' ? 'selected' : '';
+        const isLight = user.plan === 'light' ? 'selected' : '';
+        const isStd = user.plan === 'standard' ? 'selected' : '';
+        const isPrem = user.plan === 'premium' ? 'selected' : '';
+
+        // Role(権限)選択用のHTML生成
+        const sUser = user.role === 'user' ? 'selected' : '';
+        const sAdder = user.role === 'adder' ? 'selected' : '';
+
+        tr.innerHTML = `
+          <td><strong style="color: #0f172a;">${user.full_name}</strong><br><span style="font-size:11px;color:#64748b;">${new Date(user.created_at).toLocaleDateString()}</span></td>
+          <td style="color: #475569;">${user.email}</td>
+          <td>
+            <select id="role-${user.id}" class="plan-select" style="margin-right: 4px;">
+              <option value="user" ${sUser}>一般会員 (User)</option>
+              <option value="adder" ${sAdder}>動画追加者 (Adder)</option>
+            </select>
+          </td>
+          <td>
+            <select id="plan-${user.id}" class="plan-select" style="margin-right: 8px; width: 140px;">
+              <option value="free" ${isFree}>未課金 (Free)</option>
+              <option value="light" ${isLight}>ライトプラン</option>
+              <option value="standard" ${isStd}>スタンダード</option>
+              <option value="premium" ${isPrem}>プレミアム</option>
+            </select>
+            <button onclick="updateUserProfile('${user.id}', event)" class="admin-btn admin-btn-save">更新</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // ユーザー情報のUPDATE実行関数
+    window.updateUserProfile = async function(userId, event) {
+      const newPlan = document.getElementById(`plan-${userId}`).value;
+      const newRole = document.getElementById(`role-${userId}`).value;
+      const btn = event.target;
+      
+      btn.textContent = '更新中...';
+      btn.disabled = true;
+
+      const { error } = await client.from('profiles').update({ plan: newPlan, role: newRole }).eq('id', userId);
+      
+      if (error) { 
+        alert('更新失敗: データベースへの権限がないかエラーです。\n' + error.message); 
+      } else { 
+        alert('✅ ご指定のユーザーのプランと権限を更新（保存）しました！'); 
+      }
+      
+      btn.textContent = '更新';
+      btn.disabled = false;
+    };
+
+
+    // ==========================================
+    // 2. 動画コンテンツ承認機能
+    // ==========================================
+    async function loadPendingVideos() {
+      // status が 'pending' (承認待ち) の動画だけを取得する
+      const { data, error } = await client.from('videos').select('*').eq('status', 'pending').order('created_at', { ascending: false });
+      const tbody = document.getElementById('videos-tbody');
+      const badge = document.getElementById('pending-badge');
+
+      if (error) { 
+        tbody.innerHTML = `<tr><td colspan="5" style="color:red; text-align:center;">エラー: ${error.message}</td></tr>`; 
+        return; 
+      }
+      
+      if (data.length > 0) {
+        // メニューの赤いバッジ（未承認の数）を表示
+        badge.textContent = data.length;
+        badge.style.display = 'inline-block';
+        
+        tbody.innerHTML = '';
+        data.forEach(v => {
+          const tr = document.createElement('tr');
+          
+          let planText = '全プラン共通';
+          if(v.target_plan === 'light') planText = 'ライト以上';
+          if(v.target_plan === 'standard') planText = 'スタンダード以上';
+          if(v.target_plan === 'premium') planText = 'プレミアム専用';
+
+          tr.innerHTML = `
+            <td style="color:#64748b;">${new Date(v.created_at).toLocaleDateString()}</td>
+            <td><strong style="color:var(--primary);">${v.title}</strong></td>
+            <td><span style="background:#f1f5f9; padding:4px 8px; border-radius:6px; font-size:12px; font-weight:700; color:#475569;">${planText}</span></td>
+            <td><a href="${v.video_url}" target="_blank" style="color:#3b82f6; text-decoration:underline;">リンクを開く↗</a></td>
+            <td style="text-align: right;">
+              <button onclick="approveVideo('${v.id}', event)" class="admin-btn admin-btn-success" style="margin-right:4px;">⭕ 承認公開</button>
+              <button onclick="rejectVideo('${v.id}', event)" class="admin-btn admin-btn-danger">❌ 却下(削除)</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } else {
+        // なければバッジを隠す
+        badge.style.display = 'none';
+        tbody.innerHTML = `<tr><td colspan="5" style="padding: 24px; text-align:center; color: #94a3b8;">現在、承認待ちの動画はありません</td></tr>`;
+      }
+    }
+
+    // 動画を「公開（published）」に変更する関数
+    window.approveVideo = async function(videoId, event) {
+      if(!confirm('この動画を承認し、メンバーサイトに公開しますか？')) return;
+      event.target.textContent = '処理中...';
+      
+      const { error } = await client.from('videos').update({ status: 'published' }).eq('id', videoId);
+      
+      if (error) {
+        alert('エラー: ' + error.message);
+      } else {
+        loadPendingVideos(); // 表を再読み込みして消す
+      }
+    };
+
+    // 動画を却下（データベースから削除）する関数
+    window.rejectVideo = async function(videoId, event) {
+      if(!confirm('本当に却下しますか？申請された動画データはデータベースから完全に削除されます。')) return;
+      event.target.textContent = '削除中...';
+      
+      const { error } = await client.from('videos').delete().eq('id', videoId);
+      
+      if (error) {
+        alert('エラー: ' + error.message);
+      } else {
+        loadPendingVideos(); // 表を再読み込みして消す
+      }
+    };
+
+
+    // ==========================================
+    // 3. コンテンツ・コース構成管理機能
+    // ==========================================
+    async function loadManageContents() {
+      const { data, error } = await client.from('videos').select('*').order('created_at', { ascending: false });
+      const container = document.getElementById('manage-containers');
+      if (error) { container.innerHTML = `<div style="color:red; padding:20px;">エラー: ${error.message}</div>`; return; }
+      
+      if (!data || data.length === 0) {
+        container.innerHTML = `<div style="padding: 40px; text-align: center; color: #94a3b8;">現在登録されている動画はありません。</div>`;
+        return;
+      }
+
+      // プランごとに分類とテーマカラー設定
+      const plans = {
+        'premium': { label: '👑 プレミアム専用コース', color: '#fef3c7', textColor: '#b45309', items: [] },
+        'standard': { label: '🏢 スタンダードコース以上', color: '#e0e7ff', textColor: '#4338ca', items: [] },
+        'light': { label: '⚡ ライトコース以上', color: '#dcfce7', textColor: '#15803d', items: [] },
+        'all': { label: '🌱 全プラン共通 (無料含む)', color: '#f1f5f9', textColor: '#475569', items: [] }
+      };
+
+      data.forEach(v => {
+        if (plans[v.target_plan]) {
+          plans[v.target_plan].items.push(v);
+        } else {
+          plans['all'].items.push(v);
+        }
+      });
+
+      container.innerHTML = '';
+      
+      // 各プランのHTMLブロックを生成して並べる
+      for (const [key, planData] of Object.entries(plans)) {
+        if (planData.items.length === 0) continue;
+
+        let rowsHtml = '';
+        planData.items.forEach(v => {
+          let stBadge = v.status === 'published' ? '<span style="color:#10b981;font-weight:700;">🟢 公開中</span>' : '<span style="color:#f59e0b;font-weight:700;">🟡 承認待ち</span>';
+          rowsHtml += `
+            <tr>
+              <td><strong style="color:var(--text-main); font-size: 14px;">${v.title}</strong></td>
+              <td style="color:#64748b; font-size: 13px;">${new Date(v.created_at).toLocaleDateString('ja-JP')}</td>
+              <td>${stBadge}</td>
+              <td style="text-align: right;">
+                <button onclick="openEditModal('${v.id}')" class="admin-btn" style="background:#e2e8f0; color:#475569;">✏️ 編集</button>
+              </td>
+            </tr>
+          `;
+        });
+
+        const blockHtml = `
+          <div style="margin-bottom: 48px;">
+            <div style="background: ${planData.color}; color: ${planData.textColor}; padding: 12px 24px; border-radius: 8px 8px 0 0; font-weight: 800; font-size: 16px; display: flex; justify-content: space-between; align-items: center;">
+              <span>${planData.label}</span>
+              <span style="font-size: 13px; font-weight: 700; background: rgba(255,255,255,0.5); padding: 4px 12px; border-radius: 20px;">計 ${planData.items.length} 本</span>
+            </div>
+            <div class="dash-card" style="padding: 0; overflow: hidden; border-radius: 0 0 8px 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+              <table class="admin-table" style="width: 100%; text-align: left; border-collapse: collapse;">
+                <thead>
+                  <tr>
+                    <th style="width: 50%;">動画タイトル</th>
+                    <th>登録日</th>
+                    <th>状態</th>
+                    <th style="text-align: right;">アクション</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${rowsHtml}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', blockHtml);
+      }
+    }
+
+
+    // --- 編集モーダル関連の処理 ---
+    window.openEditModal = async function(videoId) {
+      const modal = document.getElementById('video-edit-modal');
+      const { data, error } = await client.from('videos').select('*').eq('id', videoId).single();
+      
+      if(error || !data) {
+        alert('動画情報の取得に失敗しました: ' + (error ? error.message : ''));
+        return;
+      }
+
+      // 値のセット
+      document.getElementById('edit-video-id').value = data.id;
+      document.getElementById('edit-title').value = data.title || '';
+      document.getElementById('edit-video-url').value = data.video_url || '';
+      document.getElementById('edit-thumbnail-url').value = data.thumbnail_url || '';
+      document.getElementById('edit-plan').value = data.target_plan || 'all';
+      document.getElementById('edit-status').value = data.status || 'pending';
+      document.getElementById('edit-desc').value = data.description || '';
+      document.getElementById('edit-content').value = data.content_details || '';
+      document.getElementById('edit-learning').value = data.learning_materials || '';
+      document.getElementById('edit-practice').value = data.practice_checks || '';
+
+      // モーダル表示
+      modal.style.display = 'flex';
+    };
+
+    window.closeEditModal = function() {
+      document.getElementById('video-edit-modal').style.display = 'none';
+      document.getElementById('edit-video-id').value = '';
+    };
+
+    window.uploadAdminThumbnail = async function() {
+      const fileInput = document.getElementById('edit-thumbnail-file');
+      const file = fileInput.files[0];
+      if (!file) return;
+
+      const msg = document.getElementById('edit-thumb-msg');
+      msg.style.display = 'block';
+      msg.style.color = '#475569';
+      msg.textContent = '画像をサーバーへアップロード中...';
+
+      const fileExt = file.name.split('.').pop();
+      const fileName = `thumb_admin_${Date.now()}.${fileExt}`;
+      const filePath = `thumbnails/${fileName}`;
+      
+      const { error: uploadError } = await client.storage
+        .from('video_materials')
+        .upload(filePath, file);
+      
+      if (uploadError) {
+        msg.style.color = '#ef4444';
+        msg.textContent = 'エラー: ' + uploadError.message;
+        return;
+      }
+      
+      const { data: publicUrlData } = client.storage.from('video_materials').getPublicUrl(filePath);
+      document.getElementById('edit-thumbnail-url').value = publicUrlData.publicUrl;
+      msg.style.color = '#10b981';
+      msg.textContent = '✅ アップロード完了！保存ボタンを押して確定してください。';
+    };
+
+    window.saveEditModal = async function(event) {
+      const btn = event.target;
+      const originalText = btn.textContent;
+      btn.textContent = '保存中...';
+      btn.disabled = true;
+
+      const videoId = document.getElementById('edit-video-id').value;
+      const updateData = {
+        title: document.getElementById('edit-title').value,
+        video_url: document.getElementById('edit-video-url').value,
+        thumbnail_url: document.getElementById('edit-thumbnail-url').value || null,
+        target_plan: document.getElementById('edit-plan').value,
+        status: document.getElementById('edit-status').value,
+        description: document.getElementById('edit-desc').value,
+        content_details: document.getElementById('edit-content').value,
+        learning_materials: document.getElementById('edit-learning').value,
+        practice_checks: document.getElementById('edit-practice').value,
+      };
+
+      const { error } = await client.from('videos').update(updateData).eq('id', videoId);
+      
+      if (error) {
+        alert('保存に失敗しました: ' + error.message);
+        btn.textContent = originalText;
+        btn.disabled = false;
+        return;
+      }
+
+      // 成功時
+      btn.textContent = originalText;
+      btn.disabled = false;
+      closeEditModal();
+      
+      // 一覧を再取得して表示を更新
+      loadManageContents();
+      alert('動画の内容を更新しました！');
+    };
+
+    // ==========================================
+    // 4. トラッキングと分析機能
+    // ==========================================
+    async function loadAnalytics(filterUserId = "") {
+      // 1. ユーザー選択プルダウンが未生成なら作る
+      const filterSelect = document.getElementById('analytics-user-filter');
+      if (filterSelect && filterSelect.options.length <= 1) { // 初期状態または無し
+        const { data: usersData } = await client.from('profiles').select('id, full_name').order('created_at', { ascending: false });
+        if (usersData) {
+          usersData.forEach(u => {
+            const opt = document.createElement('option');
+            opt.value = u.id;
+            opt.textContent = u.full_name;
+            filterSelect.appendChild(opt);
+          });
+        }
+      }
+
+      // 視聴履歴のクエリ構築
+      let viewsQuery = client.from('video_views')
+        .select(`viewed_at, profiles:user_id ( full_name ), videos:video_id ( title )`)
+        .order('viewed_at', { ascending: false })
+        .limit(100);
+      
+      if (filterUserId) viewsQuery = viewsQuery.eq('user_id', filterUserId);
+
+      const { data: vData, error: vErr } = await viewsQuery;
+      
+      const vTbody = document.getElementById('views-tbody');
+      if (vErr) {
+        vTbody.innerHTML = `<tr><td colspan="3">データ取得エラー: ${vErr.message}</td></tr>`;
+      } else if (!vData || vData.length === 0) {
+        vTbody.innerHTML = `<tr><td colspan="3" style="text-align:center;color:#94a3b8;">${filterUserId ? 'このユーザーの視聴履歴はありません' : 'まだ視聴履歴がありません'}</td></tr>`;
+      } else {
+        vTbody.innerHTML = '';
+        vData.forEach(r => {
+          const userName = r.profiles ? r.profiles.full_name : '退会または不明なユーザー';
+          const title = r.videos ? r.videos.title : '削除済みの動画';
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(r.viewed_at).toLocaleString('ja-JP')}</td>
+            <td><strong style="color:#0f172a;">${userName}</strong></td>
+            <td>${title}</td>
+          `;
+          vTbody.appendChild(tr);
+        });
+      }
+
+      // DL履歴のクエリ構築
+      let dlQuery = client.from('video_downloads')
+        .select(`downloaded_at, material_type, profiles:user_id ( full_name ), videos:video_id ( title )`)
+        .order('downloaded_at', { ascending: false })
+        .limit(100);
+        
+      if (filterUserId) dlQuery = dlQuery.eq('user_id', filterUserId);
+
+      const { data: dData, error: dErr } = await dlQuery;
+      
+      const dTbody = document.getElementById('downloads-tbody');
+      if (dErr) {
+        dTbody.innerHTML = `<tr><td colspan="4">データ取得エラー: ${dErr.message}</td></tr>`;
+      } else if (!dData || dData.length === 0) {
+        dTbody.innerHTML = `<tr><td colspan="4" style="text-align:center;color:#94a3b8;">${filterUserId ? 'このユーザーのダウンロード履歴はありません' : 'まだダウンロード履歴がありません'}</td></tr>`;
+      } else {
+        dTbody.innerHTML = '';
+        dData.forEach(r => {
+          const userName = r.profiles ? r.profiles.full_name : '退会または不明なユーザー';
+          const title = r.videos ? r.videos.title : '削除済みの動画';
+          const typeLabel = r.material_type === 'learning_materials' ? '📁 講義スライド' : '📝 実践チェックシート';
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(r.downloaded_at).toLocaleString('ja-JP')}</td>
+            <td><strong style="color:#0f172a;">${userName}</strong></td>
+            <td>${title}</td>
+            <td><span style="font-size:12px; font-weight:700; color:#475569;">${typeLabel}</span></td>
+          `;
+          dTbody.appendChild(tr);
+        });
+      }
+    }
+  </script>
+</body>
 </html>

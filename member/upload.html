@@ -24,8 +24,12 @@
         <ul>
           <li><a href="dashboard.html"><span>🏠</span> ダッシュボード</a></li>
           <li><a href="contents.html"><span>📚</span> コンテンツ一覧</a></li>
+          <li><a href="account-billing.html"><span>💳</span> お支払い・プラン</a></li>
+          <li><a href="support.html"><span>💬</span> サポート・FAQ</a></li>
+          <li><a href="profile.html"><span>👤</span> プロフィール設定</a></li>
+
           <!-- 登録用（追加者専用）-->
-          <li class="active"><a href="upload.html"><span>🎥</span> 動画の登録</a></li>
+          <li class="active adder-menu" style="display: none; margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 16px;"><a href="upload.html"><span>🎥</span> 動画の登録</a></li>
         </ul>
         <div style="margin-top: 40px; padding: 0 24px;">
           <a href="#" onclick="window.handleLogout(event)" style="font-size: 13px; color: var(--text-muted); text-decoration: none;">ログアウト</a>
@@ -84,6 +88,29 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(67, 76, 232, 0.3);
           }
+          
+          /* ファイルアップロードUIの装飾 */
+          input[type="file"].profile-input {
+            padding: 10px 14px;
+            cursor: pointer;
+            color: #64748b;
+          }
+          input[type="file"].profile-input::file-selector-button {
+            margin-right: 16px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+          }
+          input[type="file"].profile-input::file-selector-button:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+          }
         </style>
 
         <form id="video-upload-form">
@@ -99,8 +126,28 @@
             </div>
 
             <div class="form-group">
-              <label class="profile-label">説明文（任意）</label>
-              <textarea id="v-desc" class="profile-input" rows="4" placeholder="動画の概要や補足事項、課題などを入力"></textarea>
+              <label class="profile-label">説明文（概要）</label>
+              <textarea id="v-desc" class="profile-input" rows="3" placeholder="動画の簡単な概要や補足事項などを入力"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="profile-label">講義内容</label>
+              <textarea id="v-content" class="profile-input" rows="6" placeholder="動画のより詳細な講義内容、目次、アジェンダなどを入力"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="profile-label">サムネイル画像 (任意)</label>
+              <input type="file" id="thumbnail-upload" class="profile-input" accept="image/jpeg, image/png">
+            </div>
+
+            <div class="form-group">
+              <label class="profile-label">学習ソース（PDFファイル限定・任意）</label>
+              <input type="file" id="v-learning" class="profile-input" accept=".pdf">
+            </div>
+
+            <div class="form-group">
+              <label class="profile-label">実践チェックシート（PDFファイル限定・任意）</label>
+              <input type="file" id="v-practice" class="profile-input" accept=".pdf">
             </div>
 
             <div class="form-group">
@@ -145,24 +192,82 @@
         submitBtn.textContent = '登録中...';
 
         // 現在ログインしている自分の情報（誰が追加したか）を取る
-        const { data: { session } } = await client.auth.getSession();
+        const { data: sessionData } = await client.auth.getSession();
+        const iDesc = document.getElementById('v-desc').value.trim();
+        const iContent = document.getElementById('v-content').value.trim();
+        const fThumbnail = document.getElementById('thumbnail-upload').files[0]; // New thumbnail file
+        const fLearning = document.getElementById('v-learning').files[0];
+        const fPractice = document.getElementById('v-practice').files[0];
+        const iPlan = document.getElementById('v-plan').value;
+        const user = sessionData.session.user;
 
-        // videosテーブルへINSERT
-        const { data, error } = await client.from('videos').insert([
-          { 
-            title: title, 
-            video_url: url, 
-            description: desc, 
-            target_plan: plan,
-            created_by: session ? session.user.id : null
+        let thumbnailUrl = null; // New variable for thumbnail URL
+        let learningUrl = null;
+        let practiceUrl = null;
+
+        try {
+          // --- 0. サムネイル画像のアップロード ---
+          if (fThumbnail) {
+            submitBtn.textContent = 'サムネイルをアップロード中...';
+            const fileExt = fThumbnail.name.split('.').pop();
+            const fileName = `thumbnail_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+            const { data: upData, error: upErr } = await client.storage.from('video_materials').upload(fileName, fThumbnail);
+            if (upErr) throw new Error("サムネイルのアップロードに失敗: " + upErr.message);
+            const { data: pubData } = client.storage.from('video_materials').getPublicUrl(fileName);
+            thumbnailUrl = pubData.publicUrl;
           }
-        ]);
 
-        if (error) {
-          alert('動画の登録に失敗しました。権限が不足しているか、サーバーエラーです。\n自動ログアウトした可能性があります。' + error.message);
-        } else {
-          alert('【成功】動画の公開申請が完了しました。管理者の承認をお待ちください。');
-          form.reset(); // フォームをからっぽに戻す
+          // --- 1. ファイルアップロード処理 ---
+          if (fLearning) {
+            submitBtn.textContent = '学習ソースをアップロード中...';
+            const fileExt = fLearning.name.split('.').pop();
+            const fileName = `learning_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+            const { data: upData, error: upErr } = await client.storage.from('video_materials').upload(fileName, fLearning);
+            if (upErr) throw new Error("学習資料のアップロードに失敗: " + upErr.message);
+            const { data: pubData } = client.storage.from('video_materials').getPublicUrl(fileName);
+            learningUrl = pubData.publicUrl;
+          }
+
+          if (fPractice) {
+            submitBtn.textContent = 'チェックシートをアップロード中...';
+            const fileExt = fPractice.name.split('.').pop();
+            const fileName = `practice_${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`;
+            const { data: upData, error: upErr } = await client.storage.from('video_materials').upload(fileName, fPractice);
+            if (upErr) throw new Error("チェックシートのアップロードに失敗: " + upErr.message);
+            const { data: pubData } = client.storage.from('video_materials').getPublicUrl(fileName);
+            practiceUrl = pubData.publicUrl;
+          }
+
+          // --- 2. データベースへの登録 ---
+          submitBtn.textContent = '申請データ登録中...';
+          const { error } = await client
+            .from('videos')
+            .insert([
+              {
+                title: title,
+                video_url: url,
+                description: iDesc,
+                content_details: iContent,
+                thumbnail_url: thumbnailUrl, // Add thumbnail_url
+                learning_materials: learningUrl,
+                practice_checks: practiceUrl,
+                target_plan: iPlan,
+                created_by: user.id
+              }
+            ]);
+
+          if (error) {
+            alert('動画の登録に失敗しました。権限が不足しているか、サーバーエラーです。\n自動ログアウトした可能性があります。' + error.message);
+          } else {
+            alert('【成功】動画の公開申請が完了しました。管理者の承認をお待ちください。');
+            form.reset(); // フォームをからっぽに戻す
+          }
+        } catch (err) {
+          console.error("Error during video upload:", err);
+          alert('動画の登録中に予期せぬエラーが発生しました。');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
         }
 
         submitBtn.disabled = false;
