@@ -47,6 +47,7 @@
       // 'light', 'standard', 'premium'（未課金は'free'）などの値が入る想定
       const userPlan = (profile?.plan || 'free').trim().toLowerCase();
       window.currentUserPlan = userPlan; // 他のJavaScriptからも簡単に自分のプランを参照できるようにする
+      window.currentUserRole = userRole; // 権限情報も保持（管理者判定用など）
 
       // ★ プロフィール未設定者に対する強制遷移処理 ★
       // フリガナか英語表記が空文字 または '未設定' の場合は未完了とみなす
@@ -60,11 +61,41 @@
         return; // これ以上下の処理（画面表示など）を実行しない
       }
 
-      // ダッシュボード画面：「お帰りなさい」表示の更新
+      // ダッシュボード画面の動的表示更新（名前・ランク）
       if (window.location.pathname.includes('dashboard.html')) {
-        const greetingH1 = document.querySelector('h1');
-        if (greetingH1 && greetingH1.textContent.includes('お帰りなさい')) {
-          greetingH1.textContent = `お帰りなさい、${userName} 様`;
+        const header = document.querySelector('.member-main-content header');
+        if (header) {
+          // お帰りなさい、〇〇 様
+          const greetingH1 = header.querySelector('h1');
+          if (greetingH1 && greetingH1.textContent.includes('お帰りなさい')) {
+            greetingH1.textContent = `お帰りなさい、${userName} 様`;
+          }
+
+          // 会員バッジ（現在のステータス）
+          const statusBadge = header.querySelector('.status-badge');
+          if (statusBadge) {
+            let rankLabel = '無料会員';
+            let style = { bg: '#f5f5f5', text: '#757575', border: '#e0e0e0' }; // デフォルト
+
+            if (userPlan === 'light') {
+              rankLabel = 'ライト会員';
+              style = { bg: '#e8f5e9', text: '#2e7d32', border: '#c8e6c9' };
+            } else if (userPlan === 'standard') {
+              rankLabel = 'スタンダード会員';
+              style = { bg: '#fff8e1', text: '#ff8f00', border: '#ffe082' };
+            } else if (userPlan === 'premium') {
+              rankLabel = 'プレミアム会員';
+              style = { bg: '#fff8e1', text: '#ff8f00', border: '#ffe082' };
+            } else if (userRole === 'admin' || userRole === 'adder') {
+              rankLabel = '管理者';
+              style = { bg: '#e0f2f1', text: '#00695c', border: '#b2dfdb' };
+            }
+
+            statusBadge.textContent = rankLabel;
+            statusBadge.style.background = style.bg;
+            statusBadge.style.color = style.text;
+            statusBadge.style.border = style.border;
+          }
         }
       }
 
