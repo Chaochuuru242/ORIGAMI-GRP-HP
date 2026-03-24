@@ -11,14 +11,26 @@
     <div class="inner">
       <a class="brand" href="index.html" aria-label="ORIGAMI GRP ホームへ">ORIGAMI GRP</a>
       <nav class="nav" aria-label="主要メニュー">
-        <a href="index.html">ホーム</a>
-        <a href="ai-school.html" aria-current="page">AIスクール</a>
-        <a href="about.html">ORIGAMI GRPとは</a>
-        <a href="faq.html">FAQ</a>
-        <a href="company.html">会社概要</a>
-        <a class="btn btn-nav" href="contact.html">無料相談</a>
+        <a href="index.html">Home</a>
+        <a href="index.html#services">サービス</a>
+        <a href="pricing.html">料金</a>
+        <a href="recruit.html">採用</a>
+        <a href="about.html">会社情報</a>
+        <a href="legal.html">特商法</a>
       </nav>
+      <button class="hamburger" aria-label="メニューを開く" onclick="this.classList.toggle('open');document.getElementById('nav-mobile').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="index.html">Home</a>
+      <a href="index.html#services">サービス</a>
+      <a href="pricing.html">料金</a>
+      <a href="recruit.html">採用</a>
+      <a href="about.html">会社情報</a>
+      <a href="legal.html">特商法</a>
+      <a class="btn btn-nav" href="contact.html">無料相談</a>
+    </nav>
   </header>
 
   
@@ -108,11 +120,47 @@
 </section>
 
   <footer class="footer">
-    <div class="inner">
-      <div>© ORIGAMI GRP</div>
+    <div class="footer-inner">
       <div>
-        <a href="company.html">会社概要</a> ・
-        <a href="contact.html">無料相談</a>
+        <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
+        <p class="footer-desc">AIを一時的なブームで終わらせず、あなたの「稼ぐ力」に変えるための実践的スクール＆支援パートナー。</p>
+        <div style="margin-top: 24px;">
+          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> <a href="tel:070-8458-8553" style="color:#fff;">070-8458-8553</a></p>
+          <p style="margin-bottom: 0; font-size: 14px;"><strong>メール：</strong> <a href="mailto:nan457913@gmail.com" style="color:#fff; text-decoration:underline;">nan457913@gmail.com</a></p>
+          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>住所：</strong> 東京都足立区東和4-30-12 スカイレジデンス蒼102</p>
+          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>営業時間：</strong> 10:00-23:00</p>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>サービス</h4>
+          <ul>
+            <li><a href="index.html#services">サービス</a></li>
+            <li><a href="pricing.html">料金</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>企業情報</h4>
+          <ul>
+            <li><a href="about.html">会社情報</a></li>
+            <li><a href="recruit.html">採用</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>サポート・規約</h4>
+          <ul>
+            <li><a href="contact.html">無料相談・お問い合わせ</a></li>
+            <li><a href="legal.html">特商法</a></li>
+            <li><a href="privacy.html">プライバシーポリシー</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 ORIGAMI GRP. All Rights Reserved.</div>
+      <div class="footer-legal">
+        <a href="privacy.html">プライバシーポリシー</a>
+        <a href="legal.html">特商法</a>
       </div>
     </div>
   </footer>

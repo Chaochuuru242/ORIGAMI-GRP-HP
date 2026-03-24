@@ -188,7 +188,19 @@
         <a href="about.html" style="color: var(--primary);">会社情報</a>
         <a href="legal.html">特商法</a>
       </nav>
+      <button class="hamburger" aria-label="メニューを開く" onclick="this.classList.toggle('open');document.getElementById('nav-mobile').classList.toggle('open')">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+    <nav class="nav-mobile" id="nav-mobile">
+      <a href="index.html">Home</a>
+      <a href="index.html#services">サービス</a>
+      <a href="pricing.html">料金</a>
+      <a href="recruit.html">採用</a>
+      <a href="about.html">会社情報</a>
+      <a href="legal.html">特商法</a>
+      <a class="btn btn-nav" href="contact.html">無料相談</a>
+    </nav>
   </header>
 
   <main>
@@ -290,7 +302,7 @@
             </tr>
             <tr>
               <th>電話番号</th>
-              <td>070-8458-8553</td>
+              <td><a href="tel:070-8458-8553">070-8458-8553</a></td>
             </tr>
             <tr>
               <th>メールアドレス</th>
@@ -314,7 +326,7 @@
         <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
         <p class="footer-desc">AIを一時的なブームで終わらせず、あなたの「稼ぐ力」に変えるための実践的スクール＆支援パートナー。</p>
         <div style="margin-top: 24px;">
-          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8458-8553</p>
+          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> <a href="tel:070-8458-8553" style="color:#fff;">070-8458-8553</a></p>
           <p style="margin-bottom: 0; font-size: 14px;"><strong>メール：</strong> <a href="mailto:nan457913@gmail.com"
               style="color:#fff; text-decoration:underline;">nan457913@gmail.com</a></p>
           <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>住所：</strong> 東京都足立区青井4-30-12
