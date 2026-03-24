@@ -111,9 +111,46 @@
       color: var(--text-muted);
     }
 
+    .about-message {
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 40px;
+      align-items: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .about-message-img {
+      width: 100%;
+      max-width: 280px;
+      flex-shrink: 0;
+    }
+
+    .about-message-img img {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .about-message-content {
+      flex: 1;
+      max-width: 480px;
+    }
+
     @media (max-width: 768px) {
       .values-grid {
         grid-template-columns: 1fr;
+      }
+
+      .about-message {
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .about-message-img {
+        width: 100%;
       }
 
       .mission-ja {
@@ -198,6 +235,32 @@
           <img src="images/about-3.jpg" alt="ORIGAMI GRPの社内風景3" />
         </div>
 
+        <!-- CEO Message -->
+        <h3 class="section-title text-center" style="margin-bottom: 64px; font-size: 28px; margin-top: 80px;">代表メッセージ</h3>
+        <div class="about-message">
+          <div class="about-message-img">
+            <img src="images/about4.png" alt="代表 山﨑 大輔" />
+          </div>
+          <div class="about-message-content" style="text-align: left;">
+            <div style="color: var(--text-muted); line-height: 1.9; font-size: 16px;">
+              <p style="margin-bottom: 24px;">
+                多くの方が、新しいツールや知識を学んでも、<br>
+                それを成果に繋げられずに止まってしまう現実を、<br>
+                これまで数多く見てきました。
+              </p>
+              <p style="margin-bottom: 24px;">
+                私たちは、知識で終わらせず、<br>
+                実際に収益や成果に繋げることにこだわっています。
+              </p>
+              <p style="margin-bottom: 32px;">
+                実行し、継続できる状態まで伴走します。<br>
+                その一歩を、ここから一緒に踏み出していきましょう。
+              </p>
+              <p style="font-weight: 700; color: var(--text-main); font-size: 18px;">代表　山﨑 大輔</p>
+            </div>
+          </div>
+        </div>
+
         <!-- Company Info -->
         <h3 class="section-title text-center" style="margin-bottom: 40px; font-size: 28px; margin-top: 80px;">会社概要</h3>
         <table class="company-table">
@@ -219,12 +282,15 @@
               <td>
                 ・AI活用実践スクールの運営<br>
                 ・法人向けAI導入コンサルティング・研修<br>
-                ・マーケティング支援
+                ・マーケティング支援<br>
+                ・ライティングスクール運営（Writefulアカデミー）<br>
+                ・貴金属買取<br>
+                ・不動産事業
               </td>
             </tr>
             <tr>
               <th>電話番号</th>
-              <td>070-8507-1818</td>
+              <td>070-8458-8553</td>
             </tr>
             <tr>
               <th>メールアドレス</th>
@@ -232,7 +298,7 @@
             </tr>
             <tr>
               <th>営業時間</th>
-              <td>10:00-19:00</td>
+              <td>10:00-23:00</td>
             </tr>
           </tbody>
         </table>
@@ -248,12 +314,12 @@
         <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
         <p class="footer-desc">AIを一時的なブームで終わらせず、あなたの「稼ぐ力」に変えるための実践的スクール＆支援パートナー。</p>
         <div style="margin-top: 24px;">
-          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8507-1818</p>
+          <p style="margin-bottom: 8px; font-size: 14px;"><strong>お電話：</strong> 070-8458-8553</p>
           <p style="margin-bottom: 0; font-size: 14px;"><strong>メール：</strong> <a href="mailto:nan457913@gmail.com"
               style="color:#fff; text-decoration:underline;">nan457913@gmail.com</a></p>
-          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>住所：</strong> 東京都足立区東和4-30-12
+          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>住所：</strong> 東京都足立区青井4-30-12
             スカイレジデンス蒼102</p>
-          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>営業時間：</strong> 10:00-19:00</p>
+          <p style="margin-top: 8px; margin-bottom: 0; font-size: 14px;"><strong>営業時間：</strong> 10:00-23:00</p>
         </div>
       </div>
       <div class="footer-links">
