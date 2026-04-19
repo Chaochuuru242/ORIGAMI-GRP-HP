@@ -190,6 +190,17 @@ h4 {
   position: relative;
   background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/hero-top.jpg') no-repeat center center;
   background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-bg .container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .hero-bg h1 {
@@ -197,6 +208,7 @@ h4 {
   margin-bottom: 24px;
   letter-spacing: -0.02em;
   color: #fff;
+  text-align: center;
 }
 
 .hero-bg p.sub {
