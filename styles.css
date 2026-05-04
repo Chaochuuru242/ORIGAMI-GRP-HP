@@ -514,52 +514,12 @@ h4 {
   }
 
   .hero-bg {
-    padding: 120px 16px 100px;
-    min-height: 80vh;
-    min-height: 80svh;
+    padding: 96px 20px 80px;
   }
 
-  .hero h1 {
-    font-size: 36px;
-  }
-
-  .hero-bg p.sub {
-    font-size: 15px !important;
-    line-height: 1.5 !important;
-    letter-spacing: 0.02em !important;
-    background: none !important;
-    padding: 0 !important;
-    width: 100%;
-    max-width: 343px;
-    margin: 0 auto 16px !important;
-    display: block !important;
-    text-align: center !important;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
-  .hero-bg .container > p:not(.sub) {
-    font-size: 14px !important;
-    line-height: 1.2 !important;
-    letter-spacing: 0.02em !important;
-    margin: 0 auto 16px !important;
-    width: 100%;
-    max-width: 343px;
-    display: block !important;
-    text-align: center !important;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-  }
-
+  .hero h1,
   .hero-bg h1 {
-    font-size: 26px !important;
-    line-height: 1.5 !important;
-    letter-spacing: 0.05em !important;
-    background: none !important;
-    padding: 0 !important;
-    width: 100%;
-    max-width: 343px;
-    margin: 0 auto !important;
-    text-align: center !important;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    font-size: 36px;
   }
 
   .section {
