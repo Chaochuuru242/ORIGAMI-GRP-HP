@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>プロフィール設定 | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+  <!-- アクセス制御（ログインガード） -->
+  <style>body { display: none; }</style> <!-- 判定中のチラつき防止 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/auth-guard.js"></script>
+</head>
+
+<body class="member-page">
+
+  <div class="member-layout">
+    <!-- Sidebar -->
+    <aside class="member-sidebar">
+      <div class="member-sidebar-header" style="padding: 0 24px 32px;">
+        <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP</a>
+        <div class="hamburger-member" onclick="this.classList.toggle('active'); document.querySelector('.side-nav').classList.toggle('active');">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <nav class="side-nav">
+        <ul>
+          <li><a href="dashboard.html"><span>🏠</span> ダッシュボード</a></li>
+          <li><a href="contents.html"><span>📚</span> コンテンツ一覧</a></li>
+          <li><a href="account-billing.html"><span>💳</span> お支払い・プラン</a></li>
+          <li><a href="support.html"><span>💬</span> サポート・FAQ</a></li>
+          <li class="active"><a href="profile.html"><span>👤</span> プロフィール設定</a></li>
+
+          <li class="adder-menu" style="display: none; margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 16px;"><a href="upload.html"><span>🎥</span> 動画の登録</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="member-main-content">
+      <header style="margin-bottom: 40px;">
+        <h1 style="font-size: 24px; font-weight: 800;">プロフィール設定</h1>
+        <p style="color: var(--text-muted); font-size: 14px; margin-top: 4px;">ご登録情報の確認・変更が可能です。</p>
+      </header>
+
+      <div class="dash-card" style="max-width: 800px; padding: 40px; border-radius: 16px; box-shadow: 0 8px 32px rgba(0,0,0,0.04);">
+        <style>
+          .profile-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            background-color: #f8fafc;
+            font-size: 14px;
+            color: #334155;
+            transition: all 0.25s ease;
+            outline: none;
+          }
+          .profile-input:focus {
+            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+          }
+          .profile-input[readonly] {
+            background-color: #f1f5f9;
+            border-color: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+          }
+          .profile-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #475569;
+            letter-spacing: 0.02em;
+          }
+          .profile-btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+          }
+          .profile-btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #434ce8 100%);
+            color: #fff;
+            border: none;
+            box-shadow: 0 4px 12px rgba(67, 76, 232, 0.2);
+          }
+          .profile-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(67, 76, 232, 0.3);
+          }
+          .profile-btn-ghost {
+            background: transparent;
+            border: 1.5px solid #cbd5e1;
+            color: #64748b;
+          }
+          .profile-btn-ghost:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+            color: #334155;
+          }
+        </style>
+
+        <form>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 40px;">
+            <div class="form-group">
+              <label class="profile-label">氏名</label>
+              <input type="text" class="profile-input" value="テストユーザー" pattern="^\S+[\s　]+.+$" title="姓と名の間にはスペース（半角または全角）を入れてください" required>
+            </div>
+            <div class="form-group">
+              <label class="profile-label">氏名（フリガナ）</label>
+              <input type="text" class="profile-input" value="テストユーザー" pattern="^\S+[\s　]+.+$" title="姓と名の間にはスペース（半角または全角）を入れてください" required>
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label class="profile-label">英語表記 <span style="font-size: 11px; font-weight: normal; color: #64748b; margin-left: 8px;">(※修了証に記載されるローマ字のお名前です)</span></label>
+              <input type="text" class="profile-input" value="Test User" placeholder="TARO YAMADA" pattern="^\S+[\s　]+.+$" title="ファーストネームとラストネームの間にスペースを入れてください" required>
+            </div>
+            <div class="form-group" style="grid-column: span 2;">
+              <label class="profile-label">メールアドレス</label>
+              <input type="email" class="profile-input" value="test@example.com" readonly>
+              <p style="font-size: 12px; color: #94a3b8; margin-top: 8px; display: flex; align-items: center; gap: 4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                メールアドレスの変更はセキュリティのためお問い合わせ窓口にて承ります。
+              </p>
+            </div>
+          </div>
+
+          <div style="padding-top: 32px; border-top: 1px solid #f1f5f9; display: flex; justify-content: flex-end; gap: 16px;">
+             <button type="button" class="profile-btn profile-btn-ghost">キャンセル</button>
+             <button type="button" class="profile-btn profile-btn-primary">変更を保存する</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Password Change Link -->
+      <div style="margin-top: 32px;">
+        <a href="password-update.html" style="font-size: 14px; color: var(--primary); font-weight: 700;">パスワードを変更する →</a>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>コンテンツ詳細 | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+  <!-- アクセス制御（ログインガード） -->
+  <style>body { display: none; }</style> <!-- 判定中のチラつき防止 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/auth-guard.js"></script>
+</head>
+
+<body class="member-page">
+
+  <div class="member-layout">
+    <!-- Sidebar -->
+    <aside class="member-sidebar">
+      <div class="member-sidebar-header" style="padding: 0 24px 32px;">
+        <a href="index.html" style="font-size: 18px; font-weight: 800; color: var(--primary); text-decoration: none;">ORIGAMI GRP</a>
+        <div class="hamburger-member" onclick="this.classList.toggle('active'); document.querySelector('.side-nav').classList.toggle('active');">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <nav class="side-nav">
+        <ul>
+          <li><a href="dashboard.html"><span>🏠</span> ダッシュボード</a></li>
+          <li class="active"><a href="contents.html"><span>📚</span> コンテンツ一覧</a></li>
+          <li><a href="account-billing.html"><span>💳</span> お支払い・プラン</a></li>
+          <li><a href="support.html"><span>💬</span> サポート・FAQ</a></li>
+          <li><a href="profile.html"><span>👤</span> プロフィール設定</a></li>
+
+          <li class="adder-menu" style="display: none; margin-top: 24px; border-top: 1px solid #e2e8f0; padding-top: 16px;"><a href="upload.html"><span>🎥</span> 動画の登録</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="member-main-content">
+      <div style="margin-bottom: 24px;">
+        <a href="contents.html" style="text-decoration: none; font-size: 13px; color: var(--text-muted);">← コンテンツ一覧へ戻る</a>
+      </div>
+
+      <header style="margin-bottom: 32px;">
+        <h1 id="cd-title" style="font-size: 28px; font-weight: 800; line-height: 1.3;">読み込み中...</h1>
+        <div id="cd-meta" style="display: flex; gap: 16px; margin-top: 12px; font-size: 13px; color: var(--text-muted);">
+          <span>...</span>
+        </div>
+      </header>
+
+      <!-- Video Player -->
+      <div id="cd-player" style="aspect-ratio: 16/9; background: #000; border-radius: var(--radius); margin-bottom: 40px; display: flex; align-items: center; justify-content: center; color: #fff; overflow: hidden; position: relative;">
+        読み込み中...
+      </div>
+
+      <!-- Description & Resources -->
+      <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 40px;">
+        <div>
+          <h3 style="font-size: 18px; margin-bottom: 16px;">概要</h3>
+          <p id="cd-desc" style="line-height:  1.8; color: var(--text-main); margin-bottom: 24px;"></p>
+          
+          <h3 style="font-size: 18px; margin-bottom: 16px;">講義内容</h3>
+          <div id="cd-content" style="line-height:  1.8; color: var(--text-main); margin-bottom: 24px; white-space: pre-wrap;">
+          </div>
+        </div>
+
+        <div>
+          <div class="dash-card">
+            <h3 style="font-size: 15px;"><span>📁</span> 学習リソース</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">登録された資料をここでダウンロードいただけます。</p>
+            <div id="cd-resources">
+               <!-- JSで動的にボタンを生成します -->
+            </div>
+          </div>
+          
+          <div class="notice-box" style="margin-top: 24px; background: #fff8e1; border: 1px solid #ffe082;">
+            <p style="font-size: 12px; color: #795548;">
+              <strong>講師への質問</strong><br>
+              この講義に関するご不明点は、<a href="support.html" style="color: var(--primary);">専用チャット窓口</a>からいつでもご相談ください。
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const videoId = urlParams.get('id');
+
+      if (!videoId) {
+        document.querySelector('.member-main-content').innerHTML = '<p style="padding:40px;">お探しの動画が見つかりませんでした。</p>';
+        return;
+      }
+
+      const supabaseUrl = 'https://gfvnnxuupdmbuxejyfck.supabase.co';
+      const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmdm5ueHV1cGRtYnV4ZWp5ZmNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MzY3NjAsImV4cCI6MjA4OTExMjc2MH0.Eq0AVSyY9Jy3dxt-RxwQvJcrntX5y3L2dhhcIz9tWnk';
+      const client = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+      try {
+        // 現在のユーザープランを取得してアクセス制御
+        const { data: { session } } = await client.auth.getSession();
+        let currentPlan = 'free';
+        let isPowerUser = false;
+        if (session) {
+          const { data: profile } = await client.from('profiles').select('plan, role').eq('id', session.user.id).single();
+          if (profile) {
+            currentPlan = (profile.plan || 'free').trim().toLowerCase();
+            if (profile.role === 'admin' || profile.role === 'adder') isPowerUser = true;
+          }
+        }
+
+        let allowedPlans = ['all'];
+        if (currentPlan === 'light') allowedPlans = ['all', 'light'];
+        if (currentPlan === 'standard') allowedPlans = ['all', 'light', 'standard'];
+        if (currentPlan === 'premium') allowedPlans = ['all', 'light', 'standard', 'premium'];
+
+        const { data: video, error } = await client
+          .from('videos')
+          .select('*')
+          .eq('id', videoId)
+          .eq('status', 'published')
+          .single();
+
+        if (error || !video) throw new Error('動画が見つかりません');
+
+        // プラン判定によるブロック（正規化して比較）
+        const videoPlan = (video.target_plan || 'all').trim().toLowerCase();
+        if (!isPowerUser && !allowedPlans.includes(videoPlan)) {
+          document.querySelector('.member-main-content').innerHTML = '<p style="padding:40px; font-weight:bold;">この動画を視聴するにはプランのアップグレードが必要です。</p><a href="account-billing.html" class="btn btn-primary" style="margin-left:40px;">プランを確認する</a>';
+          return;
+        }
+
+        // --- 画面への描画 ---
+        const dateStr = new Date(video.created_at).toLocaleDateString('ja-JP');
+        
+        // ヘッダー情報
+        document.getElementById('cd-title').textContent = video.title;
+        document.getElementById('cd-meta').innerHTML = `
+          <span>${dateStr} 公開</span>
+          <span>対象プラン: ${video.target_plan}</span>
+        `;
+
+        // プレイヤー (YouTube / Vimeo のiframe化)
+        const playerBox = document.getElementById('cd-player');
+        let embedUrl = video.video_url;
+        if (embedUrl.includes('youtube.com/watch?v=')) {
+          const vid = new URL(embedUrl).searchParams.get('v');
+          embedUrl = `https://www.youtube.com/embed/${vid}`;
+        } else if (embedUrl.includes('youtu.be/')) {
+          const vid = embedUrl.split('youtu.be/')[1].split('?')[0];
+          embedUrl = `https://www.youtube.com/embed/${vid}`;
+        } else if (embedUrl.includes('vimeo.com/')) {
+          const vid = embedUrl.split('vimeo.com/')[1].split('?')[0];
+          embedUrl = `https://player.vimeo.com/video/${vid}`;
+        }
+        playerBox.innerHTML = `<iframe src="${embedUrl}" style="width:100%; height:100%; border:none; border-radius:12px;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+        // 説明・講義内容
+        document.getElementById('cd-desc').textContent = video.description || '（概要はありません）';
+        document.getElementById('cd-content').textContent = video.content_details || '詳細な講義内容はありません。';
+
+        // 学習リソース（PDFダウンロード等のボタン）
+        const resourceBox = document.getElementById('cd-resources');
+        let resHtml = '';
+        if (video.learning_materials) {
+          resHtml += `<a href="${video.learning_materials}" id="dl-learning" target="_blank" class="btn btn-ghost" style="width: 100%; font-size: 13px; margin-bottom: 12px; justify-content: flex-start; text-decoration:none; color:#0f172a;">📥 講義スライド (PDF) を開く</a>`;
+        }
+        if (video.practice_checks) {
+          resHtml += `<a href="${video.practice_checks}" id="dl-practice" target="_blank" class="btn btn-ghost" style="width: 100%; font-size: 13px; justify-content: flex-start; text-decoration:none; color:#0f172a;">📝 実践チェックシート を開く</a>`;
+        }
+        if (!resHtml) {
+          resHtml = '<p style="font-size:12px; color:var(--text-muted);">この動画に添付された資料・チェックシートはありません。</p>';
+        }
+        resourceBox.innerHTML = resHtml;
+
+        // --- トラッキング送信 (非同期で裏側で実行) ---
+        if (session) {
+          // 1. ページビュー（視聴）の記録
+          client.from('video_views').insert([{
+             video_id: video.id,
+             user_id: session.user.id
+          }]).then(); // エラーハンドリングは無視して進行
+
+          // 2. ダウンロードクリックの記録
+          const dlLearning = document.getElementById('dl-learning');
+          if (dlLearning) {
+            dlLearning.addEventListener('click', () => {
+              client.from('video_downloads').insert([{
+                 video_id: video.id,
+                 user_id: session.user.id,
+                 material_type: 'learning_materials'
+              }]).then();
+            });
+          }
+
+          const dlPractice = document.getElementById('dl-practice');
+          if (dlPractice) {
+            dlPractice.addEventListener('click', () => {
+              client.from('video_downloads').insert([{
+                 video_id: video.id,
+                 user_id: session.user.id,
+                 material_type: 'practice_checks'
+              }]).then();
+            });
+          }
+        }
+
+      } catch (err) {
+        console.error(err);
+        document.querySelector('.member-main-content').innerHTML = '<p style="padding:40px; color:red;">エラーが発生しました。動画が存在しないか、すでに削除されています。</p>';
+      }
+    });
+  </script>
+</html>

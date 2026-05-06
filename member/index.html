@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>会員ホーム | ORIGAMI GRP</title>
+  <!-- 既存 styles.css を参照 -->
+  <link rel="stylesheet" href="../styles.css" />
+  <!-- サブスク専用スタイル -->
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+</head>
+
+<body class="member-page">
+
+  <!-- Header (物理独立・既存構造コピー) -->
+  <header class="header member-header">
+    <div class="inner">
+      <a class="brand" href="index.html">ORIGAMI GRP <span style="font-size: 12px; opacity: 0.7; font-weight: normal;">Member</span></a>
+      <div class="hamburger" onclick="this.classList.toggle('active'); document.querySelector('.nav').classList.toggle('active');">
+        <span></span><span></span><span></span>
+      </div>
+      <nav class="nav">
+        <a href="../index.html" class="btn btn-ghost" style="font-size: 12px; padding: 6px 12px;">ブランドサイト全体へ戻る</a>
+        <a href="index.html" style="color: var(--primary); font-weight: 700;">Member Home</a>
+        <a href="pricing.html">プラン一覧</a>
+        <a href="faq.html">FAQ</a>
+        <a href="login.html" class="btn btn-ghost" style="padding: 8px 16px; font-size: 13px;">ログイン</a>
+        <a href="register.html" class="btn btn-primary" style="padding: 8px 16px; font-size: 13px;">会員登録</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="member-hero">
+      <div class="container">
+        <h1>AIを稼ぐ力に変える、<br>最短ルート。</h1>
+        <p class="sub">
+          実践プロンプト、活用テンプレート、伴走サポートを通じて、<br>
+          AI活用を仕事と成果につなげる会員限定プログラム
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="pricing.html" style="padding: 18px 40px; font-size: 16px;">プランを確認する</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- News -->
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title text-center">お知らせ</h2>
+        <div class="member-news-list">
+          <div class="member-news-card">
+            <span class="member-news-date" data-dummy="news-date-01">2026.03.14</span>
+            <span class="member-news-title" data-dummy="news-item-01">サブスクリプションサイトをプレオープンしました。</span>
+          </div>
+          <div class="member-news-card">
+            <span class="member-news-date" data-dummy="news-date-02">2026.03.13</span>
+            <span class="member-news-title" data-dummy="news-item-02">会員限定テンプレート「プロンプト集Vol.1」を追加。</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="section section-sub">
+      <div class="container">
+        <h2 class="section-title text-center">会員限定の学習リソース</h2>
+        <p class="section-lead text-center">プレミアムな伴走をさらに加速させる、独自コンテンツの数々。</p>
+        <div class="grid-3">
+          <div class="card">
+            <h3>動画アーカイブ</h3>
+            <p data-dummy="benefit-01">過去の講義動画をいつでも視聴可能。復習や自習に最適です。</p>
+          </div>
+          <div class="card">
+            <h3>実践テンプレート</h3>
+            <p data-dummy="benefit-02">実務ですぐに使えるAIプロンプトや、スライド資料の雛形を配布。</p>
+          </div>
+          <div class="card">
+            <h3>優先相談窓口</h3>
+            <p data-dummy="benefit-03">困った時のLINE・面談サポートを、会員限定のスピード感で提供。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <div class="container">
+      <section class="member-cta">
+        <h2>あなたの可能性を、<br>システムで最大化する。</h2>
+        <p style="margin-bottom: 32px; opacity: 0.9;">まだ会員でない方は、まずはプラン一覧をご確認ください。</p>
+        <a class="btn" href="pricing.html" style="background: #fff; color: var(--primary);">プラン一覧を見る</a>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer (物理独立・既存構造コピー) -->
+  <footer class="footer member-footer">
+    <div class="footer-inner">
+      <div>
+        <a href="index.html" class="footer-brand">ORIGAMI GRP</a>
+        <p class="footer-desc">AIを「稼ぐ力」に変える。会員制伴走支援ポータル。</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Member</h4>
+          <ul>
+            <li><a href="index.html">会員Home</a></li>
+            <li><a href="pricing.html">プラン一覧</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="../contact.html">お問い合わせ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Other</h4>
+          <ul>
+            <li><a href="../privacy.html">プライバシー</a></li>
+            <li><a href="../legal.html">特商法</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>&copy; 2026 ORIGAMI GRP. Member System.</div>
+      <div class="footer-legal">
+        <a href="../index.html">ブランドサイトへ戻る</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>

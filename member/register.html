@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>会員登録 | ORIGAMI GRP Member</title>
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="./styles/member-styles.css" />
+</head>
+
+<body class="member-page">
+
+  <!-- Header -->
+  <header class="header member-header">
+    <div class="inner">
+      <a class="brand" href="index.html">ORIGAMI GRP <span style="font-size: 12px; opacity: 0.7; font-weight: normal;">Member</span></a>
+      <div class="hamburger" onclick="this.classList.toggle('active'); document.querySelector('.nav').classList.toggle('active');">
+        <span></span><span></span><span></span>
+      </div>
+      <nav class="nav">
+        <a href="../index.html">ブランドTOPへ</a>
+        <a href="index.html">Member Home</a>
+        <a href="pricing.html">プラン一覧</a>
+        <a href="faq.html">FAQ</a>
+        <a href="login.html" class="btn btn-ghost" style="padding: 8px 16px; font-size: 13px;">ログイン</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="member-auth-container">
+        <h2 style="text-align: center; color: var(--primary); font-size: 28px; margin-bottom: 24px;">新規会員登録</h2>
+        <p class="text-center" style="margin-bottom: 32px; color: var(--text-muted); font-size: 14px;">
+          自分に合ったAI活用を、ここから始めましょう。<br>
+          <span style="display: inline-block; margin-top: 8px; font-weight: 700; color: var(--primary);">所要時間：約1分</span>
+        </p>
+
+        <form id="register-form">
+          <div class="form-group-member">
+            <label style="display: block; font-weight: 700; margin-bottom: 8px; font-size: 14px;">お名前</label>
+            <input type="text" id="name" placeholder="山田 太郎" pattern="^\S+[\s　]+.+$" title="姓と名の間にはスペース（半角または全角）を入れてください" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;" required>
+          </div>
+          <div class="form-group-member">
+            <label style="display: block; font-weight: 700; margin-bottom: 8px; font-size: 14px;">メールアドレス</label>
+            <input type="email" id="email" placeholder="example@origami.com" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;" required>
+          </div>
+          <div class="form-group-member">
+            <label style="display: block; font-weight: 700; margin-bottom: 8px; font-size: 14px;">パスワード</label>
+            <input type="password" id="password" placeholder="8文字以上の半角英数字" style="width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px;" required minlength="8">
+            <small style="display: block; margin-top: 6px; color: var(--text-muted);">※セキュリティのため、推測されにくい文字列を推奨します。</small>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px; font-size: 16px;">同意して登録する</button>
+          <div id="error-message" style="color: #dc3545; margin-top: 16px; text-align: center; display: none; font-size: 14px;"></div>
+        </form>
+
+        <div class="member-form-note">
+          <p>登録することで、<a href="../privacy.html">プライバシーポリシー</a>および<a href="../legal.html">利用規約</a>に同意したことになります。</p>
+          <p style="margin-top: 24px;">既にアカウントをお持ちの方は <a href="login.html">ログイン</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer member-footer">
+    <div class="footer-bottom" style="margin-top: 0; border-top: none;">
+      <div>&copy; 2026 ORIGAMI GRP. Member System.</div>
+    </div>
+  </footer>
+
+  <!-- Supabase v2 SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://gfvnnxuupdmbuxejyfck.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmdm5ueHV1cGRtYnV4ZWp5ZmNrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM1MzY3NjAsImV4cCI6MjA4OTExMjc2MH0.Eq0AVSyY9Jy3dxt-RxwQvJcrntX5y3L2dhhcIz9tWnk';
+    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('error-message');
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+
+      errorMsg.style.display = 'none';
+      submitBtn.disabled = true;
+      submitBtn.textContent = '登録処理中...';
+
+      const { data, error } = await supabaseClient.auth.signUp({
+        email: email,
+        password: password,
+        options: {
+          data: {
+            full_name: name
+          },
+          emailRedirectTo: window.location.origin + '/member/login.html'
+        }
+      });
+
+      if (error) {
+        errorMsg.textContent = '登録に失敗しました: ' + error.message;
+        errorMsg.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = '同意して登録する';
+      } else {
+        alert('登録処理が完了しました。Supabaseのメール確認機能が有効な場合、確認メールが送信されます。\n確認後、ログインを行ってください。');
+        window.location.href = 'login.html';
+      }
+    });
+  </script>
+</body>
+
+</html>
