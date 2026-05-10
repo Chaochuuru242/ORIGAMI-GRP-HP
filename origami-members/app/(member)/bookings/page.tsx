@@ -95,18 +95,18 @@ export default async function BookingsPage() {
   );
 }
 
-type BookingRow = {
+type BookingRowData = {
   id: string;
   start_at: string;
   end_at: string;
   status: string;
   price: number;
-  teachers: { display_name?: string; photo_url?: string } | null;
+  teachers: unknown;
 };
 
-function BookingRow({ b }: { b: BookingRow }) {
+function BookingRow({ b }: { b: BookingRowData }) {
   const start = new Date(b.start_at);
-  const teacher = b.teachers as
+  const teacher = b.teachers as unknown as
     | { display_name?: string; photo_url?: string }
     | null;
   return (
