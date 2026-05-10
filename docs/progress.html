@@ -27,7 +27,7 @@
 </head>
 <body>
   <h1>🛠 ORIGAMI GRP メンバーズ 開発進捗</h1>
-  <div class="updated">最終更新: 2026-05-10 / 全体: <strong>Phase 1-3 完了 / Phase 4 未着手</strong></div>
+  <div class="updated">最終更新: 2026-05-10 / 全体: <strong>🎉 Phase 1-8 全完了（Stripe 実装含む）</strong></div>
 
   <div class="legend">
     <strong>凡例:</strong>
@@ -151,52 +151,107 @@
   <div class="phase">
     <div class="phase-header">
       <div>
-        <div class="phase-title">Phase 4：Stripe Subscriptions 統合</div>
-        <div style="font-size:12px; color:#5e6278;">プラン購入・解約・請求履歴・カード変更</div>
+        <div class="phase-title">Phase 5：講師機能（Stripe Connect 抜き）</div>
+        <div style="font-size:12px; color:#5e6278;">講師の招待・プロフィール・公開リスト・ダッシュボード</div>
       </div>
-      <div><span class="phase-status status-pending">未着手</span></div>
+      <div>
+        <span class="phase-status status-completed">完了</span>
+        <span style="font-size:12px; margin-left:8px;">完了率: 100%</span>
+      </div>
     </div>
-    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:100%"></div></div>
+    <ul style="font-size:12px; color:#475569; margin-top:8px; padding-left:20px;">
+      <li>/admin/teachers：既存ユーザーを講師に昇格・公開/非公開・手数料率・解除</li>
+      <li>/teacher/dashboard：ステータス・予約数・空き枠数・料金</li>
+      <li>/teacher/profile：表示名・自己紹介・専門分野・写真・料金</li>
+      <li>/teacher/onboarding：Stripe Connect 接続手順</li>
+      <li>/teachers (公開リスト) + /teachers/[id] (詳細)：is_active=true のみ表示・専門分野フィルタ</li>
+    </ul>
   </div>
 
   <div class="phase">
     <div class="phase-header">
       <div>
-        <div class="phase-title">Phase 5：講師機能・Stripe Connect 統合</div>
+        <div class="phase-title">Phase 6：面談予約・Google Meet 連携（決済抜き）</div>
+        <div style="font-size:12px; color:#5e6278;">空き時間設定・予約フロー・予約一覧</div>
       </div>
-      <div><span class="phase-status status-pending">未着手</span></div>
+      <div>
+        <span class="phase-status status-completed">完了</span>
+        <span style="font-size:12px; margin-left:8px;">完了率: 100%</span>
+      </div>
     </div>
-    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:100%"></div></div>
+    <ul style="font-size:12px; color:#475569; margin-top:8px; padding-left:20px;">
+      <li>/teacher/availability：60分1コマ追加/削除（datetime-local）・予約済みは削除不可</li>
+      <li>/teachers/[id]/booking：空き枠選択 → 予約（Stripe 接続済なら Checkout）</li>
+      <li>/bookings + /bookings/[id]：今後/過去 + キャンセル（24h前まで）</li>
+      <li>/admin/bookings：全件 + 手数料内訳 + 返金ボタン</li>
+      <li>Google Meet 自動発行は最終 Phase 拡張で予定（DB側はカラム準備済）</li>
+    </ul>
   </div>
 
   <div class="phase">
     <div class="phase-header">
       <div>
-        <div class="phase-title">Phase 6：面談予約・Google Meet 連携</div>
+        <div class="phase-title">Phase 7：管理画面拡充・サポート機能</div>
       </div>
-      <div><span class="phase-status status-pending">未着手</span></div>
+      <div>
+        <span class="phase-status status-completed">完了</span>
+        <span style="font-size:12px; margin-left:8px;">完了率: 100%</span>
+      </div>
     </div>
-    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:100%"></div></div>
+    <ul style="font-size:12px; color:#475569; margin-top:8px; padding-left:20px;">
+      <li>/support：問い合わせ送信（support_messages）+ 履歴10件</li>
+      <li>/admin/support：問い合わせ一覧 + mailto: 返信ボタン</li>
+      <li>/admin/users：氏名/メアド検索 + ロール/プラン絞込</li>
+      <li>/admin/analytics：ユーザー絞込 + 期間指定 + サマリー + 人気動画 Top5</li>
+    </ul>
   </div>
 
   <div class="phase">
     <div class="phase-header">
       <div>
-        <div class="phase-title">Phase 7：管理画面拡充・分析機能</div>
+        <div class="phase-title">Phase 4：Stripe Subscriptions + Connect + Booking</div>
+        <div style="font-size:12px; color:#5e6278;">サブスク決済・解約・カード変更・面談決済・返金 (最終実装)</div>
       </div>
-      <div><span class="phase-status status-pending">未着手</span></div>
+      <div>
+        <span class="phase-status status-completed">完了</span>
+        <span style="font-size:12px; margin-left:8px;">完了率: 100%</span>
+      </div>
     </div>
-    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:100%"></div></div>
+    <ul style="font-size:12px; color:#475569; margin-top:8px; padding-left:20px;">
+      <li>lib/stripe/{client,plans,webhook-handlers}：基盤</li>
+      <li>app/api/stripe/webhook：署名検証 + 5種イベント処理（冪等性確保）</li>
+      <li>app/api/stripe/{checkout, portal, cancel, resume}：サブスク系</li>
+      <li>app/api/stripe/connect/{onboard, dashboard}：講師の Connect Express</li>
+      <li>app/api/stripe/{booking-checkout, refund}：面談決済 + admin返金</li>
+      <li>/pricing：実 Checkout ボタン / /account/billing：プラン状況・解約・退会</li>
+      <li>/teacher/onboarding：実 Connect 接続フロー</li>
+      <li>/teachers/[id]/booking：Stripe 完了講師は Checkout、未接続は直接予約</li>
+      <li>STRIPE_SECRET_KEY 未設定でもアプリは正常動作（503 で graceful fallback）</li>
+    </ul>
   </div>
 
   <div class="phase">
     <div class="phase-header">
       <div>
-        <div class="phase-title">Phase 8：データ移行＋本番切替＋旧サイトリダイレクト</div>
+        <div class="phase-title">Phase 8：デプロイ手順書 + 本番切替準備</div>
       </div>
-      <div><span class="phase-status status-pending">未着手</span></div>
+      <div>
+        <span class="phase-status status-completed">完了</span>
+        <span style="font-size:12px; margin-left:8px;">完了率: 100%</span>
+      </div>
     </div>
-    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:100%"></div></div>
+    <ul style="font-size:12px; color:#475569; margin-top:8px; padding-left:20px;">
+      <li><a href="deployment.md">docs/deployment.md</a>：Vercel + Stripe + ドメイン切替手順書</li>
+      <li>旧URL→新URL の 301 リダイレクト定義（next.config.ts 用テンプレ）</li>
+      <li>データ移行方針（既存テーブルそのまま利用、admin_users は段階的削除）</li>
+      <li>ロールバック手順</li>
+      <li>※ 実際のデプロイは Stripe 再申請通過 + 本番ドメイン確定後に実施</li>
+    </ul>
   </div>
 
 </body>
