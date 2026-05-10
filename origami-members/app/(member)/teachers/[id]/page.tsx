@@ -103,22 +103,14 @@ export default async function TeacherDetailPage({
             </Card>
           )}
 
-          {stripeReady ? (
-            <Button render={<Link href={`/teachers/${id}/booking`} />} size="lg">
-              📅 面談を予約する
-            </Button>
-          ) : (
-            <Card className="border-amber-200 bg-amber-50/30">
-              <CardContent className="py-5">
-                <p className="text-sm font-bold text-amber-800">
-                  🚧 予約機能は準備中
-                </p>
-                <p className="mt-2 text-xs text-muted-foreground">
-                  この講師との予約・決済機能は Phase 6
-                  でリリース予定です。リリース時にお知らせします。
-                </p>
-              </CardContent>
-            </Card>
+          <Button render={<Link href={`/teachers/${id}/booking`} />} size="lg">
+            📅 面談を予約する
+          </Button>
+          {!stripeReady && (
+            <p className="mt-3 text-[11px] text-muted-foreground">
+              ※ 現在は決済ステップ未実装のため料金はかかりません（最終 Phase で
+              Stripe 決済を導入予定）
+            </p>
           )}
         </div>
       </div>
