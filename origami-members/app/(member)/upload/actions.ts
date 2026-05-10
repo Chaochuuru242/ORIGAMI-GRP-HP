@@ -24,8 +24,8 @@ export async function uploadVideoAction(
   ).trim();
   const practiceChecks = String(formData.get("practice_checks") ?? "").trim();
 
-  if (!title || !videoUrl || !categoryId) {
-    return { error: "タイトル・動画URL・カテゴリは必須です。" };
+  if (!title || !videoUrl) {
+    return { error: "タイトル・動画URLは必須です。" };
   }
   if (!TARGET_PLANS.includes(targetPlan as TargetPlan)) {
     return { error: "対象プランの値が不正です。" };
@@ -43,7 +43,7 @@ export async function uploadVideoAction(
     video_url: videoUrl,
     thumbnail_url: thumbnailUrl || null,
     target_plan: targetPlan,
-    category_id: categoryId,
+    category_id: categoryId || null,
     content_details: contentDetails || null,
     learning_materials: learningMaterials || null,
     practice_checks: practiceChecks || null,

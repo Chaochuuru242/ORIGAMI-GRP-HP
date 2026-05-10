@@ -18,6 +18,9 @@ export function CategoryFilter({
   onChange: (id: string | null) => void;
   activeId: string | null;
 }) {
+  // カテゴリ0件のときはフィルタ自体を非表示
+  if (categories.length === 0) return null;
+
   return (
     <div className="-mx-1 mb-8 flex gap-2 overflow-x-auto pb-2">
       <button

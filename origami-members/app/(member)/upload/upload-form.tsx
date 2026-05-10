@@ -66,16 +66,13 @@ export function UploadForm({ categories }: { categories: Category[] }) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="category_id">
-              カテゴリ <span className="text-destructive">*</span>
-            </Label>
+            <Label htmlFor="category_id">カテゴリ（任意）</Label>
             <select
               id="category_id"
               name="category_id"
-              required
               className="h-9 w-full rounded-md border border-border bg-background px-3 text-sm focus:border-primary focus:outline-none"
             >
-              <option value="">選択してください</option>
+              <option value="">未分類</option>
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.name}
