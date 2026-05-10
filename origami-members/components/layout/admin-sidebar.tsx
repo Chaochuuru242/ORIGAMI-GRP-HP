@@ -15,6 +15,7 @@ const items = [
   { href: "/admin/news", label: "お知らせ", icon: "📰" },
   { href: "/admin/teachers", label: "講師管理", icon: "🎓" },
   { href: "/admin/bookings", label: "予約管理", icon: "📅" },
+  { href: "/admin/support", label: "サポート問合せ", icon: "📩" },
   { href: "/admin/analytics", label: "分析", icon: "📈" },
 ];
 

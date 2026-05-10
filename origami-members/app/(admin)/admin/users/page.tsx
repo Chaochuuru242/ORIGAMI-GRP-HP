@@ -1,29 +1,88 @@
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { PLAN_NAMES, ROLE_NAMES, PLANS, ROLES } from "@/lib/plan/constants";
 import { updateUserRoleAndPlanAction } from "./actions";
 
 export const metadata = { title: "ユーザー管理 | Admin" };
 
-export default async function AdminUsersPage() {
+export default async function AdminUsersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; role?: string; plan?: string }>;
+}) {
+  const { q, role, plan } = await searchParams;
   const supabase = await createClient();
-  const { data: rawUsers } = await supabase
+
+  let query = supabase
     .from("profiles")
     .select(
       "id, email, full_name, role, plan, subscription_status, current_period_end, created_at"
     )
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .limit(200);
 
+  if (role) query = query.eq("role", role);
+  if (plan) query = query.eq("plan", plan);
+  if (q) {
+    query = query.or(`full_name.ilike.%${q}%,email.ilike.%${q}%`);
+  }
+
+  const { data: rawUsers } = await query;
   const users = rawUsers ?? [];
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-10">
-      <header className="mb-8">
+      <header className="mb-6">
         <h1 className="text-2xl font-extrabold">👥 ユーザー管理</h1>
         <p className="mt-1 text-sm text-muted-foreground">
-          ロール・プランの手動変更（緊急対応用 / 通常は決済 Webhook 経由で自動更新）
+          ロール・プランの手動変更（緊急対応用）
         </p>
       </header>
+
+      <form
+        method="GET"
+        className="mb-6 grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-[2fr_1fr_1fr_auto]"
+      >
+        <Input
+          name="q"
+          defaultValue={q ?? ""}
+          placeholder="氏名 or メアドで検索..."
+          className="text-sm"
+        />
+        <select
+          name="role"
+          defaultValue={role ?? ""}
+          className="h-9 rounded-md border border-border bg-background px-2 text-sm"
+        >
+          <option value="">全ロール</option>
+          {ROLES.map((r) => (
+            <option key={r} value={r}>
+              {ROLE_NAMES[r]}
+            </option>
+          ))}
+        </select>
+        <select
+          name="plan"
+          defaultValue={plan ?? ""}
+          className="h-9 rounded-md border border-border bg-background px-2 text-sm"
+        >
+          <option value="">全プラン</option>
+          {PLANS.map((p) => (
+            <option key={p} value={p}>
+              {PLAN_NAMES[p]}
+            </option>
+          ))}
+        </select>
+        <Button type="submit" size="sm">
+          🔍 絞り込む
+        </Button>
+      </form>
+
+      <p className="mb-3 text-xs text-muted-foreground">
+        該当ユーザー：<strong className="text-foreground">{users.length}</strong>{" "}
+        人（最大200件）
+      </p>
 
       <div className="overflow-x-auto rounded-xl border border-border bg-card">
         <table className="w-full text-sm">
@@ -56,7 +115,7 @@ export default async function AdminUsersPage() {
                   colSpan={6}
                   className="px-4 py-12 text-center text-sm text-muted-foreground"
                 >
-                  ユーザーがまだ登録されていません
+                  該当するユーザーがいません
                 </td>
               </tr>
             ) : (

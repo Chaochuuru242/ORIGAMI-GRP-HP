@@ -1,10 +1,25 @@
 import Link from "next/link";
+import { requireUser } from "@/lib/auth/guards";
+import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SupportForm } from "./support-form";
 
 export const metadata = { title: "サポート | ORIGAMI GRP メンバーズ" };
 
-export default function SupportPage() {
+export default async function SupportPage() {
+  const { user } = await requireUser();
+  const supabase = await createClient();
+
+  const { data: rawHistory } = await supabase
+    .from("support_messages")
+    .select("id, body, created_at")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false })
+    .limit(10);
+
+  const history = rawHistory ?? [];
+
   return (
     <div className="mx-auto max-w-3xl px-6 py-10">
       <header className="mb-8">
@@ -14,7 +29,7 @@ export default function SupportPage() {
         </p>
       </header>
 
-      <div className="grid gap-5 md:grid-cols-2">
+      <div className="mb-8 grid gap-5 md:grid-cols-2">
         <Card>
           <CardHeader>
             <CardTitle className="text-base">📚 よくある質問</CardTitle>
@@ -44,18 +59,40 @@ export default function SupportPage() {
         </Card>
       </div>
 
-      <Card className="mt-6 border-dashed">
-        <CardContent className="py-6">
-          <p className="text-xs text-muted-foreground">
-            ⚠ サポートメッセージ送信機能は Phase 4 で実装予定です。
-            現状はサイト経由でのお問い合わせをご希望の方は{" "}
-            <Link href="/faq" className="text-primary underline">
-              FAQ
-            </Link>{" "}
-            の案内をご確認ください。
+      <Card className="mb-8">
+        <CardHeader>
+          <CardTitle className="text-base">📩 サポートに問い合わせる</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="mb-5 text-xs text-muted-foreground">
+            運営サポートチームへ直接ご質問・ご要望をお送りいただけます。通常 1 営業日以内にメールでお返事します。
           </p>
+          <SupportForm />
         </CardContent>
       </Card>
+
+      {history.length > 0 && (
+        <section>
+          <h2 className="mb-3 text-sm font-extrabold">
+            過去の問い合わせ履歴 ({history.length})
+          </h2>
+          <div className="space-y-2">
+            {history.map((m) => (
+              <div
+                key={m.id as string}
+                className="rounded-lg border border-border bg-card p-3 text-sm"
+              >
+                <p className="text-[10px] text-muted-foreground">
+                  {new Date(m.created_at as string).toLocaleString("ja-JP")}
+                </p>
+                <p className="mt-1 whitespace-pre-line text-xs text-foreground">
+                  {m.body as string}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 }
