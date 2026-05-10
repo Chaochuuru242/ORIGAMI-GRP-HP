@@ -20,6 +20,13 @@ function normalizeLineBreaks(text: string): string {
   return text.replace(/\\n/g, "\n").replace(/\\r/g, "");
 }
 
+const ROLE_LABEL: Record<string, string> = {
+  admin: "ORIGAMI GRP 公式",
+  adder: "コンテンツ追加担当",
+  teacher: "講師",
+  user: "メンバー",
+};
+
 export default async function ContentDetailPage({
   params,
 }: {
@@ -32,7 +39,7 @@ export default async function ContentDetailPage({
   const { data: video, error } = await supabase
     .from("videos")
     .select(
-      "id, title, description, video_url, target_plan, content_details, learning_materials, practice_checks, created_at, category_id"
+      "id, title, description, video_url, target_plan, content_details, learning_materials, practice_checks, created_at, category_id, created_by, categories(name)"
     )
     .eq("id", id)
     .eq("status", "published")
@@ -66,10 +73,7 @@ export default async function ContentDetailPage({
             <Button render={<Link href="/account/billing" />}>
               プランをアップグレードする
             </Button>
-            <Button
-              render={<Link href="/contents" />}
-              variant="outline"
-            >
+            <Button render={<Link href="/contents" />} variant="outline">
               一覧に戻る
             </Button>
           </div>
@@ -78,10 +82,43 @@ export default async function ContentDetailPage({
     );
   }
 
+  // 投稿者情報を取得（profiles + teachers を created_by で参照）
+  const createdById = video.created_by as string | null;
+  let publisher: {
+    id: string;
+    name: string;
+    photoUrl: string | null;
+    role: string;
+    isTeacher: boolean;
+  } | null = null;
+
+  if (createdById) {
+    const { data: pub } = await supabase
+      .from("profiles")
+      .select("id, full_name, role, teachers(display_name, photo_url)")
+      .eq("id", createdById)
+      .maybeSingle();
+
+    if (pub) {
+      const t = pub.teachers as
+        | { display_name?: string; photo_url?: string }
+        | null;
+      const role = (pub.role as string) ?? "user";
+      publisher = {
+        id: pub.id as string,
+        name: t?.display_name ?? (pub.full_name as string) ?? "（投稿者）",
+        photoUrl: t?.photo_url ?? null,
+        role,
+        isTeacher: role === "teacher",
+      };
+    }
+  }
+
   const embedUrl = getEmbedUrl(video.video_url as string);
   const dateStr = new Date(video.created_at as string).toLocaleDateString(
     "ja-JP"
   );
+  const categoryName = (video.categories as { name?: string } | null)?.name;
 
   return (
     <div className="mx-auto max-w-5xl px-6 py-10">
@@ -99,6 +136,7 @@ export default async function ContentDetailPage({
         <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
           <span>{dateStr} 公開</span>
           <Badge variant="outline">対象プラン: {targetPlan}</Badge>
+          {categoryName && <Badge variant="outline">{categoryName}</Badge>}
         </div>
       </header>
 
@@ -115,6 +153,61 @@ export default async function ContentDetailPage({
           <br />
           管理者に動画 URL の確認を依頼してください。
         </div>
+      )}
+
+      {/* 投稿者カード */}
+      {publisher && (
+        <section className="mt-8">
+          <h2 className="mb-3 text-xs font-bold tracking-wider text-muted-foreground uppercase">
+            投稿者
+          </h2>
+          {publisher.isTeacher ? (
+            <Link
+              href={`/teachers/${publisher.id}`}
+              className="group flex items-center gap-4 rounded-xl border border-border bg-card p-4 transition hover:border-primary/40 hover:shadow-sm"
+            >
+              <div className="aspect-square w-14 shrink-0 overflow-hidden rounded-full bg-muted">
+                {publisher.photoUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={publisher.photoUrl}
+                    alt={publisher.name}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center text-xl">
+                    🎓
+                  </div>
+                )}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-extrabold group-hover:text-primary">
+                  {publisher.name}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  {ROLE_LABEL[publisher.role] ?? publisher.role}
+                </p>
+              </div>
+              <span className="text-xs text-primary opacity-0 group-hover:opacity-100">
+                プロフィール →
+              </span>
+            </Link>
+          ) : (
+            <div className="flex items-center gap-4 rounded-xl border border-border bg-card p-4">
+              <div className="aspect-square w-14 shrink-0 overflow-hidden rounded-full bg-primary-light/40">
+                <div className="flex h-full items-center justify-center text-xl text-primary">
+                  ✦
+                </div>
+              </div>
+              <div>
+                <p className="text-sm font-extrabold">{publisher.name}</p>
+                <p className="text-xs text-muted-foreground">
+                  {ROLE_LABEL[publisher.role] ?? publisher.role}
+                </p>
+              </div>
+            </div>
+          )}
+        </section>
       )}
 
       {video.description && (

@@ -84,6 +84,18 @@ export default async function AdminUsersPage({
         人（最大200件）
       </p>
 
+      {/* HTML仕様で <tr> 内に <form> を入れられないため、行ごとの form をテーブル外に置き form 属性で紐付ける */}
+      {users.map((u) => (
+        <form
+          key={`form-${u.id as string}`}
+          id={`user-form-${u.id as string}`}
+          action={updateUserRoleAndPlanAction}
+          style={{ display: "none" }}
+        >
+          <input type="hidden" name="id" value={u.id as string} />
+        </form>
+      ))}
+
       <div className="overflow-x-auto rounded-xl border border-border bg-card">
         <table className="w-full text-sm">
           <thead className="border-b border-border bg-muted/30 text-xs">
@@ -119,13 +131,13 @@ export default async function AdminUsersPage({
                 </td>
               </tr>
             ) : (
-              users.map((u) => (
-                <tr
-                  key={u.id as string}
-                  className="border-b border-border last:border-0"
-                >
-                  <form action={updateUserRoleAndPlanAction} className="contents">
-                    <input type="hidden" name="id" value={u.id as string} />
+              users.map((u) => {
+                const formId = `user-form-${u.id as string}`;
+                return (
+                  <tr
+                    key={u.id as string}
+                    className="border-b border-border last:border-0"
+                  >
                     <td className="px-4 py-3">
                       <div className="font-bold text-foreground">
                         {(u.full_name as string) ?? "(未設定)"}
@@ -142,6 +154,7 @@ export default async function AdminUsersPage({
                     <td className="px-4 py-3">
                       <select
                         name="role"
+                        form={formId}
                         defaultValue={u.role as string}
                         className="h-8 rounded-md border border-border bg-background px-2 text-sm"
                       >
@@ -155,6 +168,7 @@ export default async function AdminUsersPage({
                     <td className="px-4 py-3">
                       <select
                         name="plan"
+                        form={formId}
                         defaultValue={u.plan as string}
                         className="h-8 rounded-md border border-border bg-background px-2 text-sm"
                       >
@@ -183,13 +197,18 @@ export default async function AdminUsersPage({
                       )}
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <Button type="submit" size="sm" variant="outline">
+                      <Button
+                        type="submit"
+                        form={formId}
+                        size="sm"
+                        variant="outline"
+                      >
                         更新
                       </Button>
                     </td>
-                  </form>
-                </tr>
-              ))
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>

@@ -59,13 +59,16 @@ export default async function AdminVideosListPage() {
               <th className="px-4 py-3 text-left font-bold text-muted-foreground">
                 URL
               </th>
+              <th className="px-4 py-3 text-right font-bold text-muted-foreground">
+                操作
+              </th>
             </tr>
           </thead>
           <tbody>
             {videos.length === 0 ? (
               <tr>
                 <td
-                  colSpan={6}
+                  colSpan={7}
                   className="px-4 py-12 text-center text-sm text-muted-foreground"
                 >
                   動画がまだ登録されていません
@@ -121,6 +124,18 @@ export default async function AdminVideosListPage() {
                       >
                         ↗ 開く
                       </Link>
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <Button
+                        render={
+                          <Link href={`/admin/videos/${v.id as string}`} />
+                        }
+                        size="sm"
+                        variant="outline"
+                        className="text-xs"
+                      >
+                        ✏ 編集
+                      </Button>
                     </td>
                   </tr>
                 );
