@@ -27,7 +27,7 @@
 </head>
 <body>
   <h1>🛠 ORIGAMI GRP メンバーズ 開発進捗</h1>
-  <div class="updated">最終更新: 2026-05-10 / 全体: <strong>Phase 1-2 完了 / Phase 3 未着手</strong></div>
+  <div class="updated">最終更新: 2026-05-10 / 全体: <strong>Phase 1-3 完了 / Phase 4 未着手</strong></div>
 
   <div class="legend">
     <strong>凡例:</strong>
@@ -116,11 +116,36 @@
   <div class="phase">
     <div class="phase-header">
       <div>
-        <div class="phase-title">Phase 3：カテゴリ・プレイリスト機能追加</div>
+        <div class="phase-title">Phase 3：プレイリスト + 管理画面基盤</div>
+        <div style="font-size:12px; color:#5e6278;">プレイリスト UI + admin (categories/news/users/playlists/videos/analytics)</div>
       </div>
-      <div><span class="phase-status status-pending">未着手</span></div>
+      <div>
+        <span class="phase-status status-completed">完了</span>
+        <span style="font-size:12px; margin-left:8px;">完了率: 100%</span>
+      </div>
     </div>
-    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:100%"></div></div>
+
+    <table style="margin-top:16px;">
+      <thead>
+        <tr><th style="width:5%">#</th><th style="width:35%">ステップ</th><th style="width:30%">対象ファイル</th><th style="width:12%">状態</th><th>備考</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>3.1</td><td>/playlists 一覧（プログレスバー付き）</td><td class="files">app/(member)/playlists/page.tsx + components/content/playlist-card.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>プラン別ロック・進捗バー対応</td></tr>
+        <tr><td>3.2</td><td>/playlists/[id] 詳細・連続視聴</td><td class="files">app/(member)/playlists/[id]/page.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>「続きから視聴」ボタン・全体進捗表示</td></tr>
+        <tr><td>3.3</td><td>(admin) レイアウト + サイドバー</td><td class="files">app/(admin)/layout.tsx + components/layout/admin-sidebar.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>承認待ちバッジ表示・requireAdmin で保護</td></tr>
+        <tr><td>3.4</td><td>/admin ダッシュボード</td><td class="files">app/(admin)/admin/page.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>6カテゴリのカウンター</td></tr>
+        <tr><td>3.5</td><td>/admin/users (ロール/プラン編集)</td><td class="files">app/(admin)/admin/users/{page,actions}</td><td><span class="phase-status status-completed">完了</span></td><td>緊急対応用の手動更新</td></tr>
+        <tr><td>3.6</td><td>/admin/categories (CRUD)</td><td class="files">app/(admin)/admin/categories/{page,categories-client,actions}</td><td><span class="phase-status status-completed">完了</span></td><td>動画紐付き時は削除不可</td></tr>
+        <tr><td>3.7</td><td>/admin/news (CRUD)</td><td class="files">app/(admin)/admin/news/{page,news-client,actions}</td><td><span class="phase-status status-completed">完了</span></td><td>公開日時指定可</td></tr>
+        <tr><td>3.8</td><td>/admin/videos (一覧)</td><td class="files">app/(admin)/admin/videos/page.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>公開中・承認待ち合算</td></tr>
+        <tr><td>3.9</td><td>/admin/videos/pending (承認/却下)</td><td class="files">app/(admin)/admin/videos/pending/{page,actions}</td><td><span class="phase-status status-completed">完了</span></td><td>承認→published / 却下→DB削除</td></tr>
+        <tr><td>3.10</td><td>/admin/playlists (一覧 + 作成)</td><td class="files">app/(admin)/admin/playlists/{page,playlist-create-form,actions}</td><td><span class="phase-status status-completed">完了</span></td><td>作成後は編集画面へリダイレクト</td></tr>
+        <tr><td>3.11</td><td>/admin/playlists/[id] (動画追加・削除・順序変更)</td><td class="files">app/(admin)/admin/playlists/[id]/page.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>position 数値入力・追加/除外ボタン</td></tr>
+        <tr><td>3.12</td><td>/admin/analytics (視聴/DLログ)</td><td class="files">app/(admin)/admin/analytics/page.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>直近50件・絞り込みは Phase 7 で拡充</td></tr>
+        <tr><td>3.13</td><td>placeholder ページ群（Phase 4-6 用）</td><td class="files">/account/billing /support /teachers /bookings /admin/teachers /admin/bookings + components/layout/coming-soon</td><td><span class="phase-status status-completed">完了</span></td><td>サイドバーから 404 を出さない</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="phase">
