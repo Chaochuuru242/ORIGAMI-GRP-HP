@@ -15,22 +15,48 @@ export function BookingForm({
   teacherId,
   slots,
   pricePerSession,
+  useStripe,
 }: {
   teacherId: string;
   slots: Slot[];
   pricePerSession: number;
+  /** true: Stripe Checkout 経由 / false: 直接 confirmed (開発用) */
+  useStripe: boolean;
 }) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [state, formAction, isPending] = useActionState<
+  const [stripeLoading, setStripeLoading] = useState(false);
+  const [stripeError, setStripeError] = useState<string | null>(null);
+
+  // 直接予約（Stripe なし）用
+  const [actionState, formAction, isPendingAction] = useActionState<
     CreateBookingState,
     FormData
   >(createBookingAction, {});
 
-  return (
-    <form action={formAction}>
-      <input type="hidden" name="teacher_id" value={teacherId} />
-      <input type="hidden" name="availability_id" value={selectedId ?? ""} />
+  const handleStripeCheckout = async () => {
+    if (!selectedId) return;
+    setStripeLoading(true);
+    setStripeError(null);
+    try {
+      const res = await fetch("/api/stripe/booking-checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          teacher_id: teacherId,
+          availability_id: selectedId,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Checkout failed");
+      window.location.href = data.url;
+    } catch (err) {
+      setStripeError(err instanceof Error ? err.message : "Checkout failed");
+      setStripeLoading(false);
+    }
+  };
 
+  const slotPicker = (
+    <>
       <p className="mb-4 text-sm font-bold">
         ご希望の時間帯をお選びください（60分・¥{pricePerSession.toLocaleString()}）
       </p>
@@ -72,23 +98,57 @@ export function BookingForm({
           })}
         </div>
       )}
+    </>
+  );
 
-      {state.error && (
+  if (useStripe) {
+    return (
+      <div>
+        {slotPicker}
+        {stripeError && (
+          <p
+            className="mt-4 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive"
+            role="alert"
+          >
+            {stripeError}
+          </p>
+        )}
+        <div className="mt-6 flex items-center justify-between gap-4">
+          <p className="text-xs text-muted-foreground">
+            「決済へ進む」を押すと Stripe の安全な決済画面に遷移します
+          </p>
+          <Button
+            type="button"
+            onClick={handleStripeCheckout}
+            disabled={!selectedId || stripeLoading}
+          >
+            {stripeLoading ? "Stripe にリダイレクト中..." : "💳 決済へ進む"}
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  // Stripe なし（開発モード or 講師未接続）
+  return (
+    <form action={formAction}>
+      <input type="hidden" name="teacher_id" value={teacherId} />
+      <input type="hidden" name="availability_id" value={selectedId ?? ""} />
+      {slotPicker}
+      {actionState.error && (
         <p
           className="mt-4 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive"
           role="alert"
         >
-          {state.error}
+          {actionState.error}
         </p>
       )}
-
       <div className="mt-6 flex items-center justify-between gap-4">
         <p className="text-xs text-muted-foreground">
-          ※ 予約完了と同時に Google Meet リンクが講師から送られます（連携完了は最終
-          Phase で）
+          ※ 講師の Stripe 接続が未完了のため決済なしで予約します（開発モード）
         </p>
-        <Button type="submit" disabled={!selectedId || isPending}>
-          {isPending ? "予約中..." : "この時間で予約する"}
+        <Button type="submit" disabled={!selectedId || isPendingAction}>
+          {isPendingAction ? "予約中..." : "この時間で予約する"}
         </Button>
       </div>
     </form>

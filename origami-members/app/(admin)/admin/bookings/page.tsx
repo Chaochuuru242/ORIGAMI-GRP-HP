@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { RefundButton } from "./refund-button";
 
 export const metadata = { title: "予約管理 | Admin" };
 
@@ -27,7 +28,7 @@ export default async function AdminBookingsPage() {
   const { data: rawBookings } = await supabase
     .from("bookings")
     .select(
-      "id, start_at, end_at, status, price, platform_fee, teacher_payout, canceled_at, refunded_at, profiles(full_name, email), teachers(display_name)"
+      "id, start_at, end_at, status, price, platform_fee, teacher_payout, canceled_at, refunded_at, stripe_payment_intent_id, profiles(full_name, email), teachers(display_name)"
     )
     .order("start_at", { ascending: false })
     .limit(200);
@@ -126,14 +127,21 @@ export default async function AdminBookingsPage() {
                       </Badge>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <Button
-                        render={<Link href={`/bookings/${b.id as string}`} />}
-                        size="sm"
-                        variant="outline"
-                        className="text-xs"
-                      >
-                        →
-                      </Button>
+                      <div className="flex justify-end gap-2">
+                        {b.stripe_payment_intent_id &&
+                          !b.refunded_at &&
+                          status !== "canceled" && (
+                            <RefundButton bookingId={b.id as string} />
+                          )}
+                        <Button
+                          render={<Link href={`/bookings/${b.id as string}`} />}
+                          size="sm"
+                          variant="outline"
+                          className="text-xs"
+                        >
+                          →
+                        </Button>
+                      </div>
                     </td>
                   </tr>
                 );

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { requireCompleteProfile } from "@/lib/auth/guards";
 import { createClient } from "@/lib/supabase/server";
+import { isStripeReady } from "@/lib/stripe/client";
 import { BookingForm, type Slot } from "./booking-form";
 
 export const metadata = { title: "面談予約 | ORIGAMI GRP メンバーズ" };
@@ -17,7 +18,9 @@ export default async function BookingPage({
 
   const { data: teacher } = await supabase
     .from("teachers")
-    .select("id, display_name, price_per_session, is_active")
+    .select(
+      "id, display_name, price_per_session, is_active, stripe_onboarding_completed"
+    )
     .eq("id", id)
     .maybeSingle();
   if (!teacher) notFound();
@@ -37,6 +40,11 @@ export default async function BookingPage({
     startAt: s.start_at as string,
     endAt: s.end_at as string,
   }));
+
+  // Stripe + 講師の Connect 完了 が両方揃ったときのみ Stripe Checkout を使う
+  const useStripe =
+    isStripeReady() &&
+    Boolean(teacher.stripe_onboarding_completed);
 
   return (
     <div className="mx-auto max-w-3xl px-6 py-10">
@@ -59,6 +67,7 @@ export default async function BookingPage({
           teacherId={id}
           slots={slots}
           pricePerSession={teacher.price_per_session as number}
+          useStripe={useStripe}
         />
       </div>
     </div>
