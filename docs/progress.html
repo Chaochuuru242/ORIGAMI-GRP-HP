@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>ORIGAMI GRP メンバーズ 開発進捗</title>
+<style>
+  body { font-family: 'Inter', 'Noto Sans JP', sans-serif; margin: 0; padding: 32px; background: #f9fafb; color: #1c1d21; }
+  h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; }
+  .updated { color: #5e6278; font-size: 13px; margin-bottom: 32px; }
+  .phase { background: #fff; border: 1px solid #e4e6ef; border-radius: 12px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+  .phase-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .phase-title { font-size: 18px; font-weight: 800; }
+  .phase-status { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700; display: inline-block; }
+  .status-pending { background: #f1f5f9; color: #64748b; }
+  .status-in-progress { background: #fef3c7; color: #b45309; }
+  .status-completed { background: #dcfce7; color: #15803d; }
+  .status-blocked { background: #fee2e2; color: #b91c1c; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; background: #f8fafc; font-weight: 700; color: #475569; padding: 10px 12px; border-bottom: 2px solid #e2e8f0; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  .progress-bar-bg { height: 6px; background: #f1f5f9; border-radius: 3px; overflow: hidden; margin-top: 8px; }
+  .progress-bar { height: 100%; background: #5b4b8a; transition: width 0.3s; }
+  .files { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #475569; }
+  .check-row { background: #fffbeb; }
+  .legend { background: #f8fafc; padding: 16px; border-radius: 8px; font-size: 13px; margin-bottom: 24px; }
+</style>
+</head>
+<body>
+  <h1>🛠 ORIGAMI GRP メンバーズ 開発進捗</h1>
+  <div class="updated">最終更新: 2026-05-10 / 全体: <strong>Phase 1-2 完了 / Phase 3 未着手</strong></div>
+
+  <div class="legend">
+    <strong>凡例:</strong>
+    <span class="phase-status status-pending">未着手</span>
+    <span class="phase-status status-in-progress">進行中</span>
+    <span class="phase-status status-completed">完了</span>
+    <span class="phase-status status-blocked">ブロッカー</span>
+    &nbsp;&nbsp;<strong>備考:</strong> 各ステップ完了時にユーザーがローカルで動作確認 → OKもらってから次へ
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div>
+        <div class="phase-title">Phase 1：プロジェクト基盤構築</div>
+        <div style="font-size:12px; color:#5e6278;">Next.js 16 + Supabase + shadcn/ui のセットアップ完了まで</div>
+      </div>
+      <div>
+        <span class="phase-status status-completed">完了</span>
+        <span style="font-size:12px; margin-left:8px;">完了率: 100%</span>
+      </div>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:100%"></div></div>
+
+    <table style="margin-top:16px;">
+      <thead>
+        <tr><th style="width:5%">#</th><th style="width:30%">ステップ</th><th style="width:25%">対象ファイル / 場所</th><th style="width:12%">状態</th><th style="width:8%">完了率</th><th>備考</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1.0</td><td>配置先確定</td><td>—</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>同リポジトリ並列（origami-members/）</td></tr>
+        <tr><td>1.1</td><td>Supabase方針確定</td><td>—</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>既存Supabase（gfvnnxuupdmbuxejyfck）に増設</td></tr>
+        <tr><td>1.2</td><td>Next.js 16 プロジェクト初期化</td><td class="files">origami-members/</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>Next.js 16.2.6 / React 19.2.4 / Tailwind v4 / TypeScript 5</td></tr>
+        <tr><td>1.3</td><td>Tailwind CSS v4 設定</td><td class="files">app/globals.css</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>v4 @theme inline + shadcn互換</td></tr>
+        <tr><td>1.4</td><td>shadcn/ui 初期化</td><td class="files">components.json / components/ui/</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>Nova preset → ブランドカラーで上書き</td></tr>
+        <tr><td>1.5</td><td>デザイントークン移植</td><td class="files">app/globals.css</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>primary #5B4B8A 他、既存styles.cssから移植</td></tr>
+        <tr><td>1.6</td><td>日本語フォント設定</td><td class="files">app/layout.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>Inter + Noto Sans JP + Noto Serif JP</td></tr>
+        <tr><td>1.7</td><td>Supabase クライアント実装</td><td class="files">lib/supabase/{client,server,middleware,service}.ts</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>@supabase/ssr 0.10.3 / @supabase/supabase-js 2.105.4</td></tr>
+        <tr><td>1.8</td><td>proxy.ts 配置（旧middleware）</td><td class="files">proxy.ts</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>セッション更新 + 保護パス未ログイン時 /login</td></tr>
+        <tr><td>1.9</td><td>環境変数テンプレート</td><td class="files">.env.example / .env.local</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>⚠ SUPABASE_SERVICE_ROLE_KEY は未設定（Phase 4までに）</td></tr>
+        <tr><td>1.10</td><td>ルートディレクトリ構造作成</td><td class="files">app/(auth) (public) (member) (adder) (teacher) (admin)/</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>空ディレクトリ作成済み</td></tr>
+        <tr><td>1.11</td><td>初期ダミーページ</td><td class="files">app/page.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>「Phase 1 / 構築中」表示 + shadcn Button動作確認</td></tr>
+        <tr><td>1.12</td><td>Supabase migration SQL 作成</td><td class="files">supabase/migrations/01_schema.sql / 02_rls.sql / 03_seed.sql</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>3ファイル + RUN_ORDER.md</td></tr>
+        <tr><td>1.13</td><td>migration 実行（ユーザー）</td><td class="files">Supabase SQL Editor</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>01/02/03 全て実行成功（2026-05-10）</td></tr>
+        <tr><td>1.14</td><td>seed データ投入</td><td class="files">03_seed.sql</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>カテゴリ6件 + platform_settings 5件</td></tr>
+        <tr><td>1.15</td><td>ローカル起動確認</td><td class="files">npm run dev → http://localhost:3000</td><td><span class="phase-status status-completed">完了</span></td><td>100%</td><td>HTTP 200 / proxy.ts動作 / shadcn Button OK</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Phase 2 以降 -->
+  <div class="phase">
+    <div class="phase-header">
+      <div>
+        <div class="phase-title">Phase 2：認証・ダッシュボード・動画一覧/詳細移植</div>
+        <div style="font-size:12px; color:#5e6278;">既存機能の Next.js 化（決済前のコア体験）</div>
+      </div>
+      <div>
+        <span class="phase-status status-completed">完了</span>
+        <span style="font-size:12px; margin-left:8px;">完了率: 100%</span>
+      </div>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:100%"></div></div>
+
+    <table style="margin-top:16px;">
+      <thead>
+        <tr><th style="width:5%">#</th><th style="width:35%">ステップ</th><th style="width:30%">対象ファイル</th><th style="width:12%">状態</th><th>備考</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>2.1</td><td>shadcn 拡張コンポーネント</td><td class="files">components/ui/{input,label,card,badge,progress,sonner,separator,avatar,dropdown-menu}</td><td><span class="phase-status status-completed">完了</span></td><td>form は base-ui 互換性のため未導入。Server Action + plain form で対応</td></tr>
+        <tr><td>2.2</td><td>lib/plan + lib/auth helpers</td><td class="files">lib/plan/{constants,permissions}.ts / lib/auth/guards.ts</td><td><span class="phase-status status-completed">完了</span></td><td>requireUser/requireCompleteProfile/requireAdderOrAdmin/requireAdmin/requireTeacherOrAdmin</td></tr>
+        <tr><td>2.3</td><td>レイアウトコンポーネント</td><td class="files">components/layout/{header,footer,member-sidebar}.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>サイドバーはロール別表示制御内蔵</td></tr>
+        <tr><td>2.4</td><td>(public) グループ + LP/pricing/faq</td><td class="files">app/(public)/{layout,page,pricing,faq}</td><td><span class="phase-status status-completed">完了</span></td><td>既存LPの構造を踏襲</td></tr>
+        <tr><td>2.5</td><td>(auth) グループ + login/register</td><td class="files">app/(auth)/{layout,login,register}</td><td><span class="phase-status status-completed">完了</span></td><td>Server Action + useActionState</td></tr>
+        <tr><td>2.6</td><td>password-reset / password-update</td><td class="files">app/(auth)/{password-reset,password-update}</td><td><span class="phase-status status-completed">完了</span></td><td>resetPasswordForEmail + updateUser</td></tr>
+        <tr><td>2.7</td><td>(member) レイアウト + logout</td><td class="files">app/(member)/{layout.tsx,logout-action.ts}</td><td><span class="phase-status status-completed">完了</span></td><td>requireUser が(member) 全配下を保護</td></tr>
+        <tr><td>2.8</td><td>/profile</td><td class="files">app/(member)/profile/{page,profile-form,actions}</td><td><span class="phase-status status-completed">完了</span></td><td>?incomplete=1 強制遷移対応・revalidatePath</td></tr>
+        <tr><td>2.9</td><td>/dashboard</td><td class="files">app/(member)/dashboard/page.tsx</td><td><span class="phase-status status-completed">完了</span></td><td>進捗バー・お知らせ・おすすめ動画</td></tr>
+        <tr><td>2.10</td><td>/contents (一覧)</td><td class="files">app/(member)/contents/{page,contents-client}</td><td><span class="phase-status status-completed">完了</span></td><td>プラン別セクション + カテゴリフィルタチップ + ロック表示</td></tr>
+        <tr><td>2.11</td><td>/contents/[id] (詳細)</td><td class="files">app/(member)/contents/[id]/{page,video-player,track-actions}</td><td><span class="phase-status status-completed">完了</span></td><td>YouTube/Vimeo埋込 + 3分後視聴記録 + 資料DL記録</td></tr>
+        <tr><td>2.12</td><td>/upload (adder/admin)</td><td class="files">app/(member)/upload/{page,upload-form,actions}</td><td><span class="phase-status status-completed">完了</span></td><td>requireAdderOrAdmin で保護・status='pending' で申請</td></tr>
+        <tr><td>2.13</td><td>asChild→render bug fix</td><td class="files">全 Button asChild 箇所</td><td><span class="phase-status status-completed">完了</span></td><td>base-ui Button は render プロップが正規</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div>
+        <div class="phase-title">Phase 3：カテゴリ・プレイリスト機能追加</div>
+      </div>
+      <div><span class="phase-status status-pending">未着手</span></div>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div>
+        <div class="phase-title">Phase 4：Stripe Subscriptions 統合</div>
+        <div style="font-size:12px; color:#5e6278;">プラン購入・解約・請求履歴・カード変更</div>
+      </div>
+      <div><span class="phase-status status-pending">未着手</span></div>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div>
+        <div class="phase-title">Phase 5：講師機能・Stripe Connect 統合</div>
+      </div>
+      <div><span class="phase-status status-pending">未着手</span></div>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div>
+        <div class="phase-title">Phase 6：面談予約・Google Meet 連携</div>
+      </div>
+      <div><span class="phase-status status-pending">未着手</span></div>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div>
+        <div class="phase-title">Phase 7：管理画面拡充・分析機能</div>
+      </div>
+      <div><span class="phase-status status-pending">未着手</span></div>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+  </div>
+
+  <div class="phase">
+    <div class="phase-header">
+      <div>
+        <div class="phase-title">Phase 8：データ移行＋本番切替＋旧サイトリダイレクト</div>
+      </div>
+      <div><span class="phase-status status-pending">未着手</span></div>
+    </div>
+    <div class="progress-bar-bg"><div class="progress-bar" style="width:0%"></div></div>
+  </div>
+
+</body>
+</html>

@@ -1,2 +1,5 @@
 .vercel
 .env*.local
+
+# Claude Code worktree internals
+.claude/

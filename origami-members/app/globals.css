@@ -1,0 +1,162 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ===================================================================
+   ORIGAMI GRP メンバーズ デザイントークン
+   既存 styles.css / member-styles.css から移植
+   shadcn/ui のトークン（--primary, --background 等）にも上書きで反映
+   =================================================================== */
+:root {
+  /* ブランドカラー（既存サイトから継承） */
+  --color-primary: #5b4b8a;
+  --color-primary-dark: #3f3366;
+  --color-primary-light: #f2efff;
+  --color-text-main: #1c1d21;
+  --color-text-muted: #5e6278;
+  --color-bg-main: #ffffff;
+  --color-bg-sub: #f9fafb;
+  --color-border: #e4e6ef;
+
+  --shadow-card-sm: 0 4px 12px rgba(0, 0, 0, 0.04);
+  --shadow-card-md: 0 12px 24px rgba(0, 0, 0, 0.08);
+  --shadow-primary: 0 12px 28px rgba(91, 75, 138, 0.28);
+
+  /* shadcn/ui トークンをブランドカラーで上書き */
+  --background: #ffffff;
+  --foreground: #1c1d21;
+  --card: #ffffff;
+  --card-foreground: #1c1d21;
+  --popover: #ffffff;
+  --popover-foreground: #1c1d21;
+  --primary: #5b4b8a;
+  --primary-foreground: #ffffff;
+  --secondary: #f2efff;
+  --secondary-foreground: #3f3366;
+  --muted: #f9fafb;
+  --muted-foreground: #5e6278;
+  --accent: #f2efff;
+  --accent-foreground: #3f3366;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e4e6ef;
+  --input: #e4e6ef;
+  --ring: #5b4b8a;
+
+  --chart-1: #5b4b8a;
+  --chart-2: #7d6cb0;
+  --chart-3: #9f8dd2;
+  --chart-4: #bfaeec;
+  --chart-5: #e2d4ff;
+
+  --radius: 0.625rem;
+
+  --sidebar: #ffffff;
+  --sidebar-foreground: #1c1d21;
+  --sidebar-primary: #5b4b8a;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f2efff;
+  --sidebar-accent-foreground: #3f3366;
+  --sidebar-border: #e4e6ef;
+  --sidebar-ring: #5b4b8a;
+}
+
+@theme inline {
+  /* ブランドトークンを Tailwind から bg-primary 等で使えるように */
+  --color-primary: var(--color-primary);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-primary-light: var(--color-primary-light);
+  --color-text-main: var(--color-text-main);
+  --color-text-muted: var(--color-text-muted);
+  --color-bg-main: var(--color-bg-main);
+  --color-bg-sub: var(--color-bg-sub);
+  --color-border: var(--color-border);
+
+  /* フォント */
+  --font-sans: var(--font-inter), var(--font-noto-sans-jp), system-ui, sans-serif;
+  --font-serif: var(--font-noto-serif-jp), serif;
+  --font-heading: var(--font-inter), var(--font-noto-sans-jp), system-ui, sans-serif;
+
+  /* shadcn 互換 */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+.dark {
+  /* ダークモードはまだ使わないが shadcn 互換のため最低限設定 */
+  --background: #0f0f12;
+  --foreground: #f9fafb;
+  --card: #1c1d21;
+  --card-foreground: #f9fafb;
+  --popover: #1c1d21;
+  --popover-foreground: #f9fafb;
+  --primary: #9f8dd2;
+  --primary-foreground: #1c1d21;
+  --secondary: #2a2c34;
+  --secondary-foreground: #f9fafb;
+  --muted: #2a2c34;
+  --muted-foreground: #a0a3b1;
+  --accent: #2a2c34;
+  --accent-foreground: #f9fafb;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgba(255, 255, 255, 0.1);
+  --input: rgba(255, 255, 255, 0.15);
+  --ring: #9f8dd2;
+  --sidebar: #1c1d21;
+  --sidebar-foreground: #f9fafb;
+  --sidebar-primary: #9f8dd2;
+  --sidebar-primary-foreground: #1c1d21;
+  --sidebar-accent: #2a2c34;
+  --sidebar-accent-foreground: #f9fafb;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #9f8dd2;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+  }
+  html {
+    @apply font-sans;
+  }
+}
