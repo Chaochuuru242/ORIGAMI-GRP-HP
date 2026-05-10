@@ -44,12 +44,18 @@ function Button({
   className,
   variant = "default",
   size = "default",
+  nativeButton,
+  render,
   ...props
 }: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+  // render プロップで <Link> 等を渡す場合、native <button> は使われないので
+  // base-ui の警告を避けるため nativeButton をデフォルトで false にする
   return (
     <ButtonPrimitive
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
+      nativeButton={nativeButton ?? !render}
+      render={render}
       {...props}
     />
   )
