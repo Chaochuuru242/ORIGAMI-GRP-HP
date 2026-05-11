@@ -219,8 +219,8 @@
           <div class="contact-form">
             <h3 style="font-size: 20px; margin-bottom: 24px; font-weight: 800; color: var(--text-main);">お問い合わせフォーム</h3>
 
-              <!-- ※静的HTMLのため、実際の送信用にフォームアクションは仮置き -->
-              <form action="https://formspree.io/f/nan457913@gmail.com" method="POST">
+              <!-- スプレッドシート連携用フォーム -->
+              <form id="contactForm">
                 <div class="form-group">
                   <label class="form-label" for="contact-name">お名前 <span class="req">必須</span></label>
                   <input type="text" id="contact-name" name="name" class="form-input" placeholder="山田 太郎" required>
@@ -254,7 +254,8 @@
                     style="color: var(--primary); text-decoration: underline;">プライバシーポリシー</a>をご確認いただき、同意の上で送信してください。
                 </div>
 
-              <button type="submit" class="btn btn-primary" style="width: 100%; padding: 18px;">同意して送信する</button>
+              <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; padding: 18px;">同意して送信する</button>
+              <div id="formMessage" style="margin-top: 16px; font-weight: bold; text-align: center; display: none;"></div>
             </form>
           </div>
 
@@ -311,6 +312,44 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitBtn');
+      const formMessage = document.getElementById('formMessage');
+
+      // 送信中の状態に変更
+      submitBtn.disabled = true;
+      submitBtn.textContent = '送信中...';
+      formMessage.style.display = 'none';
+
+      const formData = new FormData(this);
+
+      // Google Apps ScriptのウェブアプリURL
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbycxW2u-GFSZawgrlT0ZHfH7knRI7vM8QdhzirEctQZFIpEbBKcXwOllxYsS8jFKed2Xw/exec';
+
+      fetch(scriptURL, { method: 'POST', body: formData })
+        .then(response => {
+          formMessage.style.display = 'block';
+          formMessage.style.color = '#059669'; // 成功時の色(緑)
+          formMessage.textContent = 'お問い合わせを受け付けました。ご連絡まで少々お待ちください。';
+          this.reset();
+        })
+        .catch(error => {
+          console.error('Error!', error.message);
+          formMessage.style.display = 'block';
+          formMessage.style.color = '#dc2626'; // エラー時の色(赤)
+          formMessage.textContent = '送信に失敗しました。時間をおいて再度お試しいただくか、直接ご連絡ください。';
+        })
+        .finally(() => {
+          // ボタンの状態を元に戻す
+          submitBtn.disabled = false;
+          submitBtn.textContent = '同意して送信する';
+        });
+    });
+  </script>
 </body>
 
 </html>
