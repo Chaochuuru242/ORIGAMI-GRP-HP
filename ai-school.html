@@ -17,6 +17,7 @@
         <a href="recruit.html">採用</a>
         <a href="about.html">会社情報</a>
         <a href="legal.html">特商法</a>
+        <a class="btn btn-nav" href="https://members.origami-ai.site/members/login" target="_blank" rel="noopener noreferrer">会員ログイン</a>
       </nav>
       <button class="hamburger" aria-label="メニューを開く" onclick="this.classList.toggle('open');document.getElementById('nav-mobile').classList.toggle('open')">
         <span></span><span></span><span></span>
@@ -29,6 +30,7 @@
       <a href="recruit.html">採用</a>
       <a href="about.html">会社情報</a>
       <a href="legal.html">特商法</a>
+      <a class="btn btn-nav" href="https://members.origami-ai.site/members/login" target="_blank" rel="noopener noreferrer">会員ログイン</a>
       <a class="btn btn-nav" href="contact.html">無料相談</a>
     </nav>
   </header>
@@ -60,56 +62,67 @@
       </div>
     </div>
 
-    <h2 class="section-title" style="font-size:24px;margin-top:56px;">コース内容・料金</h2>
-    <p class="section-lead">目的・伴走度合いに合わせて3コースをご用意しています。</p>
+    <h2 class="section-title" style="font-size:24px;margin-top:56px;">料金・受講スタイル</h2>
+    <p class="section-lead">固定のコースではなく、あなたの目標・レベルに合わせた完全オーダーメイドの受講スタイルです。</p>
 
-    <div class="course-grid">
-<section class="boxed" aria-label="グループコース">
-      <h3 class="course-title">グループコース</h3>
-      <p class="course-desc">少人数制のオンライン講座で、仲間と学び合いながら基礎〜応用を習得します。</p>
-      <table class="table">
-        <tr><th>料金</th><td>税込 250,000円</td></tr>
-        <tr><th>講座回数</th><td>全15回（基礎10回＋応用5回）</td></tr>
-        <tr><th>講座形式</th><td>オンライン配信（少人数グループ）</td></tr>
-        <tr><th>サポート</th><td>受講期間中はチャットで質問対応</td></tr>
-        <tr><th>受講期間</th><td>3ヶ月（講座＋フォロー含む）</td></tr>
-      </table>
-    </section>
-<section class="boxed" aria-label="プレミアムコース">
-      <h3 class="course-title">プレミアムコース</h3>
-      <p class="course-desc">マンツーマンでの個別指導。実践課題を通して成果を形にするプログラムです。</p>
-      <table class="table">
-        <tr><th>料金</th><td>税込 550,000円</td></tr>
-        <tr><th>講座回数</th><td>全25回（基礎10回＋応用10回＋実践5回）</td></tr>
-        <tr><th>講座形式</th><td>オンライン（マンツーマン）</td></tr>
-        <tr><th>サポート</th><td>受講期間中の質問対応・個別フォロー</td></tr>
-        <tr><th>受講期間</th><td>6ヶ月（講座＋フォロー含む）</td></tr>
-      </table>
-    </section>
-<section class="boxed" aria-label="フルコミットコース">
-      <h3 class="course-title">フルコミットコース</h3>
-      <p class="course-desc">トップ講師による個別指導で、理論〜ビジネス活用までをフルサポートします。</p>
-      <table class="table">
-        <tr><th>料金</th><td>税込 750,000円</td></tr>
-        <tr><th>講座回数</th><td>全35回（基礎10回＋応用10回＋実践10回＋サポート5回）</td></tr>
-        <tr><th>講座形式</th><td>オンライン（トップ講師によるマンツーマン）</td></tr>
-        <tr><th>サポート</th><td>受講期間中の質問対応・個別フォローを常時</td></tr>
-        <tr><th>受講期間</th><td>9ヶ月（講座＋フォロー含む）</td></tr>
-      </table>
-    </section>
-</div>
+    <!-- 料金表示 -->
+    <div style="text-align:center; margin:32px 0;">
+      <div style="display:inline-block; background:var(--primary); color:#fff; border-radius:var(--radius); padding:32px 56px; box-shadow:var(--shadow);">
+        <p style="font-size:15px; margin-bottom:6px; opacity:0.9;">受講料金（税込）</p>
+        <p style="font-size:48px; font-weight:800; margin:0; line-height:1.1;">¥5,000<span style="font-size:20px; font-weight:400;"> / 1回</span></p>
+        <p style="font-size:13px; margin-top:10px; opacity:0.8;">必要な回数だけ受講できます</p>
+      </div>
+    </div>
 
-    
+    <!-- 特徴 -->
+    <div class="cards" style="margin-top:24px;">
+      <div class="card">
+        <h4>受講内容は、あなたが決める</h4>
+        <p>学びたい内容・タイミング・ペースはすべて受講者の自由。知りたいことを都度柔軟に受講できます。</p>
+      </div>
+      <div class="card">
+        <h4>事前カウンセリングでレベル診断</h4>
+        <p>受講開始前に無料カウンセリングを実施。現状のスキルレベルを把握し、ゴールを一緒に設定します。</p>
+      </div>
+      <div class="card">
+        <h4>専任講師によるオーダーメイド講座</h4>
+        <p>担当講師がカウンセリング内容をもとに、受講者のレベルとゴールに合わせた講座内容をゼロから設計します。</p>
+      </div>
+    </div>
 
-    
+    <!-- 受講の流れ -->
+    <h2 class="section-title" style="font-size:22px;margin-top:48px;">受講の流れ</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; max-width:640px;">
+      <div style="display:flex; align-items:flex-start; gap:16px; background:var(--bg-sub); border-radius:var(--radius); padding:20px;">
+        <div style="background:var(--primary); color:#fff; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; flex-shrink:0;">1</div>
+        <div>
+          <h4 style="margin:0 0 4px;">無料カウンセリング</h4>
+          <p style="margin:0; color:var(--text-muted); font-size:14px;">スキルレベル・目標・学習スタイルをヒアリング。ゴールを明確に設定します。</p>
+        </div>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:16px; background:var(--bg-sub); border-radius:var(--radius); padding:20px;">
+        <div style="background:var(--primary); color:#fff; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; flex-shrink:0;">2</div>
+        <div>
+          <h4 style="margin:0 0 4px;">オーダーメイドカリキュラム設計</h4>
+          <p style="margin:0; color:var(--text-muted); font-size:14px;">専任講師がレベルとゴールに合わせた講座内容をゼロから設計します。</p>
+        </div>
+      </div>
+      <div style="display:flex; align-items:flex-start; gap:16px; background:var(--bg-sub); border-radius:var(--radius); padding:20px;">
+        <div style="background:var(--primary); color:#fff; border-radius:50%; width:32px; height:32px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; flex-shrink:0;">3</div>
+        <div>
+          <h4 style="margin:0 0 4px;">セッション開始（1回 5,000円）</h4>
+          <p style="margin:0; color:var(--text-muted); font-size:14px;">受講内容はあなたの自由。知りたいことをその都度柔軟に学べます。必要な回数だけ受講できます。</p>
+        </div>
+      </div>
+    </div>
 
-    <div class="card" style="margin-top:18px;">
-      <h3 style="margin-top:0;color:var(--purple);">共通事項</h3>
+    <div class="card" style="margin-top:32px;">
+      <h3 style="margin-top:0;color:var(--purple);">受講に関する共通事項</h3>
       <ul class="list">
-        <li>各講座は1回あたり45〜60分（質疑応答を含みます）</li>
+        <li>1回あたりのセッションは45〜60分（質疑応答を含みます）</li>
         <li>お支払いは外部決済サービスを利用します</li>
         <li>キャンセル・返金は所定の規約に基づきます</li>
-        <li>詳細な利用規約・プライバシーポリシーは別ページに記載予定です</li>
+        <li>詳細な利用規約・プライバシーポリシーは別ページに記載しています</li>
       </ul>
     </div>
 
