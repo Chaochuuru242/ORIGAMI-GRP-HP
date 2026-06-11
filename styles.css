@@ -525,7 +525,9 @@ h4 {
   }
 
   .hero p,
-  .hero-bg p {
+  .hero-bg p,
+  .hero p.sub,
+  .hero-bg p.sub {
     font-size: 13px;
   }
 
