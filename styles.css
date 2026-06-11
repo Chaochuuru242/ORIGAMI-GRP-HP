@@ -521,7 +521,12 @@ h4 {
 
   .hero h1,
   .hero-bg h1 {
-    font-size: 36px;
+    font-size: 30px;
+  }
+
+  .hero p,
+  .hero-bg p {
+    font-size: 13px;
   }
 
   .section {
