@@ -521,14 +521,18 @@ h4 {
 
   .hero h1,
   .hero-bg h1 {
-    font-size: 30px;
+    font-size: 32px;
+    width: 100%;
+    text-align: center;
   }
 
   .hero p,
   .hero-bg p,
   .hero p.sub,
   .hero-bg p.sub {
-    font-size: 13px;
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
   }
 
   .section {
