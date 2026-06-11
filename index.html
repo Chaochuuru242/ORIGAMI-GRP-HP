@@ -158,7 +158,7 @@
       <nav class="nav" aria-label="主要メニュー">
         <a href="index.html">Home</a>
         <a href="index.html#services">サービス</a>
-        <a href="pricing.html">料金</a>
+        <a href="pricing.html">プラン詳細</a>
         <a href="recruit.html">採用</a>
         <a href="about.html">会社情報</a>
         <a href="legal.html">特商法</a>
@@ -171,7 +171,7 @@
     <nav class="nav-mobile" id="nav-mobile">
       <a href="index.html">Home</a>
       <a href="index.html#services">サービス</a>
-      <a href="pricing.html">料金</a>
+      <a href="pricing.html">プラン詳細</a>
       <a href="recruit.html">採用</a>
       <a href="about.html">会社情報</a>
       <a href="legal.html">特商法</a>
@@ -361,36 +361,22 @@
         <p class="section-lead">回数や期間に縛られることなく、受けたいときに受けたいだけ受講できる<br>あなたの目標・レベルに合わせた完全オーダーメイドの受講スタイル</p>
 
         <!-- サブスクプランカード（コンパクト版） -->
-        <div style="max-width: 560px; margin: 40px auto 0; text-align: left;">
+        <div id="subscribe-card" style="max-width: 560px; margin: 40px auto 0; text-align: left; opacity: 0; transform: translateY(40px); transition: opacity 0.7s ease, transform 0.7s ease;">
           <div style="border: 2px solid var(--primary); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);">
             <div style="background: var(--primary); padding: 14px 32px; text-align: center;">
               <span style="color: #fff; font-size: 17px; font-weight: 700; letter-spacing: 0.08em;">サブスクプラン</span>
             </div>
             <div style="padding: 28px 32px;">
-              <p style="font-size: 15px; line-height: 1.9; color: var(--text-main); margin-bottom: 20px;">
-                受けたいときに受けたいだけ。回数・期間に縛られない完全オーダーメイドの受講スタイルです。事前カウンセリングでゴールを設定し、専任講師があなただけのカリキュラムを設計します。
-              </p>
+              <ul style="font-size: 15px; line-height: 1.9; color: var(--text-main); margin-bottom: 20px; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 8px;">
+                <li style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--primary); font-weight: 700; flex-shrink: 0;">・</span>回数、期間に縛られない完全オーダーメイドの受講スタイル</li>
+                <li style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--primary); font-weight: 700; flex-shrink: 0;">・</span>事前カウンセリングでゴールを設定し、専任講師があなただけのカリキュラムを設計</li>
+                <li style="display: flex; gap: 8px; align-items: flex-start;"><span style="color: var(--primary); font-weight: 700; flex-shrink: 0;">・</span>受けたいときに受けたいだけ。学びたいときにすぐ質問できる</li>
+              </ul>
               <div style="display: flex; gap: 12px; flex-wrap: wrap;">
                 <a href="contact.html" class="btn btn-primary" style="flex: 1; text-align: center; min-width: 140px; padding: 14px 20px;">無料カウンセリング</a>
                 <a href="pricing.html" class="btn btn-ghost" style="flex: 1; text-align: center; min-width: 140px; padding: 14px 20px;">プランの詳細を見る</a>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- 3つのポイント -->
-        <div class="cards" style="margin-top: 40px;">
-          <div class="card">
-            <h4>サブスク型だから、無理なく長く続けられる</h4>
-            <p style="font-size: 15px;">月々のサブスクリプション形式で、回数・期間に縛られず学習を継続できます。忙しい時期はペースを落とし、集中したい時は積極的に受講するなど、生活リズムに合わせて自由に調整できます。</p>
-          </div>
-          <div class="card">
-            <h4>学んだことをすぐ実践・収益につなげる</h4>
-            <p style="font-size: 15px;">AIスキルの習得にとどまらず、実際の業務効率化や副業での収益化まで視野に入れたサポートを提供。学習と実践を並行して進めることで、成果を実感しながら成長できます。</p>
-          </div>
-          <div class="card">
-            <h4>いつでも方向転換・軌道修正できる</h4>
-            <p style="font-size: 15px;">目標や興味が変わっても大丈夫。受講ごとに進捗を確認しながら、必要であればカリキュラムの方向性を柔軟に見直します。あなたの成長に合わせて、常にベストな学習を提供します。</p>
           </div>
         </div>
       </div>
@@ -476,7 +462,7 @@
           <h4>サービス</h4>
           <ul>
             <li><a href="index.html#services">サービス</a></li>
-            <li><a href="pricing.html">料金</a></li>
+            <li><a href="pricing.html">プラン詳細</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -504,6 +490,20 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    const card = document.getElementById('subscribe-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          card.style.opacity = '1';
+          card.style.transform = 'translateY(0)';
+          observer.unobserve(card);
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(card);
+  </script>
 
 </body>
 

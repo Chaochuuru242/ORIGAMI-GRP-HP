@@ -119,6 +119,8 @@ a {
 
 .btn-ghost:hover {
   background: var(--primary-light);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(91, 75, 138, 0.15);
 }
 
 .btn-nav {
