@@ -41,6 +41,7 @@
         .pricing-table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
             min-width: 800px;
             background: #fff;
         }
@@ -59,14 +60,15 @@
             font-weight: 700;
             background: var(--bg-sub);
             color: var(--text-main);
-            width: 220px;
+            width: 200px;
+            padding: 24px 16px;
         }
 
         .pricing-table th {
             font-size: 18px;
             color: #fff;
             background: var(--text-muted);
-            padding: 24px 8px;
+            padding: 24px 16px;
             vertical-align: middle;
             text-align: center;
             line-height: 1.4;
@@ -141,89 +143,83 @@
         <section class="page-header">
             <div class="container">
                 <h1 class="page-title">受講プラン</h1>
-                <p style="font-size: 18px; color: var(--text-muted);">回数や期間に縛られない、あなただけの完全オーダーメイド学習</p>
+                <p style="font-size: 18px; color: var(--text-muted);">あなたの本気度と目標に合わせた、3つの実践コース</p>
             </div>
         </section>
 
         <section class="section">
             <div class="container">
 
-                <!-- サブスクプランカード（詳細版） -->
-                <div style="max-width: 620px; margin: 0 auto 96px;">
-                    <div style="border: 2px solid var(--primary); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md);">
-                        <div style="background: var(--primary); padding: 18px 40px; text-align: center;">
-                            <span style="color: #fff; font-size: 18px; font-weight: 700; letter-spacing: 0.1em;">サブスクプラン</span>
-                        </div>
-                        <div style="padding: 36px 40px;">
-                            <p style="font-size: 15px; line-height: 1.9; color: var(--text-main); margin-bottom: 28px;">
-                                事前に目的やゴールを設定し、それに沿ったカリキュラムを専任講師が組みます。気になること・聞きたいことをすぐに解決できるよう、あなたのご都合に合わせて自由に設定できます。
-                            </p>
-                            <div style="border-top: 1px solid var(--border); padding-top: 20px; display: flex; flex-direction: column; gap: 14px;">
-                                <div style="display: flex; gap: 16px; align-items: flex-start; font-size: 15px;">
-                                    <span style="font-weight: 700; color: var(--text-main); white-space: nowrap; min-width: 110px;">カウンセリング</span>
-                                    <span style="color: var(--text-muted);">事前に無料でレベル診断・ゴール設定を実施</span>
-                                </div>
-                                <div style="display: flex; gap: 16px; align-items: flex-start; font-size: 15px;">
-                                    <span style="font-weight: 700; color: var(--text-main); white-space: nowrap; min-width: 110px;">カリキュラム</span>
-                                    <span style="color: var(--text-muted);">専任講師がレベルとゴールに合わせて設計</span>
-                                </div>
-                                <div style="display: flex; gap: 16px; align-items: flex-start; font-size: 15px;">
-                                    <span style="font-weight: 700; color: var(--text-main); white-space: nowrap; min-width: 110px;">形式</span>
-                                    <span style="color: var(--text-muted);">オンライン（マンツーマン）</span>
-                                </div>
-                            </div>
-                            <a href="contact.html" class="btn btn-primary" style="width: 100%; margin-top: 28px; font-size: 16px; padding: 16px; display: block; text-align: center;">無料カウンセリングを予約する</a>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3つのポイント -->
-                <h2 style="font-size: 28px; text-align: center; margin-bottom: 32px; color: var(--text-main);">サブスクプランの3つのポイント</h2>
-                <div class="cards" style="max-width: 720px; margin-left: auto; margin-right: auto;">
-                    <div class="card" style="padding: 24px 32px;">
-                        <h4>サブスク型だから、無理なく長く続けられる</h4>
-                        <p style="font-size: 15px; margin-bottom: 0;">月々のサブスクリプション形式で、回数・期間に縛られず学習を継続できます。生活リズムに合わせてペースを自由に調整しながら学び続けられます。</p>
-                    </div>
-                    <div class="card" style="padding: 24px 32px;">
-                        <h4>学んだことをすぐ実践・収益につなげる</h4>
-                        <p style="font-size: 15px; margin-bottom: 0;">AIスキルの習得にとどまらず、実際の業務効率化や副業での収益化まで視野に入れたサポートを提供。学習と実践を並行して進めることで、成果を実感しながら成長できます。</p>
-                    </div>
-                    <div class="card" style="padding: 24px 32px;">
-                        <h4>いつでも方向転換・軌道修正できる</h4>
-                        <p style="font-size: 15px; margin-bottom: 0;">目標や興味が変わっても大丈夫。受講ごとに進捗を確認しながら、必要であればカリキュラムの方向性を柔軟に見直します。あなたの成長に合わせて、常にベストな学習を提供します。</p>
-                    </div>
-                </div>
-
-                <!-- 受講の流れ -->
-                <h2 style="font-size: 28px; text-align: center; margin: 96px 0 32px; color: var(--text-main);">受講の流れ</h2>
-                <div style="max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px;">
-                    <div style="display: flex; align-items: flex-start; gap: 20px; background: var(--bg-sub); border-radius: var(--radius); padding: 24px;">
-                        <div style="background: var(--primary); color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0;">1</div>
-                        <div>
-                            <h4 style="margin: 0 0 6px;">無料カウンセリング</h4>
-                            <p style="margin: 0; color: var(--text-muted); font-size: 14px;">現在のスキルレベル・目標・学習スタイルをヒアリング。何を学びたいか・どこを目指すかを一緒に整理します。</p>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: flex-start; gap: 20px; background: var(--bg-sub); border-radius: var(--radius); padding: 24px;">
-                        <div style="background: var(--primary); color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0;">2</div>
-                        <div>
-                            <h4 style="margin: 0 0 6px;">オーダーメイドカリキュラム設計</h4>
-                            <p style="margin: 0; color: var(--text-muted); font-size: 14px;">専任講師がカウンセリング内容をもとに、受講者のレベルとゴールに合わせた講座内容を設計します。</p>
-                        </div>
-                    </div>
-                    <div style="display: flex; align-items: flex-start; gap: 20px; background: var(--bg-sub); border-radius: var(--radius); padding: 24px;">
-                        <div style="background: var(--primary); color: #fff; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; flex-shrink: 0;">3</div>
-                        <div>
-                            <h4 style="margin: 0 0 6px;">セッション開始</h4>
-                            <p style="margin: 0; color: var(--text-muted); font-size: 14px;">受けたいときに受けたいだけ受講できます。気になること・聞きたいことはその都度自由に設定でき、目標に向かって着実に前進できます。</p>
-                        </div>
-                    </div>
+                <div class="pricing-table-wrapper">
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>比較項目</th>
+                                <th>サブスク<br>プラン</th>
+                                <th class="highlight-col">
+                                    <span style="background: #fff; color: var(--primary); font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 8px;">一番人気</span><br>
+                                    スタンダード<br>プラン
+                                </th>
+                                <th style="background: var(--primary-dark);">コミッション<br>プラン</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>受講形式</td>
+                                <td>マンツーマン（オンライン）<br><span style="font-size:12px;color:var(--text-muted);">完全オーダーメイド</span></td>
+                                <td><strong>マンツーマン（オンライン）</strong></td>
+                                <td><strong>トップ講師マンツーマン<br>（オンライン）</strong></td>
+                            </tr>
+                            <tr>
+                                <td>期間</td>
+                                <td>縛りなし<br><span style="font-size:12px;color:var(--text-muted);">月額サブスク型</span></td>
+                                <td>6ヶ月</td>
+                                <td>9ヶ月</td>
+                            </tr>
+                            <tr>
+                                <td>講義回数</td>
+                                <td>受けたいときに<br>受けたいだけ</td>
+                                <td>全25回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用10回 / 実践5回</span></td>
+                                <td>全35回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用10回 / 実践10回 / サポート講座5回</span></td>
+                            </tr>
+                            <tr>
+                                <td>サポート体制</td>
+                                <td>LINE公式で質疑応答<br>＋個別フォロー</td>
+                                <td>LINE公式で質疑応答<br>＋個別フォロー</td>
+                                <td>LINE公式で質疑応答<br>＋優先個別フォロー</td>
+                            </tr>
+                            <tr>
+                                <td>こんな方におすすめ</td>
+                                <td>
+                                    <ul class="feature-list">
+                                        <li>・まずはAIの基礎を学びたい</li>
+                                        <li>・自分のペースで学習を進めたい</li>
+                                        <li>・気軽に始めてみたい</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="feature-list">
+                                        <li>・自分の強み×AIを見つけたい</li>
+                                        <li>・副業での本格的な収益化を目指す</li>
+                                        <li>・完全個別の伴走で結果を出したい</li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul class="feature-list">
+                                        <li>・圧倒的な成果を短期間で出したい</li>
+                                        <li>・独立・起業を見据えた事業構築</li>
+                                        <li>・トップ講師の知見をフル活用したい</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div style="margin-top: 64px; text-align: center;">
-                    <h3 style="font-size: 24px; margin-bottom: 16px;">まずは無料カウンセリングから</h3>
+                    <h3 style="font-size: 24px; margin-bottom: 16px;">どのプランを選べばいいか迷ったら？</h3>
                     <p style="color: var(--text-muted); margin-bottom: 24px;">
-                        現在のレベルや目標をお聞かせください。あなたに合った学習プランをご提案します。<br>（無理な勧誘は一切行いません）
+                        まずは無料相談で、あなたの現状と目標をお聞かせください。<br>最適なプランをご提案いたします。（無理な勧誘は一切行いません）
                     </p>
                     <a href="contact.html" class="btn btn-ghost"
                         style="font-size: 16px; padding: 16px 40px;">無料相談を予約する</a>
