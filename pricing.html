@@ -105,6 +105,104 @@
         .feature-list li:last-child {
             border-bottom: none;
         }
+
+        /* ========== スマホ用：テーブルを非表示・カード表示 ========== */
+        .mobile-plans {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-table-wrapper {
+                display: none;
+            }
+            .mobile-plans {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                margin-top: 32px;
+            }
+        }
+
+        .mobile-plan {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mobile-plan-header {
+            padding: 16px 24px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .mobile-plan-header h3 {
+            font-size: 18px;
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .mobile-plan-badge {
+            background: #fff;
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        .mobile-plan-body {
+            padding: 16px 20px;
+            background: #fff;
+        }
+
+        .mobile-plan-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-plan-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .mobile-plan-row dt {
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .mobile-plan-row dd {
+            font-size: 15px;
+            margin: 0;
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+
+        .mobile-plan-row dd small {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .mobile-plan-row dd ul {
+            list-style: none;
+            padding: 0;
+            margin: 4px 0 0;
+        }
+
+        .mobile-plan-row dd ul li {
+            font-size: 14px;
+            padding: 3px 0;
+            color: var(--text-muted);
+        }
     </style>
 </head>
 
@@ -215,6 +313,124 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- ========== スマホ用 縦積みプランカード ========== -->
+                <div class="mobile-plans">
+
+                    <!-- サブスクプラン -->
+                    <div class="mobile-plan">
+                        <div class="mobile-plan-header" style="background: var(--text-muted);">
+                            <h3>サブスクプラン</h3>
+                        </div>
+                        <div class="mobile-plan-body">
+                            <dl>
+                                <div class="mobile-plan-row">
+                                    <dt>受講形式</dt>
+                                    <dd>マンツーマン（オンライン）<small>完全オーダーメイド</small></dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>期間</dt>
+                                    <dd>縛りなし<small>月額サブスク型</small></dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>講義回数</dt>
+                                    <dd>受けたいときに受けたいだけ</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>サポート体制</dt>
+                                    <dd>LINE公式で質疑応答＋個別フォロー</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>こんな方におすすめ</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>・まずはAIの基礎を学びたい</li>
+                                            <li>・自分のペースで学習を進めたい</li>
+                                            <li>・気軽に始めてみたい</li>
+                                        </ul>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- スタンダードプラン -->
+                    <div class="mobile-plan" style="border-color: var(--primary); border-width: 2px;">
+                        <div class="mobile-plan-header" style="background: var(--primary);">
+                            <span class="mobile-plan-badge">一番人気</span>
+                            <h3>スタンダードプラン</h3>
+                        </div>
+                        <div class="mobile-plan-body">
+                            <dl>
+                                <div class="mobile-plan-row">
+                                    <dt>受講形式</dt>
+                                    <dd>マンツーマン（オンライン）</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>期間</dt>
+                                    <dd>6ヶ月</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>講義回数</dt>
+                                    <dd>全25回<small>基礎10回 / 応用10回 / 実践5回</small></dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>サポート体制</dt>
+                                    <dd>LINE公式で質疑応答＋個別フォロー</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>こんな方におすすめ</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>・自分の強み×AIを見つけたい</li>
+                                            <li>・副業での本格的な収益化を目指す</li>
+                                            <li>・完全個別の伴走で結果を出したい</li>
+                                        </ul>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- コミッションプラン -->
+                    <div class="mobile-plan">
+                        <div class="mobile-plan-header" style="background: var(--primary-dark);">
+                            <h3>コミッションプラン</h3>
+                        </div>
+                        <div class="mobile-plan-body">
+                            <dl>
+                                <div class="mobile-plan-row">
+                                    <dt>受講形式</dt>
+                                    <dd>トップ講師マンツーマン（オンライン）</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>期間</dt>
+                                    <dd>9ヶ月</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>講義回数</dt>
+                                    <dd>全35回<small>基礎10回 / 応用10回 / 実践10回 / サポート講座5回</small></dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>サポート体制</dt>
+                                    <dd>LINE公式で質疑応答＋優先個別フォロー</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>こんな方におすすめ</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>・圧倒的な成果を短期間で出したい</li>
+                                            <li>・独立・起業を見据えた事業構築</li>
+                                            <li>・トップ講師の知見をフル活用したい</li>
+                                        </ul>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========== /スマホ用カード ========== -->
 
                 <div style="margin-top: 64px; text-align: center;">
                     <h3 style="font-size: 24px; margin-bottom: 16px;">どのプランを選べばいいか迷ったら？</h3>
