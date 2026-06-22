@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>料金プラン | ORIGAMI GRP</title>
-    <meta name="description" content="あなたの本気度と目標に合わせた、ORIGAMI GRPの3つの実践的AI活用コースの料金・詳細。" />
+    <meta name="description" content="回数・期間に縛られないサブスクプランで、受けたいときに受けたいだけ学べる完全オーダーメイドAIスクール。事前カウンセリングでレベル診断・ゴール設定を行い、専任講師があなたに合わせた講座を設計します。" />
     <link rel="canonical" href="https://origami-ai.site/pricing.html" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="料金プラン | ORIGAMI GRP" />
@@ -41,6 +41,7 @@
         .pricing-table {
             width: 100%;
             border-collapse: collapse;
+            table-layout: fixed;
             min-width: 800px;
             background: #fff;
         }
@@ -59,14 +60,15 @@
             font-weight: 700;
             background: var(--bg-sub);
             color: var(--text-main);
-            width: 220px;
+            width: 200px;
+            padding: 24px 16px;
         }
 
         .pricing-table th {
             font-size: 18px;
             color: #fff;
             background: var(--text-muted);
-            padding: 24px 8px;
+            padding: 24px 16px;
             vertical-align: middle;
             text-align: center;
             line-height: 1.4;
@@ -103,6 +105,105 @@
         .feature-list li:last-child {
             border-bottom: none;
         }
+
+        /* ========== スマホ用：テーブルを非表示・カード表示 ========== */
+        .mobile-plans {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-table-wrapper {
+                display: none;
+            }
+            .mobile-plans {
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                margin-top: 32px;
+            }
+        }
+
+        .mobile-plan {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mobile-plan-header {
+            padding: 16px 24px;
+            text-align: center;
+            color: #fff;
+        }
+
+        .mobile-plan-header h3 {
+            font-size: 18px;
+            margin: 0;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .mobile-plan-badge {
+            background: #fff;
+            color: var(--primary);
+            font-size: 11px;
+            font-weight: 800;
+            padding: 3px 12px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 6px;
+        }
+
+        .mobile-plan-body {
+            padding: 16px 20px;
+            background: #fff;
+        }
+
+        .mobile-plan-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-plan-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .mobile-plan-row dt {
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .mobile-plan-row dd {
+            font-size: 15px;
+            margin: 0;
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+
+        .mobile-plan-row dd small {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .mobile-plan-row dd ul {
+            list-style: none;
+            padding: 0;
+            margin: 4px 0 0;
+        }
+
+        .mobile-plan-row dd ul li {
+            font-size: 14px;
+            padding: 3px 0;
+            color: var(--text-muted);
+        }
     </style>
 </head>
 
@@ -115,10 +216,11 @@
             <nav class="nav">
                 <a href="index.html">Home</a>
                 <a href="index.html#services">サービス</a>
-                <a href="pricing.html" style="color: var(--primary);">料金</a>
+                <a href="pricing.html" style="color: var(--primary);">プラン詳細</a>
                 <a href="recruit.html">採用</a>
                 <a href="about.html">会社情報</a>
                 <a href="legal.html">特商法</a>
+                <a class="btn btn-nav" href="https://members.origami-ai.site/members/login" target="_blank" rel="noopener noreferrer">会員ログイン</a>
             </nav>
             <button class="hamburger" aria-label="メニューを開く" onclick="this.classList.toggle('open');document.getElementById('nav-mobile').classList.toggle('open')">
                 <span></span><span></span><span></span>
@@ -127,10 +229,11 @@
         <nav class="nav-mobile" id="nav-mobile">
             <a href="index.html">Home</a>
             <a href="index.html#services">サービス</a>
-            <a href="pricing.html">料金</a>
+            <a href="pricing.html">プラン詳細</a>
             <a href="recruit.html">採用</a>
             <a href="about.html">会社情報</a>
             <a href="legal.html">特商法</a>
+            <a class="btn btn-nav" href="https://members.origami-ai.site/members/login" target="_blank" rel="noopener noreferrer">会員ログイン</a>
             <a class="btn btn-nav" href="contact.html">無料相談</a>
         </nav>
     </header>
@@ -138,53 +241,45 @@
     <main>
         <section class="page-header">
             <div class="container">
-                <h1 class="page-title">料金プラン</h1>
+                <h1 class="page-title">受講プラン</h1>
                 <p style="font-size: 18px; color: var(--text-muted);">あなたの本気度と目標に合わせた、3つの実践コース</p>
             </div>
         </section>
 
         <section class="section">
             <div class="container">
+
                 <div class="pricing-table-wrapper">
                     <table class="pricing-table">
                         <thead>
                             <tr>
                                 <th>比較項目</th>
-                                <th>グループ<br>コース</th>
+                                <th>サブスク<br>プラン</th>
                                 <th class="highlight-col">
                                     <span style="background: #fff; color: var(--primary); font-size: 12px; font-weight: 800; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 8px;">一番人気</span><br>
-                                    プレミアム<br>コース
+                                    スタンダード<br>プラン
                                 </th>
-                                <th style="background: var(--primary-dark);">フルコミット<br>コース</th>
+                                <th style="background: var(--primary-dark);">コミッション<br>プラン</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>料金（税込）</td>
-                                <td class="price-row">250,000円</td>
-                                <td class="price-row" style="color:var(--primary);">550,000円</td>
-                                <td class="price-row">750,000円</td>
-                            </tr>
-                            <tr>
                                 <td>受講形式</td>
-                                <td>小グループ（オンライン）</td>
+                                <td>マンツーマン（オンライン）<br><span style="font-size:12px;color:var(--text-muted);">完全オーダーメイド</span></td>
                                 <td><strong>マンツーマン（オンライン）</strong></td>
-                                <td><strong>トップ講師マンツーマン（オンライン）</strong></td>
+                                <td><strong>トップ講師マンツーマン<br>（オンライン）</strong></td>
                             </tr>
                             <tr>
                                 <td>期間</td>
-                                <td>3ヶ月</td>
+                                <td>縛りなし<br><span style="font-size:12px;color:var(--text-muted);">月額サブスク型</span></td>
                                 <td>6ヶ月</td>
                                 <td>9ヶ月</td>
                             </tr>
                             <tr>
                                 <td>講義回数</td>
-                                <td>全15回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用5回</span>
-                                </td>
-                                <td>全25回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用10回 /
-                                        実践5回</span></td>
-                                <td>全35回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用10回 / 実践10回
-                                        / サポート講座5回</span></td>
+                                <td>受けたいときに<br>受けたいだけ</td>
+                                <td>全25回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用10回 / 実践5回</span></td>
+                                <td>全35回<br><span style="font-size:12px;color:var(--text-muted);">基礎10回 / 応用10回 / 実践10回 / サポート講座5回</span></td>
                             </tr>
                             <tr>
                                 <td>サポート体制</td>
@@ -197,8 +292,8 @@
                                 <td>
                                     <ul class="feature-list">
                                         <li>・まずはAIの基礎を学びたい</li>
-                                        <li>・仲間と一緒に学習を進めたい</li>
-                                        <li>・日常の業務効率化に活かしたい</li>
+                                        <li>・自分のペースで学習を進めたい</li>
+                                        <li>・気軽に始めてみたい</li>
                                     </ul>
                                 </td>
                                 <td>
@@ -216,26 +311,135 @@
                                     </ul>
                                 </td>
                             </tr>
-                            <tr>
-                                <td>お申し込み</td>
-                                <td><a href="https://pay.peraichi.com/paylink/zuet6x0qzvr" target="_blank"
-                                        rel="noopener noreferrer" class="btn btn-primary"
-                                        style="width:100%; padding: 12px;">申し込む</a></td>
-                                <td><a href="https://pay.peraichi.com/paylink/t3rw82qj1zp" target="_blank"
-                                        rel="noopener noreferrer" class="btn btn-primary"
-                                        style="width:100%; padding: 12px; background:var(--primary-dark);">申し込む</a></td>
-                                <td><a href="https://pay.peraichi.com/paylink/d0h354cv5p9" target="_blank"
-                                        rel="noopener noreferrer" class="btn btn-primary"
-                                        style="width:100%; padding: 12px;">申し込む</a></td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
 
+                <!-- ========== スマホ用 縦積みプランカード ========== -->
+                <div class="mobile-plans">
+
+                    <!-- サブスクプラン -->
+                    <div class="mobile-plan">
+                        <div class="mobile-plan-header" style="background: var(--text-muted);">
+                            <span class="mobile-plan-badge" style="background: transparent; color: transparent;">一番人気</span>
+                            <h3>サブスクプラン</h3>
+                        </div>
+                        <div class="mobile-plan-body">
+                            <dl>
+                                <div class="mobile-plan-row">
+                                    <dt>受講形式</dt>
+                                    <dd>マンツーマン（オンライン）<small>完全オーダーメイド</small></dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>期間</dt>
+                                    <dd>縛りなし<small>月額サブスク型</small></dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>講義回数</dt>
+                                    <dd>受けたいときに受けたいだけ</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>サポート体制</dt>
+                                    <dd>LINE公式で質疑応答＋個別フォロー</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>こんな方におすすめ</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>・まずはAIの基礎を学びたい</li>
+                                            <li>・自分のペースで学習を進めたい</li>
+                                            <li>・気軽に始めてみたい</li>
+                                        </ul>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- スタンダードプラン -->
+                    <div class="mobile-plan" style="border-color: var(--primary); border-width: 2px;">
+                        <div class="mobile-plan-header" style="background: var(--primary);">
+                            <span class="mobile-plan-badge">一番人気</span>
+                            <h3>スタンダードプラン</h3>
+                        </div>
+                        <div class="mobile-plan-body">
+                            <dl>
+                                <div class="mobile-plan-row">
+                                    <dt>受講形式</dt>
+                                    <dd>マンツーマン（オンライン）</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>期間</dt>
+                                    <dd>6ヶ月</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>講義回数</dt>
+                                    <dd>全25回<small>基礎10回 / 応用10回 / 実践5回</small></dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>サポート体制</dt>
+                                    <dd>LINE公式で質疑応答＋個別フォロー</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>こんな方におすすめ</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>・自分の強み×AIを見つけたい</li>
+                                            <li>・副業での本格的な収益化を目指す</li>
+                                            <li>・完全個別の伴走で結果を出したい</li>
+                                        </ul>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <!-- コミッションプラン -->
+                    <div class="mobile-plan">
+                        <div class="mobile-plan-header" style="background: var(--primary-dark);">
+                            <span class="mobile-plan-badge" style="background: transparent; color: transparent;">一番人気</span>
+                            <h3>コミッションプラン</h3>
+                        </div>
+                        <div class="mobile-plan-body">
+                            <dl>
+                                <div class="mobile-plan-row">
+                                    <dt>受講形式</dt>
+                                    <dd>トップ講師マンツーマン（オンライン）</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>期間</dt>
+                                    <dd>9ヶ月</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>講義回数</dt>
+                                    <dd>全35回<small>基礎10回 / 応用10回 / 実践10回 / サポート講座5回</small></dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>サポート体制</dt>
+                                    <dd>LINE公式で質疑応答＋優先個別フォロー</dd>
+                                </div>
+                                <div class="mobile-plan-row">
+                                    <dt>こんな方におすすめ</dt>
+                                    <dd>
+                                        <ul>
+                                            <li>・圧倒的な成果を短期間で出したい</li>
+                                            <li>・独立・起業を見据えた事業構築</li>
+                                            <li>・トップ講師の知見をフル活用したい</li>
+                                        </ul>
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- ========== /スマホ用カード ========== -->
+
                 <div style="margin-top: 64px; text-align: center;">
-                    <h3 style="font-size: 24px; margin-bottom: 16px;">どのコースを選べばいいか迷ったら？</h3>
+                    <h3 style="font-size: 24px; margin-bottom: 16px;">どのプランを選べばいいか迷ったら？</h3>
                     <p style="color: var(--text-muted); margin-bottom: 24px;">
-                        まずは無料相談で、あなたの現状と目標をお聞かせください。<br>最適な学習プランをご提案いたします。（無理な勧誘は一切行いません）</p>
+                        まずは無料相談で、あなたの現状と目標をお聞かせください。<br>最適なプランをご提案いたします。（無理な勧誘は一切行いません）
+                    </p>
                     <a href="contact.html" class="btn btn-ghost"
                         style="font-size: 16px; padding: 16px 40px;">無料相談を予約する</a>
                 </div>
@@ -265,7 +469,7 @@
                     <h4>サービス</h4>
                     <ul>
                         <li><a href="index.html#services">サービス</a></li>
-                        <li><a href="pricing.html">料金</a></li>
+                        <li><a href="pricing.html">プラン詳細</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
